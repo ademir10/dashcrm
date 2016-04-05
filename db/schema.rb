@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405010119) do
+ActiveRecord::Schema.define(version: 20160405190941) do
 
   create_table "advices", force: :cascade do |t|
     t.string   "description"
@@ -30,10 +30,21 @@ ActiveRecord::Schema.define(version: 20160405010119) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "answers", force: :cascade do |t|
+    t.string   "description"
+    t.integer  "score"
+    t.integer  "question_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "link"
   end
 
   create_table "expire_dates", force: :cascade do |t|
@@ -47,6 +58,15 @@ ActiveRecord::Schema.define(version: 20160405010119) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer  "category_id"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "questions", ["category_id"], name: "index_questions_on_category_id", using: :btree
 
   create_table "quizzes", force: :cascade do |t|
     t.integer  "category_id"
@@ -86,5 +106,7 @@ ActiveRecord::Schema.define(version: 20160405010119) do
     t.boolean  "minput"
   end
 
+  add_foreign_key "answers", "questions"
+  add_foreign_key "questions", "categories"
   add_foreign_key "quizzes", "categories"
 end

@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   
   def index
     @date = DateTime.now.year
+    @categories = Category.all
    
   end
  
