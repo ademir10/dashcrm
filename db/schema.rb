@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405190941) do
+ActiveRecord::Schema.define(version: 20160405212733) do
 
   create_table "advices", force: :cascade do |t|
     t.string   "description"
@@ -78,6 +78,40 @@ ActiveRecord::Schema.define(version: 20160405190941) do
 
   add_index "quizzes", ["category_id"], name: "index_quizzes_on_category_id", using: :btree
 
+  create_table "researches", force: :cascade do |t|
+    t.integer  "category_id"
+    t.string   "user"
+    t.string   "client"
+    t.string   "cellphone"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "researches", ["category_id"], name: "index_researches_on_category_id", using: :btree
+
+  create_table "results", force: :cascade do |t|
+    t.integer  "a1"
+    t.integer  "a2"
+    t.integer  "a3"
+    t.integer  "a4"
+    t.integer  "a5"
+    t.integer  "a6"
+    t.integer  "a7"
+    t.integer  "a8"
+    t.integer  "a9"
+    t.integer  "a10"
+    t.integer  "a11"
+    t.integer  "a12"
+    t.integer  "a13"
+    t.integer  "a14"
+    t.integer  "a15"
+    t.integer  "research_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "results", ["research_id"], name: "index_results_on_research_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -109,4 +143,6 @@ ActiveRecord::Schema.define(version: 20160405190941) do
   add_foreign_key "answers", "questions"
   add_foreign_key "questions", "categories"
   add_foreign_key "quizzes", "categories"
+  add_foreign_key "researches", "categories"
+  add_foreign_key "results", "researches"
 end

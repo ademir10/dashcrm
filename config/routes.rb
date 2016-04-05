@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :results
+  resources :researches
   resources :questions do
    resources :answers  
   end

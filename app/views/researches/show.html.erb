@@ -1,0 +1,26 @@
+<%- model_class = Research -%>
+<div class="page-header">
+  <h1>Pesquisa de <%= @research.category.name %> Nº<font color="red"><%= @research.id %></font></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name('pesquisador') %>:</strong></dt>
+  <dd><%= @research.user %></dd>
+  <dt><strong><%= model_class.human_attribute_name('cliente') %>:</strong></dt>
+  <dd><%= @research.client %></dd>
+  <dt><strong><%= model_class.human_attribute_name('celular') %>:</strong></dt>
+  <dd><%= @research.cellphone %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              researches_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_research_path(@research), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              research_path(@research),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+
+<h2>Respostas</h2>
+<%= render "results/form" %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category_id: 
+  user: MyString
+  client: MyString
+  cellphone: MyString
+
+two:
+  category_id: 
+  user: MyString
+  client: MyString
+  cellphone: MyString
