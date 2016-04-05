@@ -1,0 +1,103 @@
+<!-- CSS PARA REMOVER O BOTÃO IMPRIMIR NA VIEW DE IMPRESSÃO -->
+  <style type="text/css">
+	@media print {
+    #printbtn {
+        display :  none;
+    }
+}
+</style>
+
+<!-- INSERI ESSA VERIFICAÇÃO DE AMBIENTE PRA CARREGAR OS PDF'S TANTO LOCALMENTE QUANTO NO HEROKU -->
+<% if Rails.env.development? %>
+  <style type="text/css">
+    <%= Rails.application.assets.find_asset('application.css').to_s.html_safe %>
+</style>
+<% end %>
+
+
+
+<%- model_class = Client -%>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+  	
+<%= image_tag "logo_mini.png" %>
+<div class="page-header">
+  <h3>Relatório geral de Fechamento</h3>
+  
+  Periodo: <%= @datainicial %> até <%=@datafinal %>
+  
+  <%= form_tag(report_fechamento_path, method: :get) do %>
+	<div class="form-group">
+		<div class="row">
+			  <div class="col-lg-3">
+			  <%= select_tag(:tipo_consulta, options_for_select([['Á RECEBER \ Á PAGAR', 'Á RECEBER \ Á PAGAR'], ['RECEBIDAS \ PAGAS', 'RECEBIDAS \ PAGAS']]), include_blank: 'Selecione:', class: 'form-control', id: 'printbtn')%>
+			</div>
+			</div>
+		<div class="form-group">			  
+		<div class="row">
+			  <div class="col-lg-2">	  
+		<%= date_field_tag(:date1, nil, placeholder: 'data inicial', class: 'form-control', id: 'printbtn') %>
+		<%= date_field_tag(:date2, nil, placeholder: 'data final', class: 'form-control', id: 'printbtn') %>	
+		</div>
+		</div>
+		<br />	
+		<%= submit_tag "Consultar", class: 'btn btn-success', id: 'printbtn' %>
+<% end %>
+  
+    <button type="button" id ="printbtn" class="btn btn-success", onclick ="window.print();return false;">Imprimir</button>
+		
+	<h4><font color="red"><%= flash_messages %></font></h4>
+
+
+
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Total de Vendas <%= @status_r %>: <strong>R$ <%= @total_receipts %></strong></h3>
+  </div><!-- fim .panel-heading -->
+  </div>	
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Total de Despesas <%= @status_p %>: <strong>R$ <%= @total_payments %></strong></h3>
+  </div><!-- fim .panel-heading -->
+  </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Lucro Liquido: <font color="red"><strong>R$ <%= @total_liquido %></strong></font></h3>
+  </div><!-- fim .panel-heading -->
+  </div>
+</div>
+
+Total de produtos vendidos no periodo informado: <br />
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      
+      
+      <th><%= model_class.human_attribute_name('Produto') %></th>
+      <th><%= model_class.human_attribute_name('Quant Total') %></th>
+      <th><%= model_class.human_attribute_name('Total Custo R$') %></th>
+      <th><%= model_class.human_attribute_name('Total Venda R$') %></th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @total_items.each do |item| %>
+    
+    <tr>
+        
+        
+        <td><%= item.product.name %></td>
+        <td><%= item.qnt %></td>
+        <td><%= item.total_value_cost %></td>
+        <td><%= item.total_value_sale %></td>
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+  </div>
+</div>

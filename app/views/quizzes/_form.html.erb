@@ -1,0 +1,48 @@
+<%= form_for @quiz, :html => { :class => "form-horizontal quiz" } do |f| %>
+
+  <% if @quiz.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@quiz.errors.count, "error") %> prohibited this quiz from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @quiz.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label 'Categoria', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-5">
+      <%= f.collection_select(:category_id, @categories, :id, :name, {include_blank: 'Selecione a categoria:'},:class => 'form-control') %>
+    </div>
+    <%=f.error_span(:category_id) %>
+    </div>
+  <div class="form-group">
+    <%= f.label 'pergunta', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :question, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:question) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :score, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-1">
+      <%= f.number_field :score, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:score) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit 'Salvar', :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                quizzes_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

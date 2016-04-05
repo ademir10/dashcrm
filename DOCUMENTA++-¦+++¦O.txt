@@ -1,0 +1,57 @@
+<<<<<<< HEAD
+﻿DOCUMENTAÇÃO SOBRE O APLICATIVO
+=======
+DOCUMENTAÇÃO SOBRE O APLICATIVO
+
+PARA DISPONIBILIZAR A APLICAÇÃO EM UMA REDE LOCAL É PRECISO INSERIR O CODIGO ABAIXO EM config/boot
+
+require 'rails/commands/server'
+module Rails
+  class Server
+    def default_options
+      super.merge(Host:  '0.0.0.0', Port: 3000)
+    end
+  end
+end
+
+
+1º DEPOIS DE CONFIGURADO OS ASSETS, JQUERY ETC, É NECESSÁRIO IMPORTAR PARA A PASTA PUBLIC ESSE CONTEUDO USANDO OS PASSOS ABAIXO:
+
+https://devcenter.heroku.com/articles/rails-asset-pipeline
+
+rake assets:precompile
+heroku config
+heroku config:set PATH=bin:vendor/bundle/ruby/1.9.1/bin:/usr/local/bin:/usr/bin:/bin
+
+tive que adicionar a gem abaixo tambem
+ gem 'rails_12factor'
+ 
+PARA FUNCIONAR O JQUERY EM TODAS AS PAGINAS TIVE QUE TIRAR O REQUIRE ABAIXO DE APPLICATION.JS	
+//= require turbolinks
+
+PARA GERAR PDF EU TIVE QUE FAZER O SEGUINTE:
+<<<<<<< HEAD
+ESTOU UTILIZANDO O PROPRIO RECURSO DO VISUALIZADOR DE PDF DOS NAVEGADORES
+exemplo de um link para abrir a view do relatório com o conteudo desejado:
+
+<%= link_to "Relatório geral", client_path(@client), :class => 'btn btn-warning', :onclick => "window.print();size: landscape;return false;" %>
+=======
+1º instalei as gems:
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
+2º copiei manualmente o conteudo da pasta wkhtmltopdf que eu já tinha do 1º projeto, dentro da pasta BIN
+3º fui até o arquivo APPLICTATION.RB e copiei a linha:
+config.middleware.use "PDFKit::Middleware"
+4ºfui até o arquivo config/initializers e copiei os arquivos que eu já tinha do 1º projeto:
+pdfkit_asset.rb
+pdfkit.rb
+
+PARA GERAR PDF EU TIVE QUE FAZER O SEGUINTE:
+É preciso jogar as imagens dentro de app/assets/images e utilizar o image_tag apontando somente para o caminho da imagem
+E rodar o o comando rake assets:precompile pra poder copiar os arquivos para a pasta public automaticamente e poder gerar
+os PDFs
+
+PARA RENDERIZAR O LAYOUT CSS NA APLICAÇÃO LOCALMENTE EU TIVE QUE REFERENCIAR O CSS DESSA FORMA:
+  <style type="text/css">
+    <%= Rails.application.assets.find_asset('application.css').to_s.html_safe %>
+</style>

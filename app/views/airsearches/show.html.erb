@@ -1,0 +1,58 @@
+<%- model_class = Airsearch -%>
+<div class="page-header">
+  <h1>Dados da Pesquisa</h1>
+</div>
+
+<dl class="dl-horizonta l">
+  <dt><strong><%= model_class.human_attribute_name('cliente') %>:</strong></dt>
+  <dd><%= @airsearch.client %></dd>
+  <dt><strong><%= model_class.human_attribute_name('celular') %>:</strong></dt>
+  <dd><%= @airsearch.phone %></dd>
+  <dt><strong><%= model_class.human_attribute_name('resposta 1') %>:</strong></dt>
+  <dd><%= @r1.question %></dd>
+  <dt><strong><%= model_class.human_attribute_name('resposta 2') %>:</strong></dt>
+  <dd><%= @r2.question %></dd>
+  <dt><strong><%= model_class.human_attribute_name('resposta 3') %>:</strong></dt>
+  <dd><%= @r3.question %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              airsearches_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_airsearch_path(@airsearch), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              airsearch_path(@airsearch),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+<h2>Resultado: <%= @total_score %> pontos</h2>
+  
+  <% if @total_score > 0 && @total_score <= 2 %>
+  <div class="panel panel-success">
+  <div class="panel-heading" >Cliente do tipo: FRIO </div>
+  <div class="panel-body">
+  <% @advices.each do |f| %>
+  <%= f.description %><br />
+  <% end %>
+  </div>
+  <% elsif @total_score >= 3 && @total_score <= 6 %>
+  <div class="panel panel-warning">
+  <div class="panel-heading" {background-color: yellow!important} >Cliente do tipo: MORNO </div>
+  <div class="panel-body">
+  <% @advices.each do |f| %>
+  <%= f.description %><br />
+  <% end %>
+  </div>
+  <% elsif @total_score >= 7 && @total_score <= 10 %>
+  <div class="panel panel-danger">
+  <div class="panel-heading">Cliente do tipo: QUENTE </div>
+  <div class="panel-body">
+  <% @advices.each do |f| %>
+  <%= f.description %><br />
+  <% end %>
+  </div>
+  <% end %>
+  
+  </div>
+  </div>
+

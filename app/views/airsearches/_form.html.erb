@@ -1,0 +1,76 @@
+<%= form_for @airsearch, :html => { :class => "form-horizontal airsearch" } do |f| %>
+
+  <% if @airsearch.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@airsearch.errors.count, "error") %> prohibited this airsearch from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @airsearch.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label 'Cliente', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-5">
+      <%= f.text_field :client, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:client) %>
+  </div>
+  <div class="form-group">
+    <%= f.label 'Celular', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-2">
+      <%= f.text_field :phone, :class => 'form-control', id: 'celphone' %>
+    </div>
+    <%=f.error_span(:phone) %>
+  </div>
+<h4>Questionário</h4>
+  <hr />
+  <div class="form-group">
+  <div class="panel panel-default">
+  <div class="panel-heading">Qual é o propósito da viajem?</div>
+  <div class="panel-body">
+  <%= f.radio_button :q1, @q1.id , :checked => false , :value => @q1.id %>&nbsp;<strong><%= @q1.question %></strong><br/>
+  <%= f.radio_button :q1, @q2.id , :checked => false , :value => @q2.id %>&nbsp;<strong><%= @q2.question %></strong><br/>
+  <%= f.radio_button :q1, @q3.id , :checked => false , :value => @q3.id %>&nbsp;<strong><%= @q3.question %></strong><br/>
+  </div>
+  </div>
+  <%=f.error_span(:q1) %>
+  </div>
+
+  <div class="form-group">
+  <div class="panel panel-default">
+  <div class="panel-heading">Voçê possue familiares lá?</div>
+  <div class="panel-body">
+  <%= f.radio_button :q2, @q4.id , :checked => false , :value => @q4.id %>&nbsp;<strong><%= @q4.question %></strong><br/>
+  <%= f.radio_button :q2, @q5.id , :checked => false , :value => @q5.id %>&nbsp;<strong><%= @q5.question %></strong><br/>
+  </div>
+  </div>
+  <%=f.error_span(:q2) %>
+  </div>
+
+  <div class="form-group">  
+  <div class="panel panel-default">
+  <div class="panel-heading">Todos possuem disponibilidade?</div>
+  <div class="panel-body">
+  <%= f.radio_button :q3, @q6.id , :checked => false , :value => @q6.id %>&nbsp;<strong><%= @q6.question %></strong><br/>
+  <%= f.radio_button :q3, @q7.id , :checked => false , :value => @q7.id %>&nbsp;<strong><%= @q7.question %></strong><br/>
+  </div>
+  </div>
+  <%=f.error_span(:q3) %>
+ </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit 'Salvar', :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                airsearches_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>
