@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+    
   end
 
   # GET /questions/new

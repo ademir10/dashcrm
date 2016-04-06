@@ -71,7 +71,7 @@
                 <% end %> 
                 
                 <%if current_user.cvend == true %>
-                <li><%= link_to 'Respostas', quizzes_path %></li>
+                <li><%= link_to 'Perguntas e Respostas', questions_path %></li>
                 <% end %>
                                                                
                 <% if current_user.cuser == true && current_user.type_access == 'User' %>

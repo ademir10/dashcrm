@@ -11,6 +11,7 @@ class ResearchesController < ApplicationController
   # GET /researches/1
   # GET /researches/1.json
   def show
+    @questions = Question.where(id: '6')
   end
 
   # GET /researches/new

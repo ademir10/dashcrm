@@ -4,16 +4,15 @@
 </div>
 
 <dl class="dl-horizonta l">
-  <dt><strong><%= model_class.human_attribute_name('cliente') %>:</strong></dt>
-  <dd><%= @airsearch.client %></dd>
-  <dt><strong><%= model_class.human_attribute_name('celular') %>:</strong></dt>
-  <dd><%= @airsearch.phone %></dd>
-  <dt><strong><%= model_class.human_attribute_name('resposta 1') %>:</strong></dt>
-  <dd><%= @r1.question %></dd>
-  <dt><strong><%= model_class.human_attribute_name('resposta 2') %>:</strong></dt>
-  <dd><%= @r2.question %></dd>
-  <dt><strong><%= model_class.human_attribute_name('resposta 3') %>:</strong></dt>
-  <dd><%= @r3.question %></dd>
+  <h4><strong><%= model_class.human_attribute_name('cliente') %>:</strong>&nbsp;<%= @airsearch.client %>&nbsp;/&nbsp;
+  <strong><%= model_class.human_attribute_name('celular') %>:</strong>&nbsp;<%= @airsearch.phone %></h4>
+  <hr />
+  <h2>Respostas</h2>
+    
+  <h5 class="form-group"><strong><%= @question1.description %>:</strong>&nbsp; <%= @q1.description %><br />
+  <strong><%= @question2.description %>:</strong>&nbsp; <%= @q2.description %><br />
+  <strong><%= @question3.description %>:</strong>&nbsp; <%= @q3.description %><br />
+  </h5>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
@@ -31,28 +30,27 @@
   <div class="panel panel-success">
   <div class="panel-heading" >Cliente do tipo: FRIO </div>
   <div class="panel-body">
+  <!--
   <% @advices.each do |f| %>
   <%= f.description %><br />
   <% end %>
+  -->
   </div>
   <% elsif @total_score >= 3 && @total_score <= 6 %>
   <div class="panel panel-warning">
   <div class="panel-heading">Cliente do tipo: MORNO </div>
   <div class="panel-body">
-  <% @advices.each do |f| %>
-  <%= f.description %><br />
-  <% end %>
+ 
   </div>
   <% elsif @total_score >= 7 && @total_score <= 10 %>
   <div class="panel panel-danger">
   <div class="panel-heading">Cliente do tipo: QUENTE </div>
   <div class="panel-body">
-  <% @advices.each do |f| %>
-  <%= f.description %><br />
-  <% end %>
+  
   </div>
   <% end %>
   
   </div>
   </div>
+
 

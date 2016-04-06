@@ -1,6 +1,6 @@
 class AirsearchesController < ApplicationController
   before_action :set_airsearch, only: [:show, :edit, :update, :destroy]
-  before_action :show_question, only: [:new, :edit, :update, :destroy]
+  before_action :show_question, only: [:show, :new, :edit, :update, :destroy]
  
   # GET /airsearches
   # GET /airsearches.json
@@ -11,35 +11,26 @@ class AirsearchesController < ApplicationController
   # GET /airsearches/1
   # GET /airsearches/1.json
   def show
-    @r1 = Quiz.find(@airsearch.q1)
-    @r2 = Quiz.find(@airsearch.q2)
-    @r3 = Quiz.find(@airsearch.q3)
-    
+    #carregando o cabeçalho, as perguntas e respostas
+    @airsearches = Airsearch.where(id: params[:id])
+    @q1 = Answer.find_by(id: @airsearch.q1)
+    @q2 = Answer.find_by(id: @airsearch.q2)
+    @q3 = Answer.find_by(id: @airsearch.q3)
     
     #faz o calculo do score pra saber se o cliente é quente, morno ou frio
-    score1 = Quiz.find_by(id: @airsearch.q1)
-    score2 = Quiz.find_by(id: @airsearch.q2)
-    score3 = Quiz.find_by(id: @airsearch.q3)
+    score1 = Answer.find_by(id: @airsearch.q1)
+    score2 = Answer.find_by(id: @airsearch.q2)
+    score3 = Answer.find_by(id: @airsearch.q3)
     
     @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i
     @total_score = @total_score / 3
     
-    #trazendo os conselhos
-    if @total_score > 0 && @total_score <= 2
-    @advices = Advice.where(type_advice: 'FRIO')
-    
-    elsif @total_score >= 3 && @total_score <= 6
-    @advices = Advice.where(type_advice: 'MORNO')
-    elsif @total_score >= 7 && @total_score <= 10
-    @advices = Advice.where(type_advice: 'QUENTE')
-    end  
-      
-       
   end
 
   # GET /airsearches/new
   def new
     @airsearch = Airsearch.new
+    
   end
 
   # GET /airsearches/1/edit
@@ -101,6 +92,7 @@ class AirsearchesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_airsearch
       @airsearch = Airsearch.find(params[:id])
+      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -109,14 +101,10 @@ class AirsearchesController < ApplicationController
     end
     
     def show_question
-      @q1 = Quiz.find_by(id: '1')
-      @q2 = Quiz.find_by(id: '2')
-      @q3 = Quiz.find_by(id: '5')
+      @question1 = Question.find_by(id: '6')
+      @question2 = Question.find_by(id: '8')
+      @question3 = Question.find_by(id: '9')
+                  
       
-      @q4 = Quiz.find_by(id: '3')
-      @q5 = Quiz.find_by(id: '4')
-      
-      @q6 = Quiz.find_by(id: '6')
-      @q7 = Quiz.find_by(id: '7')
     end
 end
