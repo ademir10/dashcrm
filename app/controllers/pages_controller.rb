@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   
   def index
     @date = DateTime.now.year
-    @categories = Category.all
+    @categories = Category.order(:name)
    
   end
  

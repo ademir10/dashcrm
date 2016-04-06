@@ -16,7 +16,7 @@
     <% @questions.each do |question| %>
       <tr>
         <td><%= link_to question.id, question_path(question) %></td>
-        <td><%= question.category_id %></td>
+        <td><%= question.category.name %></td>
         <td><%= question.description %></td>
         <td><%= question.created_at %></td>
         <td>

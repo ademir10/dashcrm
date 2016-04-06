@@ -20,7 +20,11 @@
 <%= image_tag "logo_mini.png" %>
 
 <div class="container">
-   	<%= link_to 'INICIAR PESQUISA', new_research_path, class: 'btn btn-default btn-lg' %>
+<% @categories.each do |f| %>
+<% if f.link != nil %>
+<%= link_to f.name, f.link, class: 'btn btn-default btn-lg' %>
+<% end %>
+<% end %>
 </div>
 
   </div>

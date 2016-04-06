@@ -22,6 +22,16 @@
     </div>
     <%=f.error_span(:name) %>
   </div>
+  
+  <% if current_user.type_access == 'MASTER' %>
+  <div class="form-group">
+    <%= f.label 'link da pagina', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-5">
+      <%= f.text_field :link, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:link) %>
+  </div>
+  <% end %>
     
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
