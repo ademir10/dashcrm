@@ -5,20 +5,19 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:answer_id) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      
+      <th><%= model_class.human_attribute_name('tratativa') %></th>
+      <th><%= model_class.human_attribute_name('resposta') %></th>
+      <th><%= model_class.human_attribute_name('criado em') %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @solutions.each do |solution| %>
       <tr>
-        <td><%= link_to solution.id, solution_path(solution) %></td>
-        <td><%= solution.answer_id %></td>
-        <td><%= solution.description %></td>
-        <td><%=l solution.created_at %></td>
+        <td><%= link_to solution.description, solution_path(solution) %></td>
+        <td><%= solution.answer.description %></td>
+        <td><%= solution.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_solution_path(solution), :class => 'btn btn-default btn-xs' %>
@@ -33,6 +32,3 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_solution_path,
-            :class => 'btn btn-primary' %>

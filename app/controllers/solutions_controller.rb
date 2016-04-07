@@ -1,10 +1,11 @@
 class SolutionsController < ApplicationController
   before_action :set_solution, only: [:show, :edit, :update, :destroy]
+  before_action :show_question_answer, only: [:new]
 
   # GET /solutions
   # GET /solutions.json
   def index
-    @solutions = Solution.all
+    @solutions = Solution.includes(:answer).all
   end
 
   # GET /solutions/1
@@ -14,14 +15,14 @@ class SolutionsController < ApplicationController
 
   # GET /solutions/new
   def new
-    @answer = Answer.find_by(id: params[:id_answer])
-    @advices = Advice.order(:description)
-    @solution = Solution.new
-    
+     @solution = Solution.new
   end
 
   # GET /solutions/1/edit
   def edit
+    #pra mostrar na view edit qual é a resposta que está amarrada á essa tratativa
+    answer = Solution.find_by(id: @solution)
+    @answer = Answer.find_by(id: answer.answer_id)
   end
 
   # POST /solutions
@@ -74,5 +75,10 @@ class SolutionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def solution_params
       params.require(:solution).permit(:answer_id, :description)
+    end
+    
+    def show_question_answer
+      @answer = Answer.find_by(id: params[:id_answer])
+      @advices = Advice.order(:description)
     end
 end

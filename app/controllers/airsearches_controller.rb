@@ -25,6 +25,11 @@ class AirsearchesController < ApplicationController
     @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i
     @total_score = @total_score / 3
     
+    #exibe as tratativas
+    @show_solution1 = Solution.find_by(answer_id: @q1)
+    @show_solution2 = Solution.find_by(answer_id: @q2)
+    @show_solution3 = Solution.find_by(answer_id: @q3)
+    
   end
 
   # GET /airsearches/new

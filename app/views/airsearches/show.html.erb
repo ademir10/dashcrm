@@ -49,6 +49,15 @@
   <div class="panel panel-success">
   <div class="panel-heading" >Cliente do tipo: FRIO </div>
   <div class="panel-body">
+  	<% if @show_solution1.present? %>
+    <%= @show_solution1.description %><br />
+    <% end %>
+    <% if @show_solution2.present? %>
+  	<%= @show_solution2.description %><br />
+  	<% end %>
+  	<% if @show_solution3.present? %>
+  	<%= @show_solution3.description %><br />
+  	<% end %>
   <!--
   <% @advices.each do |f| %>
   <%= f.description %><br />
@@ -59,13 +68,31 @@
   <div class="panel panel-warning">
   <div class="panel-heading">Cliente do tipo: MORNO </div>
   <div class="panel-body">
- 
+    <% if @show_solution1.present? %>
+    <%= @show_solution1.description %><br />
+    <% end %>
+    <% if @show_solution2.present? %>
+  	<%= @show_solution2.description %><br />
+  	<% end %>
+  	<% if @show_solution3.present? %>
+  	<%= @show_solution3.description %><br />
+  	<% end %>
+    
+   
   </div>
   <% elsif @total_score >= 7 && @total_score <= 10 %>
   <div class="panel panel-danger">
   <div class="panel-heading">Cliente do tipo: QUENTE </div>
   <div class="panel-body">
-  
+    <% if @show_solution1.present? %>
+    <%= @show_solution1.description %><br />
+    <% end %>
+    <% if @show_solution2.present? %>
+  	<%= @show_solution2.description %><br />
+  	<% end %>
+  	<% if @show_solution3.present? %>
+  	<%= @show_solution3.description %><br />
+  	<% end %>
   </div>
   <% end %>
   

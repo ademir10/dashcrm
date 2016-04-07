@@ -1,12 +1,12 @@
 <%- model_class = Solution -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1>Tratativa</h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:answer_id) %>:</strong></dt>
-  <dd><%= @solution.answer_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dt><strong><%= model_class.human_attribute_name('para a resposta') %>:</strong></dt>
+  <dd><%= @solution.answer.description %></dd>
+  <dt><strong><%= model_class.human_attribute_name('descrição') %>:</strong></dt>
   <dd><%= @solution.description %></dd>
 </dl>
 
