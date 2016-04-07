@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406205057) do
+ActiveRecord::Schema.define(version: 20160407011256) do
 
   create_table "advices", force: :cascade do |t|
     t.string   "description"
-    t.string   "type_advice"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -112,6 +111,16 @@ ActiveRecord::Schema.define(version: 20160406205057) do
 
   add_index "results", ["research_id"], name: "index_results_on_research_id", using: :btree
 
+  create_table "targets", force: :cascade do |t|
+    t.integer  "advice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "answer_id"
+  end
+
+  add_index "targets", ["advice_id"], name: "index_targets_on_advice_id", using: :btree
+  add_index "targets", ["answer_id"], name: "index_targets_on_answer_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -145,4 +154,6 @@ ActiveRecord::Schema.define(version: 20160406205057) do
   add_foreign_key "quizzes", "categories"
   add_foreign_key "researches", "categories"
   add_foreign_key "results", "researches"
+  add_foreign_key "targets", "advices"
+  add_foreign_key "targets", "answers"
 end

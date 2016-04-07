@@ -61,17 +61,17 @@
                 <% if current_user.ccli == true %>	
                 <li><%= link_to "Categorias de pesquisa", categories_path %></li>
                 <% end %>
-                
-                <% if current_user.cforn == true %>	
-                <li><%= link_to "Conselhos", advices_path %></li>
-                <% end %>
-                                                
+                                                                                
                 <%if current_user.ccateg == true %>
                 <li><%= link_to 'Pesquisas', root_path %></li>
                 <% end %> 
                 
                 <%if current_user.cvend == true %>
                 <li><%= link_to 'Perguntas e Respostas', questions_path %></li>
+                <% end %>
+                
+                <% if current_user.cforn == true %>	
+                <li><%= link_to "Tratativas", advices_path %></li>
                 <% end %>
                                                                
                 <% if current_user.cuser == true && current_user.type_access == 'User' %>

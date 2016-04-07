@@ -1,12 +1,12 @@
 <%- model_class = Advice -%>
 <div class="page-header">
-  <h1>Conselhos</h1>
+  <h1>Tratativas</h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name('descrição do conselho') %></th>
-      <th><%= model_class.human_attribute_name('tipo de conselho') %></th>
+      <th><%= model_class.human_attribute_name('descrição') %></th>
+      <th><%= model_class.human_attribute_name('criado em') %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -14,7 +14,7 @@
     <% @advices.each do |advice| %>
       <tr>
         <td><%= link_to advice.description, advice_path(advice) %></td>
-        <td><%= advice.type_advice %></td>
+        <td><%= advice.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_advice_path(advice), :class => 'btn btn-default btn-xs' %>

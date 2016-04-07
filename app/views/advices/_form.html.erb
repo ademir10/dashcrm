@@ -22,13 +22,6 @@
     </div>
     <%=f.error_span(:description) %>
   </div>
-  <div class="form-group">
-    <%= f.label 'tipo de conselho', :class => 'control-label col-lg-2' %>
-    <div class="col-lg-2">
-      <%= f.select(:type_advice, options_for_select([["FRIO"],["MORNO"], ["QUENTE"]], @advice.type_advice), {include_blank: 'Tipo de conselho'}, :class => 'form-control') %>
-    </div>
-    <%=f.error_span(:type_advice) %>
-  </div>
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

@@ -4,10 +4,8 @@ class AnswersController < ApplicationController
   def edit
   end
   
-  
-  
     def create
-   @question = Question.find(params[:question_id])
+    @question = Question.find(params[:question_id])
               
       if answer_params[:description].blank? || answer_params[:score].blank? 
      flash[:warning] = 'A descrição da resposta e o score precisam ser informados!'
@@ -16,7 +14,7 @@ class AnswersController < ApplicationController
       @answer = @question.answers.create(answer_params)
       redirect_to question_path(@question)
      end
-  end
+    end
 
   def destroy
     @question = Question.find(params[:question_id])

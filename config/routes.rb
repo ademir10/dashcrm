@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
   
+  
+  resources :advices do
+   resources :targets 
+  end
   resources :results
   resources :researches
   resources :questions do
    resources :answers  
   end
   
-  resources :advices
   resources :airsearches
   resources :quizzes
   resources :categories
