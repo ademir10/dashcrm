@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
-  
-  
-  resources :advices do
-   resources :targets 
-  end
+   
+  resources :solutions
+  resources :advices
   resources :results
   resources :researches
   resources :questions do
-   resources :answers  
+  resources :answers 
   end
   
   resources :airsearches
@@ -16,7 +14,8 @@ Rails.application.routes.draw do
  resources :expire_dates
  resources :users
   
-  
+  get 'add_solution', to: 'questions#add_solution', as: 'add_solution'
+   
   root 'pages#index'
   get 'sessions/new'
   

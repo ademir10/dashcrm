@@ -14,6 +14,7 @@
         <tr>
         <td><%= answer.description %></td>
         <td><%= answer.score %></td>
+        <td><%= link_to 'adicionar tratativa', new_solution_path(:id_answer => answer), :class => 'btn btn-xs btn-success' %>
         <td><%= link_to t('.destroy', :default => t("helpers.links.destroy")), [answer.question, answer], :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger' %>
 		</td>
         </tr>

@@ -1,6 +1,12 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :show_category, only: [:show, :new, :edit, :update, :create]
+  
+  def add_solution
+    @answer = Answer.find_by(id: params[:id_answer])
+    @advices = Advice.order(:description)
+    redirect_to new_solution_path
+  end
 
   # GET /questions
   # GET /questions.json

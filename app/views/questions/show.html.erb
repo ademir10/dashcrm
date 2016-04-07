@@ -1,14 +1,12 @@
 <%- model_class = Question -%>
 <div class="page-header">
-  <h1>Pergunta / Resposta Nº<font color="red"><%= @question.id %></font></h1>
+  <h1>Pergunta: <font color="red"><%= @question.description %></font></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name('categoria') %>:</strong></dt>
-  <dd><%= @question.category.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name('pergunta') %>:</strong></dt>
-  <dd><%= @question.description %></dd>
-</dl>
+<h5><dl class="dl-horizontal">
+<strong><%= model_class.human_attribute_name('categoria') %>:</strong>&nbsp;
+<%= @question.category.name %>
+</dl></h5>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               questions_path, :class => 'btn btn-default'  %>
