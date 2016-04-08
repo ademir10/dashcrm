@@ -58,19 +58,19 @@
                 	
                 	
 
-                <% if current_user.ccli == true %>	
+                <% if current_user.ccategory == true %>	
                 <li><%= link_to "Categorias de pesquisa", categories_path %></li>
                 <% end %>
                                                                                 
-                <%if current_user.ccateg == true %>
+                <%if current_user.cresearch == true %>
                 <li><%= link_to 'Pesquisas', root_path %></li>
                 <% end %> 
                 
-                <%if current_user.cvend == true %>
+                <%if current_user.cquestion == true %>
                 <li><%= link_to 'Perguntas e Respostas', questions_path %></li>
                 <% end %>
                 
-                <% if current_user.cforn == true %>	
+                <% if current_user.cadvice == true %>	
                 <li><%= link_to "Tratativas", solutions_path %></li>
                 <% end %>
                                                                
@@ -85,17 +85,7 @@
         	<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Movimentações <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                <%if current_user.minput == true %>
-                <li><%= link_to "Entrada de compras", '#' %></li>
-                <% end %>
-                	
-                <%if current_user.mos == true %>
-                <li><%= link_to "Orçamentos / Vendas", '#' %></li>
-                <% end %>
                 
-                <% if current_user.mupload == true %>
-                <li><%= link_to "Upload de Arquivos", '#' %></li>
-                <% end %>
                 </ul>
                 
                
@@ -106,50 +96,14 @@
                 <ul class="dropdown-menu">
                 <li class="dropdown-header">Gerais</li>
                 
-                <%if current_user.rcateg == true %>
-                <li><%= link_to "Categoria de despesas", '#' %></li>
-                <% end %>
-                
-                <%if current_user.rcli == true %>
-                <li><%= link_to "Clientes", '#' %></li>
-                <% end %>
-                
-                <%if current_user.rfecha == true %>
-                <li><%= link_to "Fechamento geral", '#' %></li>
-                <% end %>
-                
-                <%if current_user.rforn == true %>
-                <li><%= link_to "Fornecedores", '#' %></li>
-                <% end %>
-                                                
-                <%if current_user.rprod == true %>
-                <li><%= link_to "Produtos", '#' %></li>
-                <% end %>
-                               
-                <%if current_user.rprod == true %>
-                <li><%= link_to "Vendedores", '#' %></li>
-                <% end %>
-                                            
+                                                           
                 <li role="separator" class="divider"></li>
                 <li class="dropdown-header">Movimentações</li>
-                <%if current_user.minput == true %>
-                <li><%= link_to "Entrada de Compras", '#' %></li>
-                <% end %>
                 
-                <%if current_user.mos == true %>
-                <li><%= link_to "Orçamentos / Vendas", '#' %></li>
-                <% end %>
                 
                 <li role="separator" class="divider"></li>
                 <li class="dropdown-header">Financeiro</li>
-                <%if current_user.rpag == true %>
-                <li><%= link_to "Contas á Pagar", '#' %></li>
-                <% end %>
-                
-                <%if current_user.rrec == true %>
-                <li><%= link_to "Contas á Receber", '#' %></li>
-                <% end %>
-                                                               
+                                                                               
               </ul>
               
               <%if current_user.type_access == 'MASTER' %>

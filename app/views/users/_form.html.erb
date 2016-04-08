@@ -55,30 +55,16 @@
 <h4><%= "Perfil de acesso" %></h4>
 <h5><%= "Cadastros" %></h5>
 
-  <%= f.check_box :ccli %>&nbsp;<%= f.label "categorias" %>
-  <%= f.check_box :ccateg %>&nbsp;<%= f.label "pesquisas" %><br />
-  <%= f.check_box :cvend %>&nbsp;<%= f.label "perguntas e respostas" %><br />
-  <%= f.check_box :cforn %>&nbsp;<%= f.label "tratativas" %>
+  <%= f.check_box :ccategory %>&nbsp;<%= f.label "categorias" %>
+  <%= f.check_box :cresearch %>&nbsp;<%= f.label "pesquisas" %><br />
+  <%= f.check_box :cquestion %>&nbsp;<%= f.label "perguntas e respostas" %><br />
+  <%= f.check_box :cadvice %>&nbsp;<%= f.label "tratativas" %>
   <%= f.check_box :cuser %>&nbsp;<%= f.label "usuários" %>
   
   <h5><%= "Movimentações" %></h5>
-  <%= f.check_box :minput %>&nbsp;<%= f.label "Entrada de compras" %><br />
-  <%= f.check_box :mos %>&nbsp;<%= f.label "Orçamentos / Vendas" %><br />
-  <%= f.check_box :mupload %>&nbsp;<%= f.label "Uploads" %>
-  
-  <h5><%= "Financeiro" %></h5>
-  <%= f.check_box :fpag %>&nbsp;<%= f.label "contas pagar" %>
-  <%= f.check_box :frec %>&nbsp;<%= f.label "contas receber" %>
-    
+     
   <h5><%= "Relatórios" %></h5>
-  <%= f.check_box :rcli %>&nbsp;<%= f.label "clientes" %>
-  <%= f.check_box :rfecha %>&nbsp;<%= f.label "fechamento" %>
-  <%= f.check_box :rforn %>&nbsp;<%= f.label "fornecedores" %><br />
-  <%= f.check_box :rpag %>&nbsp;<%= f.label "contas pagar" %>
-  <%= f.check_box :rrec %>&nbsp;<%= f.label "contas receber" %><br />
-  <%= f.check_box :rprod %>&nbsp;<%= f.label "produtos" %>  
-  <%= f.check_box :rcateg %>&nbsp;<%= f.label "tipos de despesa" %><br />
-  <%= f.check_box :rvend %>&nbsp;<%= f.label "vendedores" %>
+  
   <% end %>
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

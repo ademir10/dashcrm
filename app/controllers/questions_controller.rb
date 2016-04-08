@@ -12,6 +12,7 @@ class QuestionsController < ApplicationController
   # GET /questions.json
   def index
     @questions = Question.includes(:category).order(:category_id, :description)
+    
   end
 
   # GET /questions/1

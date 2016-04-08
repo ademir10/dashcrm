@@ -2,14 +2,11 @@ Rails.application.routes.draw do
    
   resources :solutions
   resources :advices
-  resources :results
-  resources :researches
   resources :questions do
   resources :answers 
   end
   
   resources :airsearches
-  resources :quizzes
   resources :categories
  resources :expire_dates
  resources :users

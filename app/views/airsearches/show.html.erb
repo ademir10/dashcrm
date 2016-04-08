@@ -27,9 +27,26 @@
   <h2>Respostas</h2>
     
   <h5 class="form-group"><strong><%= @question1.description %>:</strong>&nbsp; <%= @q1.description %><br />
-  <strong><%= @question2.description %>:</strong>&nbsp; <%= @q2.description %><br />
-  <strong><%= @question3.description %>:</strong>&nbsp; <%= @q3.description %><br />
   </h5>
+  <h5 class="form-group"><strong><%= @question2.description %>:</strong>&nbsp; <%= @q2.description %><br />
+  </h5>
+  <h5 class="form-group"><strong><%= @question3.description %>:</strong>&nbsp; <%= @q3.description %><br />
+  </h5>
+  <h5 class="form-group"><strong><%= @question4.description %>:</strong>&nbsp; <%= @q4.description %><br />
+  </h5>
+  <h5 class="form-group"><strong><%= @question5.description %>:</strong>&nbsp; <%= @q5.description %><br />
+  </h5>
+  <h5 class="form-group"><strong><%= @question6.description %>:</strong>&nbsp; <%= @q6.description %><br />
+  </h5>
+  <h5 class="form-group"><strong><%= @question7.description %>:</strong>&nbsp; <%= @q7.description %><br />
+  </h5>
+  <h5 class="form-group"><strong><%= @question8.description %>:</strong>&nbsp; <%= @q8.description %><br />
+  </h5>
+  <h5 class="form-group"><strong><%= @question9.description %>:</strong>&nbsp; <%= @q9.description %><br />
+  </h5>
+  <h5 class="form-group"><strong><%= @question10.description %>:</strong>&nbsp; <%= @q10.description %><br /></h5>
+
+  
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
@@ -48,41 +65,16 @@
   <% if @total_score > 0 && @total_score <= 2 %>
   <div class="panel panel-success">
   <div class="panel-heading" >Cliente do tipo: FRIO </div>
-  <div class="panel-body">
-  	<% if @show_solution1.present? %>
-    <%= @show_solution1.description %><br />
-    <% end %>
-    <% if @show_solution2.present? %>
-  	<%= @show_solution2.description %><br />
-  	<% end %>
-  	<% if @show_solution3.present? %>
-  	<%= @show_solution3.description %><br />
-  	<% end %>
-  <!--
-  <% @advices.each do |f| %>
-  <%= f.description %><br />
-  <% end %>
-  -->
-  </div>
+  
   <% elsif @total_score >= 3 && @total_score <= 6 %>
   <div class="panel panel-warning">
   <div class="panel-heading">Cliente do tipo: MORNO </div>
-  <div class="panel-body">
-    <% if @show_solution1.present? %>
-    <%= @show_solution1.description %><br />
-    <% end %>
-    <% if @show_solution2.present? %>
-  	<%= @show_solution2.description %><br />
-  	<% end %>
-  	<% if @show_solution3.present? %>
-  	<%= @show_solution3.description %><br />
-  	<% end %>
-    
-   
-  </div>
+  
   <% elsif @total_score >= 7 && @total_score <= 10 %>
   <div class="panel panel-danger">
   <div class="panel-heading">Cliente do tipo: QUENTE </div>
+  <% end %>
+  
   <div class="panel-body">
     <% if @show_solution1.present? %>
     <%= @show_solution1.description %><br />
@@ -93,8 +85,29 @@
   	<% if @show_solution3.present? %>
   	<%= @show_solution3.description %><br />
   	<% end %>
+  	<% if @show_solution4.present? %>
+    <%= @show_solution4.description %><br />
+    <% end %>
+    <% if @show_solution5.present? %>
+  	<%= @show_solution5.description %><br />
+  	<% end %>
+  	<% if @show_solution6.present? %>
+  	<%= @show_solution6.description %><br />
+  	<% end %>
+  	<% if @show_solution7.present? %>
+    <%= @show_solution7.description %><br />
+    <% end %>
+    <% if @show_solution8.present? %>
+  	<%= @show_solution8.description %><br />
+  	<% end %>
+  	<% if @show_solution9.present? %>
+  	<%= @show_solution9.description %><br />
+  	<% end %>
+  	<% if @show_solution10.present? %>
+  	<%= @show_solution10.description %><br />
+  	<% end %>
   </div>
-  <% end %>
+  
   
   </div>
   </div>
