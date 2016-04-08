@@ -1,6 +1,7 @@
 class AdvicesController < ApplicationController
   before_action :set_advice, only: [:show, :edit, :update, :destroy]
   before_action :show_answer, only: [:new, :show, :edit, :update, :destroy]
+  before_action :must_login
 
   # GET /advices
   # GET /advices.json

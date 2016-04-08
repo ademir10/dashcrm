@@ -1,7 +1,7 @@
 class AirsearchesController < ApplicationController
   before_action :set_airsearch, only: [:show, :edit, :update, :destroy]
   before_action :show_question, only: [:show, :new, :edit, :update, :destroy]
- 
+  before_action :must_login
   # GET /airsearches
   # GET /airsearches.json
   def index

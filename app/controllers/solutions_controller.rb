@@ -1,7 +1,7 @@
 class SolutionsController < ApplicationController
   before_action :set_solution, only: [:show, :edit, :update, :destroy]
   before_action :show_question_answer, only: [:new]
-
+  before_action :must_login
   # GET /solutions
   # GET /solutions.json
   def index

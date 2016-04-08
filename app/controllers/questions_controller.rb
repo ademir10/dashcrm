@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :show_category, only: [:show, :new, :edit, :update, :create]
+  before_action :must_login
   
   def add_solution
     @answer = Answer.find_by(id: params[:id_answer])

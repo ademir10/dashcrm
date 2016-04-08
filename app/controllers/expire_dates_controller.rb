@@ -1,5 +1,6 @@
 class ExpireDatesController < ApplicationController
   before_action :set_expire_date, only: [:show, :edit, :update, :destroy]
+  before_action :must_login
 
   # GET /expire_dates
   # GET /expire_dates.json
