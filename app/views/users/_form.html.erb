@@ -61,10 +61,12 @@
   <%= f.check_box :cadvice %>&nbsp;<%= f.label "tratativas" %>
   <%= f.check_box :cuser %>&nbsp;<%= f.label "usuários" %>
   
-  <h5><%= "Movimentações" %></h5>
-     
-  <h5><%= "Relatórios" %></h5>
+  <h5><%= "Administração" %></h5>
+  <strong>Gerenciamento de Pesquisas</strong><br />
+     <%= f.check_box :mcli %>&nbsp;<%= f.label "Transporte Aéreo" %>
   
+  <h5><%= "Relatórios" %></h5>
+  <%= f.check_box :rbusiness %>&nbsp;<%= f.label "Análise de rendimento" %>
   <% end %>
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

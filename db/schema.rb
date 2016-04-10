@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408015608) do
+ActiveRecord::Schema.define(version: 20160410180506) do
 
   create_table "advices", force: :cascade do |t|
     t.string   "description"
@@ -35,6 +35,9 @@ ActiveRecord::Schema.define(version: 20160408015608) do
     t.string   "q8"
     t.string   "q9"
     t.string   "q10"
+    t.string   "status"
+    t.string   "obs"
+    t.date     "schedule"
   end
 
   create_table "answers", force: :cascade do |t|
@@ -54,11 +57,29 @@ ActiveRecord::Schema.define(version: 20160408015608) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "documents", force: :cascade do |t|
+    t.integer  "owner"
+    t.string   "filename"
+    t.string   "content_type"
+    t.binary   "file_contents"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "expire_dates", force: :cascade do |t|
     t.date     "date_expire"
     t.boolean  "active"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "messages", force: :cascade do |t|
@@ -99,6 +120,8 @@ ActiveRecord::Schema.define(version: 20160408015608) do
     t.boolean  "mupload"
     t.boolean  "rfecha"
     t.boolean  "minput"
+    t.boolean  "mcli"
+    t.boolean  "rbusiness"
   end
 
   add_foreign_key "answers", "questions"

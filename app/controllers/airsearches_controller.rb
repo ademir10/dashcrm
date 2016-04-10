@@ -2,8 +2,33 @@ class AirsearchesController < ApplicationController
   before_action :set_airsearch, only: [:show, :edit, :update, :destroy]
   before_action :show_question, only: [:show, :new, :edit, :update, :destroy]
   before_action :must_login
-  # GET /airsearches
-  # GET /airsearches.json
+  
+  #para atualizar os dados como o status, agendamento e inserir arquivos para upload
+  def update_status_air
+    
+    @airsearch = Airsearch.find(params[:id])
+    
+    if airsearch_params[:status].blank? || airsearch_params[:schedule].blank?
+      flash[:warning] = 'Informe o Status e se for o caso uma data para agendamento!'
+      redirect_to airsearch_path(@airsearch) and return
+    elsif airsearch_params[:status] == 'NÃO COMPROU' && airsearch_params[:schedule].present?
+      flash[:warning] = 'Você informou uma data para retorno e não informou o status corretamente, volte e atualize esta pesquisa!'
+      redirect_to airsearch_path(@airsearch) and return
+    end
+    
+    @airsearch.update(airsearch_params)
+    flash[:success] = 'Os dados foram atualizados com sucesso!'   
+    redirect_to airsearches_path and return
+   
+   
+    
+  end
+
+  #gerenciamento da pesquisa
+  def manage_air
+  @result = Airsearch.find_by(id: params[:air_id])
+  end
+
   def index
     @airsearches = Airsearch.all
   end
@@ -74,6 +99,7 @@ class AirsearchesController < ApplicationController
     
     respond_to do |format|
       @airsearch.user = current_user.name
+      @airsearch.status = 'NÃO DEFINIDO'
       if @airsearch.save
         format.html { redirect_to @airsearch, notice: 'Questionário criado com sucesso.' }
         format.json { render :show, status: :created, location: @airsearch }
@@ -123,7 +149,7 @@ class AirsearchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def airsearch_params
-      params.require(:airsearch).permit(:client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10)
+      params.require(:airsearch).permit(:client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :status, :obs, :schedule)
     end
     
     def show_question

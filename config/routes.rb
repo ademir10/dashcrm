@@ -1,18 +1,26 @@
 Rails.application.routes.draw do
    
+  resources :documents
   resources :solutions
   resources :advices
   resources :questions do
   resources :answers 
   end
   
-  resources :airsearches
+  resources :airsearches do
+    member do
+      get 'manage_air'
+      post 'update_status_air'
+    end
+  end
   resources :categories
  resources :expire_dates
  resources :users
   
-  get 'add_solution', to: 'questions#add_solution', as: 'add_solution'
-   
+  
+  #para exibir a imagem que foi feito o upload
+  get 'show_file' => 'documents#show_file'
+    
   root 'pages#index'
   get 'sessions/new'
   
@@ -31,6 +39,9 @@ Rails.application.routes.draw do
   #somente para chamar a edição do usuario quando for um membro logado
   get 'editar_user', to: 'users#chama_edicao'
   #---------------------------------------------
+  
+  #relatórios
+  get 'business_report', to: 'pages#business_report'
   
     
   #para carregar a view informando que não pode excluir cadastro com relacionamento em outra table

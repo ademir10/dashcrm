@@ -83,8 +83,16 @@
                
 				</ul>
         	<li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Movimentações <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administração <span class="caret"></span></a>
                 <ul class="dropdown-menu">
+                	
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Gerenciamento de pesquisas</li>
+                <% if current_user.mcli == true %>	
+                <li><%= link_to "Transporte Aéreo", '#' %></li>
+                <% end %>
+                	
+                
                 
                 </ul>
                 
@@ -94,15 +102,16 @@
                       	<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relatórios <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                <li class="dropdown-header">Gerais</li>
+                <li class="dropdown-header">Gerenciamento</li>
                 
+                <% if current_user.rbusiness == true %>	
+                <li><%= link_to "Análise de rendimento", business_report_path %></li>
+                <% end %>
                                                            
+                <!--
                 <li role="separator" class="divider"></li>
                 <li class="dropdown-header">Movimentações</li>
-                
-                
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Financeiro</li>
+                -->               
                                                                                
               </ul>
               
