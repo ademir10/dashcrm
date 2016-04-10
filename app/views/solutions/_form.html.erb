@@ -15,13 +15,8 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label 'id', :class => 'control-label col-lg-2' %>
-    <div class="col-lg-1">
-      <%= f.text_field :answer_id, :class => 'form-control', readonly: true, value: @answer.id %>
-    </div>
-    <%=f.error_span(:answer_id) %>
-  </div>
+      <%= f.hidden_field :answer_id, :class => 'form-control', readonly: true, value: @answer.id %>
+    
   <div class="form-group">
     <%= f.label 'descreva a tratativa', :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">

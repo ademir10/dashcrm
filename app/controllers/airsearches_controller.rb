@@ -8,7 +8,7 @@ class AirsearchesController < ApplicationController
     
     @airsearch = Airsearch.find(params[:id])
     
-    if airsearch_params[:status].blank? || airsearch_params[:schedule].blank?
+    if airsearch_params[:status].blank? && airsearch_params[:schedule].blank?
       flash[:warning] = 'Informe o Status e se for o caso uma data para agendamento!'
       redirect_to airsearch_path(@airsearch) and return
     elsif airsearch_params[:status] == 'NÃO COMPROU' && airsearch_params[:schedule].present?
@@ -92,7 +92,7 @@ class AirsearchesController < ApplicationController
   def create
    @airsearch = Airsearch.new(airsearch_params)
    #verifica se todos os campos estão preenchidos
-   if airsearch_params[:client].blank? || airsearch_params[:phone].blank? || airsearch_params[:q1].blank? || airsearch_params[:q2].blank? || airsearch_params[:q3].blank?
+   if airsearch_params[:client].blank? || airsearch_params[:phone].blank? || airsearch_params[:q1].blank? || airsearch_params[:q2].blank? || airsearch_params[:q3].blank? || airsearch_params[:q4].blank? || airsearch_params[:q5].blank? || airsearch_params[:q6].blank? || airsearch_params[:q7].blank? || airsearch_params[:q8].blank? || airsearch_params[:q9].blank? || airsearch_params[:q10].blank?
      flash[:warning] = 'Os dados do cliente e todas as perguntas precisam ser respondidas!'
      redirect_to new_airsearch_path and return
    end
@@ -100,7 +100,15 @@ class AirsearchesController < ApplicationController
     respond_to do |format|
       @airsearch.user = current_user.name
       @airsearch.status = 'NÃO DEFINIDO'
+      
       if @airsearch.save
+        
+        #cadastrando automáticamente esse cliente pesquisado no cadastro de clientes
+        client = Client.new(params[:client])
+        client.name = airsearch_params[:client]
+        client.cellphone = airsearch_params[:phone]
+        client.save!
+                      
         format.html { redirect_to @airsearch, notice: 'Questionário criado com sucesso.' }
         format.json { render :show, status: :created, location: @airsearch }
       else
@@ -134,6 +142,7 @@ class AirsearchesController < ApplicationController
   # DELETE /airsearches/1.json
   def destroy
     @airsearch.destroy
+    Document.destroy_all(owner: @airsearch)
     respond_to do |format|
       format.html { redirect_to airsearches_url, notice: 'Questionário Excluido com sucesso.' }
       format.json { head :no_content }

@@ -13,6 +13,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
 
 </head>
 <body>
@@ -60,6 +61,10 @@
 
                 <% if current_user.ccategory == true %>	
                 <li><%= link_to "Categorias de pesquisa", categories_path %></li>
+                <% end %>
+                
+                <% if current_user.ccli == true %>	
+                <li><%= link_to "Clientes", clients_path %></li>
                 <% end %>
                                                                                 
                 <%if current_user.cresearch == true %>

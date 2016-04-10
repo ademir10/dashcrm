@@ -1,1 +1,5 @@
-DEUS SEMPRE!
+<h1>Análise de rendimento dos funcionários</h1>
+
+<h3>Percentual de pesquisas por funcionário</h3>
+
+<%= pie_chart Airsearch.group('airsearches.user').count %>

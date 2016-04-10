@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410180506) do
+ActiveRecord::Schema.define(version: 20160410232121) do
 
   create_table "advices", force: :cascade do |t|
     t.string   "description"
@@ -53,6 +53,13 @@ ActiveRecord::Schema.define(version: 20160410180506) do
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string   "name"
+    t.string   "cellphone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -122,6 +129,7 @@ ActiveRecord::Schema.define(version: 20160410180506) do
     t.boolean  "minput"
     t.boolean  "mcli"
     t.boolean  "rbusiness"
+    t.boolean  "ccli"
   end
 
   add_foreign_key "answers", "questions"

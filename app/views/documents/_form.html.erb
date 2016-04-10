@@ -15,6 +15,8 @@
     </div>
   <% end %>
 
+      <%= f.hidden_field :owner, :class => 'form-control', readonly: true, value: @airsearch.id %>
+
   <div class="form-group">
     <%= f.label 'arquivo', :class => 'control-label col-lg-2' %>
     <div class="col-lg-5">
@@ -26,8 +28,7 @@
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit 'Upload now', :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                documents_path, :class => 'btn btn-default' %>
+      <%= link_to 'Cancelar', airsearches_path ,class: 'btn btn-default' %>
     </div>
   </div>
 

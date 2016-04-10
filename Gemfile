@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 #usando o thin server
 gem 'thin'
 
+#gerar os graficos
+gem "chartkick"
+
 #gems adicionadas para esse projeto manualmente
 gem 'twitter-bootstrap-rails'
 

@@ -10,7 +10,8 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.where(owner: current_user.name).order(:created_at)
+    @airsearch = Airsearch.find(params[:id])
+    @documents = Document.where(owner: @airsearch.id).order(:created_at)
   end
 
   # GET /documents/1
@@ -23,6 +24,8 @@ class DocumentsController < ApplicationController
 
   # GET /documents/new
   def new
+    @airsearch = Airsearch.find_by_id(params[:air_id])
+    
     @document = Document.new
   end
 
@@ -32,9 +35,9 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     respond_to do |format|
-      @document.owner = current_user.name
+      
       if @document.save
-        format.html { redirect_to documents_path, notice: 'Arquivo salvo com sucesso.' }
+        format.html { redirect_to airsearches_path, notice: 'Arquivo salvo com sucesso.' }
         format.json { render action: 'show', status: :created, location: @document }
       else
         format.html { render action: 'new' }

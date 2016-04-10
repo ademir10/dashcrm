@@ -29,6 +29,8 @@
               airsearches_path, :class => 'btn btn-default', id: 'hide_buttom' %>
 <%= link_to 'Editar pesquisa', edit_airsearch_path(@airsearch), :class => 'btn btn-default', id: 'hide_buttom' %>
 
+<%= link_to "Inserir anexo", new_document_path(:air_id => @airsearch), class: 'btn btn-default', id: 'hide_buttom' %>
+
 <%= link_to "Gerenciar", manage_air_airsearch_path(:air_id => @airsearch), class: 'btn btn-info', id: 'hide_buttom' %>
 
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -111,5 +113,13 @@
   <h5 class="form-group"><strong><%= @question10.description %>:</strong>&nbsp; <%= @q10.description %><br /></h5>
 
   </dl>
+  <hr />
+  <% if @airsearch.obs.present? %>
+  <div class="panel panel-info">
+  <div class="panel-heading" >HISTÓRICO </div>
+  <h5 class="panel-body">
+  <%= @airsearch.obs %>	
+  </h5>
+  <% end %>
 </div>
 
