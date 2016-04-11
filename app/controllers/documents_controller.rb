@@ -37,7 +37,8 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       
       if @document.save
-        format.html { redirect_to airsearches_path, notice: 'Arquivo salvo com sucesso.' }
+        @airsearch = document_params[:owner]
+        format.html { redirect_to airsearch_path(@airsearch), notice: 'Arquivo salvo com sucesso.' }
         format.json { render action: 'show', status: :created, location: @document }
       else
         format.html { render action: 'new' }
