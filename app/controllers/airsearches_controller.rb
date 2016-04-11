@@ -32,7 +32,18 @@ class AirsearchesController < ApplicationController
   end
 
   def index
-    @airsearches = Airsearch.all
+  if params[:tipo_consulta].blank?  
+    @airsearches = Airsearch.order(:created_at, :client).limit(50)
+  else
+    if params[:search] && params[:tipo_consulta] == "1"
+          @airsearches = Airsearch.where("client like ?", "%#{params[:search]}%")
+                                          
+            elsif params[:search] && params[:tipo_consulta] == "2"
+                @airsearches = Airsearch.where("phone like ?", "%#{params[:search]}%")
+           
+        end
+    end
+    
   end
 
   # GET /airsearches/1

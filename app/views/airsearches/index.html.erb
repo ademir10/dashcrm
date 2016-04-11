@@ -2,6 +2,24 @@
 <div class="page-header">
   <h1>Pesquisas - Transporte Aéreo</h1>
 </div>
+
+<%= form_tag(airsearches_path, method: :get) do %>
+<div class="form-group">
+		<div class="row">
+			  <div class="col-lg-3">
+			  <%= select_tag(:tipo_consulta, options_for_select([['Nome', 1], ['Celular', 2]]), include_blank: 'Pesquisar por:', class: 'form-control')%>
+			</div>
+			</div>
+		<div class="form-group">			  
+		<div class="row">
+			  <div class="col-lg-3">	  
+		<%= text_field_tag(:search, nil, placeholder: 'Digite o parametro...', class: 'form-control') %>	
+		</div>
+		</div>
+		<br />	
+		<%= submit_tag "Consultar", class: 'btn btn-success' %>
+<% end %>
+
 <table class="table table-striped">
   <thead>
     <tr>
