@@ -18,7 +18,9 @@ class AirsearchesController < ApplicationController
     
     @airsearch.update(airsearch_params)
     flash[:success] = 'Os dados foram atualizados com sucesso!'   
-    redirect_to airsearches_path and return
+    #pego o id da pesquisa pra chamar a view
+    id_airsearch = params[:id]  
+    redirect_to airsearch_path(id_airsearch) and return
    
    
     

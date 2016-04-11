@@ -41,6 +41,7 @@
         </div>
         <div class="panel-body">
   <%= f.collection_radio_buttons :q1, Answer.where(question_id: @question1.id), :id, :description %>
+  
   </div>
   </div>
   <%=f.error_span(:q1) %>
