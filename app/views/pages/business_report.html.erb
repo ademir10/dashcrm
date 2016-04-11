@@ -1,5 +1,10 @@
-<h1>Análise de rendimento dos funcionários</h1>
+<h1>Análise gráfica</h1>
 
 <h3>Percentual de pesquisas por funcionário</h3>
 
 <%= pie_chart Airsearch.group('airsearches.user').count %>
+
+<hr />
+<h3>Percentual de resultados por perfil de cliente </h3>
+
+<%= pie_chart Airsearch.group('airsearches.type_client').count %>

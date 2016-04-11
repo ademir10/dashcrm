@@ -103,6 +103,35 @@ class AirsearchesController < ApplicationController
       
       if @airsearch.save
         
+        #faz o calculo do score pra atualizar o tipo de cliente na tabela
+        score1 = Answer.find_by(id: airsearch_params[:q1])
+        score2 = Answer.find_by(id: airsearch_params[:q2])
+        score3 = Answer.find_by(id: airsearch_params[:q3])
+        score4 = Answer.find_by(id: airsearch_params[:q4])
+        score5 = Answer.find_by(id: airsearch_params[:q5])
+        score6 = Answer.find_by(id: airsearch_params[:q6])
+        score7 = Answer.find_by(id: airsearch_params[:q7])
+        score8 = Answer.find_by(id: airsearch_params[:q8])
+        score9 = Answer.find_by(id: airsearch_params[:q9])
+        score10 = Answer.find_by(id: airsearch_params[:q10])
+        
+        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
+        @total_score = @total_score / 10
+        
+        check_score = Airsearch.find_by(id: @airsearch)
+              
+              if @total_score > 0 && @total_score <= 2
+              check_score.update_attributes(type_client: 'FRIO')
+              elsif @total_score >= 3 && @total_score <= 6
+              check_score.update_attributes(type_client: 'MORNO') 
+              elsif @total_score >= 7 && @total_score <= 10 
+              check_score.update_attributes(type_client: 'QUENTE')
+              end  
+        
+        
+        
+        
+        
         #cadastrando automáticamente esse cliente pesquisado no cadastro de clientes
         client = Client.new(params[:client])
         client.name = airsearch_params[:client]
@@ -129,6 +158,34 @@ class AirsearchesController < ApplicationController
     
     respond_to do |format|
       if @airsearch.update(airsearch_params)
+        
+        #faz o calculo do score pra atualizar o tipo de cliente na tabela
+        score1 = Answer.find_by(id: airsearch_params[:q1])
+        score2 = Answer.find_by(id: airsearch_params[:q2])
+        score3 = Answer.find_by(id: airsearch_params[:q3])
+        score4 = Answer.find_by(id: airsearch_params[:q4])
+        score5 = Answer.find_by(id: airsearch_params[:q5])
+        score6 = Answer.find_by(id: airsearch_params[:q6])
+        score7 = Answer.find_by(id: airsearch_params[:q7])
+        score8 = Answer.find_by(id: airsearch_params[:q8])
+        score9 = Answer.find_by(id: airsearch_params[:q9])
+        score10 = Answer.find_by(id: airsearch_params[:q10])
+        
+        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
+        @total_score = @total_score / 10
+        
+        check_score = Airsearch.find_by(id: @airsearch)
+              
+              if @total_score > 0 && @total_score <= 2
+              check_score.update_attributes(type_client: 'FRIO')
+              elsif @total_score >= 3 && @total_score <= 6
+              check_score.update_attributes(type_client: 'MORNO') 
+              elsif @total_score >= 7 && @total_score <= 10 
+              check_score.update_attributes(type_client: 'QUENTE')
+              end  
+        
+        
+        
         format.html { redirect_to @airsearch, notice: 'Questionário atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @airsearch }
       else
