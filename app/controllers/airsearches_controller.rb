@@ -3,6 +3,23 @@ class AirsearchesController < ApplicationController
   before_action :show_question, only: [:show, :new, :edit, :update, :destroy]
   before_action :must_login
   
+  #finaliza a prospecção da pesquisa alterando o status para FINALIZADA
+  def end_research
+   @airsearch = Airsearch.find(params[:id])
+   
+    #verifica se os campos foram preenchidos antes de finalizar a pesquisa
+    if @airsearch.status.blank? || @airsearch.obs.blank? || @airsearch.reason.blank? || @airsearch.pains.blank? || @airsearch.solution_applied.blank? || @airsearch.cotation_value.blank?
+      
+      flash[:warning] = "Não é possivel finalizar uma pesquisa sem que todos os campos dela já estejam preenchidos e salvos, verifique se é realmente isso que você quer!"
+      redirect_to airsearch_path(params[:id]) and return
+    end
+    
+    Airsearch.update(params[:id], finished: 'SIM')
+    flash[:success] = 'Pesquisa finalizada com sucesso, agradecemos pelo empenho ' + current_user.name + '! ' + 'Vamos para o próximo desafio?'
+    redirect_to airsearches_path and return
+    
+  end
+  
   #para atualizar os dados como o status, agendamento e inserir arquivos para upload
   def update_status_air
     
@@ -33,7 +50,7 @@ class AirsearchesController < ApplicationController
 
   def index
   if params[:tipo_consulta].blank?  
-    @airsearches = Airsearch.order(:created_at, :client).limit(50)
+    @airsearches = Airsearch.order(:created_at, :client).where('finished = ?', 'NÃO').limit(50)
   else
     if params[:search] && params[:tipo_consulta] == "1"
           @airsearches = Airsearch.where("client like ?", "%#{params[:search]}%")
@@ -113,6 +130,7 @@ class AirsearchesController < ApplicationController
     respond_to do |format|
       @airsearch.user = current_user.name
       @airsearch.status = 'NÃO DEFINIDO'
+      @airsearch.finished = 'NÃO'
       
       if @airsearch.save
         
@@ -228,7 +246,7 @@ class AirsearchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def airsearch_params
-      params.require(:airsearch).permit(:client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :status, :obs, :schedule)
+      params.require(:airsearch).permit(:client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :status, :obs, :schedule, :reason, :pains, :solution_applied, :cotation_value, :finished)
     end
     
     def show_question

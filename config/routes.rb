@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     member do
       get 'manage_air'
       post 'update_status_air'
+      get 'end_research'
     end
   end
   resources :categories
