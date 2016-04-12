@@ -13,3 +13,11 @@
   <%= pie_chart Airsearch.group('airsearches.type_client').count %>
  </h5>
 </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading" >Vendas efetivadas por Colaborador </div>
+  <h5 class="panel-body">
+  <%= bar_chart Airsearch.order('airsearches.user').where('finished = ?', 'SIM').group('airsearches.user').sum("airsearches.cotation_value") %>
+
+ </h5>
+</div>
