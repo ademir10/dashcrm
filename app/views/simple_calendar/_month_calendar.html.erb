@@ -2,7 +2,7 @@
   <%= link_to "Anterior", url_for(params.merge(start_date: date_range.first - 1.day)), :class => 'btn btn-info btn-xs' %>
   <%= I18n.t("date.month_names")[start_date.month] %> <%= start_date.year %>
   <%= link_to "Próximo", url_for(params.merge(start_date: date_range.last + 1.day)), :class => 'btn btn-info btn-xs' %>
-
+  <p />
   <table class="table table-striped">
     <thead>
       <tr>

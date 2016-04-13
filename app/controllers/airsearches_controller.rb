@@ -38,7 +38,7 @@ class AirsearchesController < ApplicationController
     
     #verifica se a data para um novo agendamento foi inserida
     #só faz o agendamento automático se a data for informada com uma data posterior a data atual
-    if airsearch_params[:schedule].to_date > Date.today
+    if airsearch_params[:schedule].present? && airsearch_params[:schedule].to_date > Date.today
       airsearch = Airsearch.find(params[:id])
       meeting = Meeting.new(params[:meeting])
       meeting.name = airsearch.client
