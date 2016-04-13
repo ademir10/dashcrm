@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
    
+  resources :meetings
   resources :clients
   resources :documents
   resources :solutions

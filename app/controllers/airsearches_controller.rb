@@ -32,9 +32,26 @@ class AirsearchesController < ApplicationController
       flash[:warning] = 'Você informou uma data para retorno e não informou o status corretamente, volte e atualize esta pesquisa!'
       redirect_to airsearch_path(@airsearch) and return
     end
+        
     
     @airsearch.update(airsearch_params)
-    flash[:success] = 'Os dados foram atualizados com sucesso!'   
+    
+    #verifica se a data para um novo agendamento foi inserida
+    #só faz o agendamento automático se a data for informada com uma data posterior a data atual
+    if airsearch_params[:schedule].to_date > Date.today
+      airsearch = Airsearch.find(params[:id])
+      meeting = Meeting.new(params[:meeting])
+      meeting.name = airsearch.client
+      meeting.cellphone = airsearch.phone
+      meeting.start_time = airsearch_params[:schedule]
+      meeting.clerk_id = current_user.id
+      meeting.research_path = 'airsearches' + '/' + params[:id]
+      meeting.research_id = params[:id]
+      meeting.save!
+      flash[:success] = 'Os dados foram atualizados com sucesso e agendado um compromisso para o dia ' + airsearch_params[:schedule].to_time.strftime("%d/%m/%Y")
+    elsif
+    flash[:success] = 'Os dados foram atualizados com sucesso!' 
+    end  
     #pego o id da pesquisa pra chamar a view
     id_airsearch = params[:id]  
     redirect_to airsearch_path(id_airsearch) and return

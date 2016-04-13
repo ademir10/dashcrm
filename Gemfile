@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 #usando o thin server
 gem 'thin'
 
+#usando simple calendar
+gem "simple_calendar", "~> 2.0"
+
 #gerar os graficos
 gem "chartkick"
 

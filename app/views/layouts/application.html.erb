@@ -93,8 +93,8 @@
                 	
                 <li role="separator" class="divider"></li>
                 <li class="dropdown-header">Gerenciamento de pesquisas</li>
-                <% if current_user.mcli == true %>	
-                <li><%= link_to "Transporte Aéreo", '#' %></li>
+                <% if current_user.mmeeting == true %>	
+                <li><%= link_to "Agendamentos", meetings_path %></li>
                 <% end %>
                 	
                 
