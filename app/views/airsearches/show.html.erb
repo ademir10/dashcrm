@@ -1,3 +1,18 @@
+<!-- para copiar as tratativas sugeridas ao clicar na div-->
+<script>
+  $(document).ready(function() {
+    var clip = new ZeroClipboard($("#d_clip_button"))
+    
+  });
+
+function myFunction() {
+    alert("Tratativas copiadas com sucesso!, Cole as tratativas desejadas no Gerenciador (Tratativas aplicadas)");
+}
+  
+</script>
+
+
+
 <!-- CSS PARA REMOVER O BOTÃO IMPRIMIR NA VIEW DE IMPRESSÃO -->
   <style type="text/css">
 	@media print {
@@ -32,7 +47,7 @@
               airsearches_path, :class => 'btn btn-default', id: 'hide_buttom' %>
 <%= link_to 'Editar pesquisa', edit_airsearch_path(@airsearch), :class => 'btn btn-default', id: 'hide_buttom' %>
 
-<%= link_to "Inserir anexo", new_document_path(:air_id => @airsearch), class: 'btn btn-default', id: 'hide_buttom' %>
+<%= link_to "Anexos", documents_path(:id => @airsearch), class: 'btn btn-default', id: 'hide_buttom' %>
 
 <%= link_to "Gerenciar", manage_air_airsearch_path(:air_id => @airsearch), class: 'btn btn-info', id: 'hide_buttom' %>
 
@@ -59,39 +74,46 @@
   <div class="panel panel-danger">
   <div class="panel-heading">CLIENTE QUENTE - TRATATIVAS SUGERIDAS </div>
   <% end %>
-  
   <div class="panel-body">
+  <%= form_tag(manage_air_airsearch_path, method: :get) do %>
+  
+  <%= hidden_field_tag :air_id, @airsearch.id %>
+ 	
     <font color="black"><% if @show_solution1.present? %>
-    <h5><%= @show_solution1.description %></h5>
+    <h5><%= check_box_tag :t1, @show_solution1.description %> <%= @show_solution1.description %></h5>
     <% end %>
+     
     <% if @show_solution2.present? %>
-  	<h5><%= @show_solution2.description %></h5>
+  	<h5><%= check_box_tag :t2, @show_solution2.description %> <%= @show_solution2.description %></h5>
   	<% end %>
   	<% if @show_solution3.present? %>
-  	<h5><%= @show_solution3.description %></h5>
+  	<h5><%= check_box_tag :t3, @show_solution3.description %> <%= @show_solution3.description %></h5>
   	<% end %>
   	<% if @show_solution4.present? %>
-    <h5><%= @show_solution4.description %></h5>
+    <h5><%= check_box_tag :t4, @show_solution4.description %> <%= @show_solution4.description %></h5>
     <% end %>
     <% if @show_solution5.present? %>
-  	<h5><%= @show_solution5.description %></h5>
+  	<h5><%= check_box_tag :t5, @show_solution5.description %> <%= @show_solution5.description %></h5>
   	<% end %>
   	<% if @show_solution6.present? %>
-  	<h5><%= @show_solution6.description %></h5>
+  	<h5><%= check_box_tag :t6, @show_solution6.description %> <%= @show_solution6.description %></h5>
   	<% end %>
   	<% if @show_solution7.present? %>
-    <h5><%= @show_solution7.description %></h5>
+    <h5><%= check_box_tag :t7, @show_solution7.description %> <%= @show_solution7.description %></h5>
     <% end %>
     <% if @show_solution8.present? %>
-  	<h5><%= @show_solution8.description %></h5>
+  	<h5><%= check_box_tag :t8, @show_solution8.description %> <%= @show_solution8.description %></h5>
   	<% end %>
   	<% if @show_solution9.present? %>
-  	<h5><%= @show_solution9.description %></h5>
+  	<h5><%= check_box_tag :t9, @show_solution9.description %> <%= @show_solution9.description %></h5>
   	<% end %>
   	<% if @show_solution10.present? %>
-  	<h5><%= @show_solution10.description %></h5>
+  	<h5><%= check_box_tag :t10, @show_solution10.description %> <%= @show_solution10.description %></h5>
   	<% end %>
-  </font></div>
+ <%= submit_tag "Gerenciar", class: 'btn btn-primary', id: 'printbtn' %>    
+<% end %>  
+ </font>
+  </div>
   </div>
   
   <% if @airsearch.pains.present? %>
@@ -143,11 +165,6 @@
   <h5 class="form-group"><strong><%= @question10.description %>:</strong>&nbsp; <%= @q10.description %><br /></h5>
   </div>
   </div>
- 
-    
-  
-
   </dl>
   
-
-
+  

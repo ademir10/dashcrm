@@ -62,7 +62,43 @@ class AirsearchesController < ApplicationController
 
   #gerenciamento da pesquisa
   def manage_air
+  flash[:success] = params[:t1]  
   @result = Airsearch.find_by(id: params[:air_id])
+      
+      #concatenando as tratativas escolhidas para serem aplicadas
+      if params[:t1].present?
+      @solutions = params[:t1].to_s + "\n"
+      end
+      if params[:t2].present?
+      @solutions = @solutions.to_s + params[:t2].to_s + "\n"
+      end
+      if params[:t3].present?
+      @solutions = @solutions.to_s + params[:t3].to_s + "\n"
+      end
+      if params[:t4].present?
+      @solutions = @solutions.to_s + params[:t4].to_s + "\n"
+      end
+      if params[:t5].present?
+      @solutions = @solutions.to_s + params[:t5].to_s + "\n"
+      end
+      if params[:t6].present?
+      @solutions = @solutions.to_s + params[:t6].to_s + "\n"
+      end
+      if params[:t7].present?
+      @solutions = @solutions.to_s + params[:t7].to_s + "\n"
+      end
+      if params[:t8].present?
+      @solutions = @solutions.to_s + params[:t8].to_s + "\n"
+      end
+      if params[:t9].present?
+      @solutions = @solutions.to_s + params[:t9].to_s + "\n"
+      end
+      if params[:t10].present?
+      @solutions = @solutions.to_s + params[:t10].to_s + "\n"
+      end
+    
+    @result.solution_applied = @solutions
+   
   end
 
   def index
