@@ -43,13 +43,7 @@ function myFunction() {
   <% end %></h4>
   <hr />
 
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              airsearches_path, :class => 'btn btn-default', id: 'hide_buttom' %>
-<%= link_to 'Editar pesquisa', edit_airsearch_path(@airsearch), :class => 'btn btn-default', id: 'hide_buttom' %>
 
-<%= link_to "Anexos", documents_path(:id => @airsearch), class: 'btn btn-default', id: 'hide_buttom' %>
-
-<%= link_to "Gerenciar", manage_air_airsearch_path(:air_id => @airsearch), class: 'btn btn-info', id: 'hide_buttom' %>
 
 <%= link_to 'Finalizar prospecção', end_research_airsearch_path(:id=> @airsearch),class: 'btn btn-warning' %>
 
@@ -75,6 +69,7 @@ function myFunction() {
   <div class="panel-heading">CLIENTE QUENTE - TRATATIVAS SUGERIDAS </div>
   <% end %>
   <div class="panel-body">
+    	
   <%= form_tag(manage_air_airsearch_path, method: :get) do %>
   
   <%= hidden_field_tag :air_id, @airsearch.id %>
@@ -110,7 +105,14 @@ function myFunction() {
   	<% if @show_solution10.present? %>
   	<h5><%= check_box_tag :t10, @show_solution10.description %> <%= @show_solution10.description %></h5>
   	<% end %>
- <%= submit_tag "Gerenciar", class: 'btn btn-primary', id: 'printbtn' %>    
+  	
+  	<%= link_to t('.back', :default => t("helpers.links.back")),
+              airsearches_path, :class => 'btn btn-default', id: 'hide_buttom' %>
+    <%= link_to 'Editar pesquisa', edit_airsearch_path(@airsearch), :class => 'btn btn-default', id: 'hide_buttom' %>
+
+    <%= link_to "Anexos", documents_path(:id => @airsearch), class: 'btn btn-default', id: 'hide_buttom' %>	
+
+    <%= submit_tag "Gerenciar", class: 'btn btn-primary', id: 'printbtn' %>    
 <% end %>  
  </font>
   </div>
