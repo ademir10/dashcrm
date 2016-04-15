@@ -1,23 +1,18 @@
-<!-- para copiar as tratativas sugeridas ao clicar na div-->
-<script>
-  $(document).ready(function() {
-    var clip = new ZeroClipboard($("#d_clip_button"))
-    
-  });
-
-function myFunction() {
-    alert("Tratativas copiadas com sucesso!, Cole as tratativas desejadas no Gerenciador (Tratativas aplicadas)");
-}
-  
-</script>
-
-
-
 <!-- CSS PARA REMOVER O BOTÃO IMPRIMIR NA VIEW DE IMPRESSÃO -->
   <style type="text/css">
 	@media print {
     #hide_buttom {
         display :  none;
+    }
+}
+
+#printOnly {
+   display : none;
+}
+
+@media print {
+    #printOnly {
+       display : block;
     }
 }
 </style>
@@ -30,7 +25,9 @@ function myFunction() {
 <% end %>
 
 <%- model_class = Airsearch -%>
-<%= image_tag "logo_rpt.png" %>
+
+<%= image_tag "logo_rpt.png",id: 'printOnly' %>
+
 <div class="page-header">
 <h1>Dados da Pesquisa</h1>
 </div>
@@ -45,7 +42,7 @@ function myFunction() {
 
 
 
-<%= link_to 'Finalizar prospecção', end_research_airsearch_path(:id=> @airsearch),class: 'btn btn-warning' %>
+<%= link_to 'Finalizar prospecção', end_research_airsearch_path(:id=> @airsearch),class: 'btn btn-warning', id: 'hide_buttom' %>
 
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               airsearch_path(@airsearch),
@@ -112,7 +109,7 @@ function myFunction() {
 
     <%= link_to "Anexos", documents_path(:id => @airsearch), class: 'btn btn-default', id: 'hide_buttom' %>	
 
-    <%= submit_tag "Gerenciar", class: 'btn btn-primary', id: 'printbtn' %>    
+    <%= submit_tag "Gerenciar", class: 'btn btn-primary', id: 'hide_buttom' %>    
 <% end %>  
  </font>
   </div>
@@ -143,8 +140,9 @@ function myFunction() {
   </div>
  <% end %>
  
+<div id="printOnly"> 
  <div class="panel panel-default">
-  <div class="panel-heading" >RESPOSTAS </div>
+  <div class="panel-heading">RESPOSTAS </div>
   <div class="panel-body">
   <h5 class="form-group"><strong><%= @question1.description %>:</strong>&nbsp; <%= @q1.description %><br />
   </h5>
@@ -167,6 +165,8 @@ function myFunction() {
   <h5 class="form-group"><strong><%= @question10.description %>:</strong>&nbsp; <%= @q10.description %><br /></h5>
   </div>
   </div>
+  </div>
+   </div>
   </dl>
   
   

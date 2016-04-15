@@ -38,7 +38,7 @@ class AirsearchesController < ApplicationController
     
     #verifica se a data para um novo agendamento foi inserida
     #só faz o agendamento automático se a data for informada com uma data posterior a data atual
-    if airsearch_params[:schedule].present? && airsearch_params[:schedule].to_date > Date.today
+   if airsearch_params[:schedule].present? && airsearch_params[:schedule].to_date > Date.today
       airsearch = Airsearch.find(params[:id])
       meeting = Meeting.new(params[:meeting])
       meeting.name = airsearch.client
@@ -64,6 +64,9 @@ class AirsearchesController < ApplicationController
   def manage_air
   
   @result = Airsearch.find_by(id: params[:air_id])
+  
+  #apresenta sempre a data do dia para não duplicar agendamentos
+  @result.schedule = Date.today
  
   #se não tiver nada ainda cadastrado nas tratativas ai é forçado que o funcionário marque pelo menos uma opção
   if @result.solution_applied.blank?
@@ -293,6 +296,7 @@ class AirsearchesController < ApplicationController
   def destroy
     @airsearch.destroy
     Document.destroy_all(owner: @airsearch)
+    Meeting.destroy_all(research_id: @airsearch)
     respond_to do |format|
       format.html { redirect_to airsearches_url, notice: 'Questionário Excluido com sucesso.' }
       format.json { head :no_content }
