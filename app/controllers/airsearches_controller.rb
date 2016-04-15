@@ -15,7 +15,7 @@ class AirsearchesController < ApplicationController
     end
     
     Airsearch.update(params[:id], finished: 'SIM')
-    flash[:success] = 'Pesquisa finalizada com sucesso, agradecemos pelo empenho ' + current_user.name + '! ' + 'Vamos para o próximo desafio?'
+    flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
     redirect_to airsearches_path and return
     
   end
@@ -24,6 +24,38 @@ class AirsearchesController < ApplicationController
   def update_status_air
     
     @airsearch = Airsearch.find(params[:id])
+    
+    #é obrigatória a informação do status e valor cotado
+    if airsearch_params[:status].blank? || airsearch_params[:cotation_value].blank?
+      flash[:warning] = 'Em qualquer gerenciamento a informação do Valor cotado e o Status são obrigatórias, volte ao gerenciamento e atualize os dados!'
+      redirect_to airsearch_path(@airsearch) and return
+    end
+    
+    #se o cliente COMPROU
+    if airsearch_params[:status] == 'COMPROU'
+    
+    Airsearch.update(params[:id], finished: 'SIM')
+    flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
+    redirect_to airsearches_path and return  
+    end
+    
+    #se o cliente está EM ANDAMENTO ele obrigatóriamente precisa fazer um agendamento caso não tenha feito ainda nenhum
+    #com data posterior a data atual
+    if airsearch_params[:status] == 'EM ANDAMENTO' && airsearch_params[:schedule].blank?
+      check_meeting = Meeting.where(research_id: @airsearch).order("start_time DESC").first
+      
+      #se não tiver nenhum agendamento feito
+      if check_meeting.blank?
+        flash[:warning] = 'Você precisa informar uma data de agendamento para um próximo contato, não existe nenhum agendamento para este cliente.'
+        redirect_to airsearch_path(@airsearch) and return
+      end
+      
+      #se tiverem agendamentos somente com datas retroativas ao dia de hoje
+      if check_meeting.present? && check_meeting.start_time.to_date <= Date.today
+        flash[:warning] = 'Você precisa informar uma data de agendamento para um próximo contato, não existe nenhum agendamento com data posterior a hoje para este cliente.'
+        redirect_to airsearch_path(@airsearch) and return
+      end
+    end
     
     if airsearch_params[:status].blank? && airsearch_params[:schedule].blank?
       flash[:warning] = 'Informe o Status e se for o caso uma data para agendamento!'
@@ -65,8 +97,8 @@ class AirsearchesController < ApplicationController
   
   @result = Airsearch.find_by(id: params[:air_id])
   
-  #apresenta sempre a data do dia para não duplicar agendamentos
-  @result.schedule = Date.today
+  #apresenta sempre a data vazia para forçar o funcionário á fazer um novo agendamento nos casos de EM ANDAMENTO
+  @result.schedule = nil 
  
   #se não tiver nada ainda cadastrado nas tratativas ai é forçado que o funcionário marque pelo menos uma opção
   if @result.solution_applied.blank?
