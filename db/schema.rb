@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 20160413020920) do
   end
 
   create_table "meetings", force: :cascade do |t|
-    t.string   "name"
-    t.string   "cellphone"
+    t.string   "client"
+    t.string   "phone"
     t.decimal  "cotation_value"
     t.string   "status"
     t.string   "type_client"

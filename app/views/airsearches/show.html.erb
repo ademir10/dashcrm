@@ -107,7 +107,7 @@
               airsearches_path, :class => 'btn btn-default', id: 'hide_buttom' %>
     <%= link_to 'Editar pesquisa', edit_airsearch_path(@airsearch), :class => 'btn btn-default', id: 'hide_buttom' %>
 
-    <%= link_to "Anexos", documents_path(:id => @airsearch), class: 'btn btn-default', id: 'hide_buttom' %>	
+    <%= link_to "Anexos", documents_path(:id => @airsearch, :request => 'airsearches'), class: 'btn btn-default', id: 'hide_buttom' %>	
 
     <%= submit_tag "Gerenciamento", class: 'btn btn-primary', id: 'hide_buttom' %>    
 <% end %>  

@@ -1,8 +1,8 @@
 class CreateMeetings < ActiveRecord::Migration
   def change
     create_table :meetings do |t|
-      t.string :name
-      t.string :cellphone
+      t.string :client
+      t.string :phone
       t.decimal :cotation_value
       t.string :status
       t.string :type_client
