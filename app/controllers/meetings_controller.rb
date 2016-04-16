@@ -26,10 +26,16 @@ class MeetingsController < ApplicationController
   # POST /meetings.json
   def create
     @meeting = Meeting.new(meeting_params)
-
-    respond_to do |format|
+    
+    #verifica se é comprou, se for nem agenda nada
+    
+     respond_to do |format|
       if @meeting.save
-        format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
+      #pegando o id que foi salvo pra montar o path do agendamento
+       Meeting.update(@meeting.id, research_path: 'meetings' + '/' + @meeting.id.to_s, research_id: @meeting.id)
+       
+         
+        format.html { redirect_to @meeting, notice: 'Agendamento criado com sucesso.' }
         format.json { render :show, status: :created, location: @meeting }
       else
         format.html { render :new }
@@ -43,7 +49,7 @@ class MeetingsController < ApplicationController
   def update
     respond_to do |format|
       if @meeting.update(meeting_params)
-        format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
+        format.html { redirect_to @meeting, notice: 'Agendamento atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @meeting }
       else
         format.html { render :edit }
@@ -57,7 +63,7 @@ class MeetingsController < ApplicationController
   def destroy
     @meeting.destroy
     respond_to do |format|
-      format.html { redirect_to meetings_url, notice: 'Meeting was successfully destroyed.' }
+      format.html { redirect_to meetings_url, notice: 'Agendamento excluido com sucesso.' }
       format.json { head :no_content }
     end
   end
@@ -70,7 +76,7 @@ class MeetingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
-      params.require(:meeting).permit(:name, :cellphone, :start_time, :clerk_id, :research_path, :research_id)
+      params.require(:meeting).permit(:name, :cellphone, :status, :start_time, :clerk_id, :research_path, :research_id, :type_client, :obs, :cotation_value)
     end
     
     def show_user

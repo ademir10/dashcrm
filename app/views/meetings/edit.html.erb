@@ -1,6 +1,5 @@
-<h1>Editing Meeting</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @meeting %> |
-<%= link_to 'Back', meetings_path %>
+<%- model_class = Meeting -%>
+<div class="page-header">
+  <h1>Editar agendamento</h1>
+</div>
+<%= render :partial => 'form' %>

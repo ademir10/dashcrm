@@ -54,17 +54,18 @@
   <% if current_user.type_access != 'User' %>
 <h4><%= "Perfil de acesso" %></h4>
 <h5><%= "Cadastros" %></h5>
-
+  
+  <%= f.check_box :cresearch %>&nbsp;<%= f.label "agenda / pesquisas" %><br />
   <%= f.check_box :ccategory %>&nbsp;<%= f.label "categorias" %>
   <%= f.check_box :ccli %>&nbsp;<%= f.label "clientes" %>
-  <%= f.check_box :cresearch %>&nbsp;<%= f.label "pesquisas" %><br />
+  
   <%= f.check_box :cquestion %>&nbsp;<%= f.label "perguntas e respostas" %><br />
   <%= f.check_box :cadvice %>&nbsp;<%= f.label "tratativas" %>
   <%= f.check_box :cuser %>&nbsp;<%= f.label "usuários" %>
   
   <h5><%= "Administração" %></h5>
   <strong>Gerenciamento de Pesquisas</strong><br />
-     <%= f.check_box :mmeeting %>&nbsp;<%= f.label "Agendamentos" %>
+     <%= f.check_box :mmeeting %>&nbsp;<%= f.label "Agenda de compromissos" %>
   
   <h5><%= "Relatórios" %></h5><br />
   <strong>Transportes Aéreos</strong><br />

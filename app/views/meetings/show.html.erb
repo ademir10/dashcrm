@@ -1,34 +1,29 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Meeting -%>
+<div class="page-header">
+  <h1>Agendamento <%= @meeting.start_time %></h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @meeting.name %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name('nome') %>:</strong></dt>
+  <dd><%= @meeting.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name('celular') %>:</strong></dt>
+  <dd><%= @meeting.cellphone %></dd>
+  <dt><strong><%= model_class.human_attribute_name('valor cotado') %>:</strong></dt>
+  <dd><%= @meeting.cotation_value %></dd>
+  <dt><strong><%= model_class.human_attribute_name('status') %>:</strong></dt>
+  <dd><%= @meeting.status %></dd>
+  <dt><strong><%= model_class.human_attribute_name('tipo de cliente') %>:</strong></dt>
+  <dd><%= @meeting.type_client %></dd>
+  <dt><strong><%= model_class.human_attribute_name('obs') %>:</strong></dt>
+  <dd><%= @meeting.obs %></dd>
+</dl>
 
-<p>
-  <strong>Cellphone:</strong>
-  <%= @meeting.cellphone %>
-</p>
-
-<p>
-  <strong>Start time:</strong>
-  <%= @meeting.start_time %>
-</p>
-
-<p>
-  <strong>Clerk:</strong>
-  <%= @meeting.clerk_id %>
-</p>
-
-<p>
-  <strong>Research path:</strong>
-  <%= @meeting.research_path %>
-</p>
-
-<p>
-  <strong>Research:</strong>
-  <%= @meeting.research_id %>
-</p>
-
-<%= link_to 'Edit', edit_meeting_path(@meeting) %> |
-<%= link_to 'Back', meetings_path %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              meetings_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_meeting_path(@meeting), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              meeting_path(@meeting),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
