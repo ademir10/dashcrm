@@ -12,13 +12,13 @@ class DocumentsController < ApplicationController
   def index
     
     if params[:request] == 'airsearches'
-    @airsearch = Airsearch.find(params[:id])  
-    @documents = Document.where(owner: @airsearch.id).order(:created_at)
+    @data_client = Airsearch.find(params[:id])  
+    @documents = Document.where(owner: @data_client.id).order(:created_at)
     end
     
     if params[:request] == 'meetings'
-    @airsearch = Meeting.find(params[:id])  
-    @documents = Document.where(owner: @meeting.id).order(:created_at)
+    @data_client = Meeting.find(params[:id])  
+    @documents = Document.where(owner: @data_client.id).order(:created_at)
     end
     
   end
