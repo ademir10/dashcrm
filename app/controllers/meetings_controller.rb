@@ -39,9 +39,18 @@ class MeetingsController < ApplicationController
   # POST /meetings.json
   def create
     @meeting = Meeting.new(meeting_params)
+    #verifica se a data é anterior a data atual
+    if @meeting.start_time.present? && @meeting.start_time < Date.today
+      flash[:warning] = 'A data para agendamento não pode ser inferior a data atual, verifique os dados!'
+      redirect_to new_meeting_path and return
+    end
     
-    #verifica se é comprou, se for nem agenda nada
-    
+    #se marcar COMPROU é obrigatório informar o valor da venda
+    if @meeting.status == 'COMPROU' && @meeting.cotation_value.blank?
+      flash[:warning] = 'Não é possivel finalizar um atendimento onde ocorreu a compra sem informar o valor, verifique os dados!'
+      redirect_to new_meeting_path and return
+    end
+            
      respond_to do |format|
       if @meeting.save
       #pegando o id que foi salvo pra montar o path do agendamento
@@ -60,11 +69,20 @@ class MeetingsController < ApplicationController
   # PATCH/PUT /meetings/1
   # PATCH/PUT /meetings/1.json
   def update
+    
+    #se marcar COMPROU é obrigatório informar o valor da venda
+    if meeting_params[:status] == 'COMPROU' && meeting_params[:cotation_value].blank?
+    flash[:warning] = 'Não é possivel finalizar um atendimento onde ocorreu a compra sem informar o valor, verifique os dados!'
+      redirect_to meeting_path(meeting_params) and return
+    end
+    
     respond_to do |format|
       if @meeting.update(meeting_params)
+      
           #se comprou é direcionado para a agenda de compromissos
-          if @meeting.status == 'COMPROU'
-            format.html { redirect_to meetings_path, notice: 'Agendamento atualizado com sucesso.' }
+          if @meeting.status == 'COMPROU' && @meeting.cotation_value.present?
+            flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
+            redirect_to meetings_path and return
             else
             format.html { redirect_to @meeting, notice: 'Agendamento atualizado com sucesso.' }
           end
@@ -95,7 +113,7 @@ class MeetingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
-      params.require(:meeting).permit(:client, :phone, :status, :start_time, :clerk_id, :research_path, :research_id, :type_client, :obs, :cotation_value)
+      params.require(:meeting).permit(:client, :phone, :status, :start_time, :clerk_id, :research_path, :research_id, :type_client, :obs, :cotation_value, :clerk_name)
     end
     
     def show_user

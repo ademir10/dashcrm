@@ -8,8 +8,10 @@
   <dd><%= @meeting.client %></dd>
   <dt><strong><%= model_class.human_attribute_name('celular') %>:</strong></dt>
   <dd><%= @meeting.phone %></dd>
+  <% if @meeting.cotation_value.present? %>
   <dt><strong><%= model_class.human_attribute_name('valor R$') %>:</strong></dt>
   <dd><%= @meeting.cotation_value %></dd></h4>
+  <% end %>
 </dl>
 
 

@@ -1,23 +1,32 @@
 <h1>Análises gráficas <%= image_tag 'chart.png' %></h1>
  
 <div class="panel panel-default">
-  <div class="panel-heading" >Percentual de pesquisas por funcionário </div>
+  <div class="panel-heading" >Percentual de pesquisas por funcionários </div>
   <h5 class="panel-body">
+  <font color="blue">Transporte Aéreo</font>	
   <%= pie_chart Airsearch.group('airsearches.user').count %>
+  <font color="blue">Outros Agendamentos</font>
+  <%= pie_chart Meeting.group('meetings.clerk_name').count %>
   </h5>
   </div>
 
 <div class="panel panel-default">
   <div class="panel-heading" >Percentual de resultados por perfil de cliente </div>
   <h5 class="panel-body">
+  <font color="blue">Transporte Aéreo</font>
   <%= pie_chart Airsearch.group('airsearches.type_client').count %>
+  <font color="blue">Outros Agendamentos</font>
+  <%= pie_chart Meeting.group('meetings.type_client').count %>
  </h5>
 </div>
 
 <div class="panel panel-default">
   <div class="panel-heading" >Vendas efetivadas por Colaborador </div>
   <h5 class="panel-body">
+   <font color="blue">Transporte Aéreo</font>		
   <%= bar_chart Airsearch.order('airsearches.user').where('finished = ?', 'SIM').group('airsearches.user').sum("airsearches.cotation_value") %>
-
+  <font color="blue">Outros Agendamentos</font>
+  <%= bar_chart Meeting.order('meetings.clerk_name').where('status = ?', 'COMPROU').group('meetings.clerk_name').sum("meetings.cotation_value") %>
+  
  </h5>
 </div>

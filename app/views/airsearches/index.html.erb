@@ -19,6 +19,7 @@
 		<br />	
 		<%= submit_tag "Consultar", class: 'btn btn-success' %>
 <% end %>
+<%= link_to t('.new', :default => t("helpers.links.new")), new_airsearch_path, :class => 'btn btn-primary' %>
 
 <table class="table table-striped">
   <thead>
@@ -52,6 +53,3 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_airsearch_path,
-            :class => 'btn btn-primary' %>

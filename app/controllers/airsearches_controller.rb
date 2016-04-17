@@ -44,7 +44,7 @@ class AirsearchesController < ApplicationController
     Meeting.destroy_all(research_id: @airsearch)
     
     flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
-    redirect_to airsearches_path and return  
+    redirect_to meetings_path and return  
     end
     
     #se o cliente está EM ANDAMENTO ele obrigatóriamente precisa fazer um agendamento caso não tenha feito ainda nenhum

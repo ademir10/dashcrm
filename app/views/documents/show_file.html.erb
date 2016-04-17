@@ -1,12 +1,9 @@
-            <div class="col-md-10">
-                <div class="well">
-                     <h5 class="text-primary">Imagem</h5>
-				 <div align="center" class="embed-responsive embed-responsive-16by9">
-                <%= image_tag url_for(:controller => "documents", :action => "show", :id => @document.id) %>
-                </div>
-                
-                </div>
-            </div>
+
+<%= link_to 'Voltar', meetings_path, :class => 'btn btn-default' %>
+<p>
+	 <div background-image: background-size: cover; border: 2px solid darkgray; color: #000; text-shadow: 1px 1px 0 #fff;>
+     <%= image_tag url_for(:controller => "documents", :action => "show", :id => @document.id) %>
+     </div>
 
 
 
