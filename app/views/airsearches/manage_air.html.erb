@@ -38,7 +38,7 @@
   <div class="form-group">
     <%= f.label 'Status', :class => 'control-label col-lg-2' %>
     <div class="col-lg-3">
-      <%= f.select(:status, options_for_select([["COMPROU"], ["EM ANDAMENTO"],["NÃO COMPROU"]], @result.status), {include_blank: 'Selecione o Status'}, :class => 'form-control') %>
+      <%= f.select(:status, options_for_select([["COMPROU"], ["EM ANDAMENTO"]], @result.status), {include_blank: 'Selecione o Status'}, :class => 'form-control') %>
     </div>
     <%=f.error_span(:status) %>
   </div>
