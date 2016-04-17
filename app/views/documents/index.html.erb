@@ -37,6 +37,6 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_document_path(:air_id => @airsearch),
+            new_document_path(:id => @data_client, :request => @type_research),
             :class => 'btn btn-primary' %>
 <%= link_to 'Cancelar', airsearches_path ,class: 'btn btn-default' %>

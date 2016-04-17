@@ -14,11 +14,15 @@ class DocumentsController < ApplicationController
     if params[:request] == 'airsearches'
     @data_client = Airsearch.find(params[:id])  
     @documents = Document.where(owner: @data_client.id).order(:created_at)
+    #pra guardar o tipo de pesquisa na hora de pedir um novo anexo
+    @type_research = 'airsearches'
     end
     
     if params[:request] == 'meetings'
     @data_client = Meeting.find(params[:id])  
     @documents = Document.where(owner: @data_client.id).order(:created_at)
+    #pra guardar o tipo de pesquisa na hora de pedir um novo anexo
+    @type_research = 'meetings'
     end
     
   end
@@ -33,9 +37,16 @@ class DocumentsController < ApplicationController
 
   # GET /documents/new
   def new
-    @airsearch = Airsearch.find_by_id(params[:air_id])
-    
+    if params[:request] == 'airsearches'
+      @research = Airsearch.find_by_id(params[:id])
+      @type_research = 'airsearches'
+    end
+        if params[:request] == 'meetings'
+      @research = Meeting.find_by_id(params[:id])
+      @type_research = 'meetings'
+    end
     @document = Document.new
+    
   end
 
   # POST /documents
@@ -46,8 +57,18 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       
       if @document.save
+        #se for um anexo de pesquisa de transportes aéreos
+        if @document.type_research == 'airsearches'
         @airsearch = document_params[:owner]
         format.html { redirect_to airsearch_path(@airsearch), notice: 'Arquivo salvo com sucesso.' }
+        end
+        #se for um anexo vindo de um agendamento simples
+        if @document.type_research == 'meetings'
+        @meeting = document_params[:owner]
+        format.html { redirect_to meeting_path(@meeting), notice: 'Arquivo salvo com sucesso.' }
+        end
+        
+        
         format.json { render action: 'show', status: :created, location: @document }
       else
         format.html { render action: 'new' }
@@ -74,6 +95,6 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:file, :owner)
+      params.require(:document).permit(:file, :owner, :type_research)
     end
 end

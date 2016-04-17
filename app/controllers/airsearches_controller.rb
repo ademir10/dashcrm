@@ -50,7 +50,7 @@ class AirsearchesController < ApplicationController
     #se o cliente está EM ANDAMENTO ele obrigatóriamente precisa fazer um agendamento caso não tenha feito ainda nenhum
     #com data posterior a data atual
     if airsearch_params[:status] == 'EM ANDAMENTO' && airsearch_params[:schedule].blank?
-      check_meeting = Meeting.where(research_id: @airsearch).order("start_time DESC").first
+      check_meeting = Meeting.where(research_id: @airsearch).where("research_path LIKE ?", "%#{'airsearch'}%").order("start_time DESC").first
       
       #se não tiver nenhum agendamento feito
       if check_meeting.blank?
@@ -81,8 +81,11 @@ class AirsearchesController < ApplicationController
    if airsearch_params[:schedule].present? && airsearch_params[:schedule].to_date > Date.today
       airsearch = Airsearch.find(params[:id])
       meeting = Meeting.new(params[:meeting])
-      meeting.name = airsearch.client
-      meeting.cellphone = airsearch.phone
+      meeting.client = airsearch.client
+      meeting.phone = airsearch.phone
+      meeting.cotation_value = airsearch.cotation_value
+      meeting.status = airsearch.status
+      meeting.type_client = airsearch.type_client
       meeting.start_time = airsearch_params[:schedule]
       meeting.clerk_id = current_user.id
       meeting.research_path = 'airsearches' + '/' + params[:id]

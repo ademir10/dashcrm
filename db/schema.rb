@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413020920) do
+ActiveRecord::Schema.define(version: 20160417033033) do
 
   create_table "advices", force: :cascade do |t|
     t.string   "description"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20160413020920) do
     t.binary   "file_contents"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "type_research"
   end
 
   create_table "expire_dates", force: :cascade do |t|

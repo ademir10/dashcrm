@@ -15,7 +15,10 @@
     </div>
   <% end %>
 
-      <%= f.hidden_field :owner, :class => 'form-control', readonly: true, value: @airsearch.id %>
+      <%= f.hidden_field :owner, value: @research.id %>
+      
+      <%= f.hidden_field :type_research, value: @type_research %>
+
 
   <div class="form-group">
     <%= f.label 'arquivo', :class => 'control-label col-lg-2' %>

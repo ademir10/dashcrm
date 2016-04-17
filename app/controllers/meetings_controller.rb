@@ -62,6 +62,7 @@ class MeetingsController < ApplicationController
   # DELETE /meetings/1.json
   def destroy
     @meeting.destroy
+    Document.destroy_all(owner: @meeting)
     respond_to do |format|
       format.html { redirect_to meetings_url, notice: 'Agendamento excluido com sucesso.' }
       format.json { head :no_content }
