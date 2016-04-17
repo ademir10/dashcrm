@@ -5,7 +5,20 @@ class MeetingsController < ApplicationController
   # GET /meetings
   # GET /meetings.json
   def index
-    @meetings = Meeting.where(clerk_id: current_user.id)
+    
+    #se for um usuario com perfil de administrador ele pode selecionar a agenda desejada por fucionario
+    #ou exibir o agendamento de todos
+    if params[:user_id].present?
+    @meetings = Meeting.where(clerk_id: params[:user_id]).where('status != ?', 'COMPROU')
+    elsif params[:user_id].blank?
+    @meetings = Meeting.where('status != ?', 'COMPROU')
+    end
+    
+    #se não tiver filtro e for um mero usuario é carregado somente os agendamentos dele
+    if current_user.type_access == 'USER'
+    @meetings = Meeting.where(clerk_id: current_user.id).where('status != ?', 'COMPROU')
+    end
+    
   end
 
   # GET /meetings/1
@@ -49,7 +62,12 @@ class MeetingsController < ApplicationController
   def update
     respond_to do |format|
       if @meeting.update(meeting_params)
-        format.html { redirect_to @meeting, notice: 'Agendamento atualizado com sucesso.' }
+          #se comprou é direcionado para a agenda de compromissos
+          if @meeting.status == 'COMPROU'
+            format.html { redirect_to meetings_path, notice: 'Agendamento atualizado com sucesso.' }
+            else
+            format.html { redirect_to @meeting, notice: 'Agendamento atualizado com sucesso.' }
+          end
         format.json { render :show, status: :ok, location: @meeting }
       else
         format.html { render :edit }

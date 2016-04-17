@@ -38,7 +38,7 @@
         <td><%= airsearch.status %></td>
         <td><%= airsearch.created_at %></td>
         <td>
-        <%= link_to 'anexos', documents_path(:id=> airsearch.id), class: 'btn btn-primary btn-xs'%>	
+        <%= link_to 'anexos', documents_path(:id=> airsearch.id, :request=> 'airsearches'), class: 'btn btn-primary btn-xs'%>	
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_airsearch_path(airsearch), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

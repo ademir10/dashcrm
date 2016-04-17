@@ -4,25 +4,20 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name('nome') %>:</strong></dt>
+  <h4><dt><strong><%= model_class.human_attribute_name('nome') %>:</strong></dt>
   <dd><%= @meeting.client %></dd>
   <dt><strong><%= model_class.human_attribute_name('celular') %>:</strong></dt>
   <dd><%= @meeting.phone %></dd>
-  <dt><strong><%= model_class.human_attribute_name('valor cotado') %>:</strong></dt>
-  <dd><%= @meeting.cotation_value %></dd>
-  <dt><strong><%= model_class.human_attribute_name('status') %>:</strong></dt>
-  <dd><%= @meeting.status %></dd>
-  <dt><strong><%= model_class.human_attribute_name('tipo de cliente') %>:</strong></dt>
-  <dd><%= @meeting.type_client %></dd>
-  <dt><strong><%= model_class.human_attribute_name('obs') %>:</strong></dt>
-  <dd><%= @meeting.obs %></dd>
+  <dt><strong><%= model_class.human_attribute_name('valor R$') %>:</strong></dt>
+  <dd><%= @meeting.cotation_value %></dd></h4>
 </dl>
 
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               meetings_path, :class => 'btn btn-default'  %>
-<%= link_to 'Gerenciamento', edit_meeting_path(@meeting), :class => 'btn btn-primary' %>
 <%= link_to "Anexos", documents_path(:id => @meeting, :request => 'meetings'), class: 'btn btn-default', id: 'hide_buttom' %>	
+
+<%= link_to 'Gerenciamento', edit_meeting_path(@meeting), :class => 'btn btn-primary' %>
               
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               meeting_path(@meeting),
