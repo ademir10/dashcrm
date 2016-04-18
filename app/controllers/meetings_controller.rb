@@ -104,6 +104,7 @@ class MeetingsController < ApplicationController
   # DELETE /meetings/1.json
   def destroy
     @meeting.destroy
+    #tive que fazer essa query junto com o delete pra escluir com dois parametros
     Document.where(owner: @meeting).where(type_research: params[:request]).delete_all
     flash[:success] = 'Agendamento excluido com sucesso.'
       redirect_to meetings_url and return
