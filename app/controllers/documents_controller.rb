@@ -13,14 +13,14 @@ class DocumentsController < ApplicationController
     
     if params[:request] == 'airsearches'
     @data_client = Airsearch.find(params[:id])  
-    @documents = Document.where(owner: @data_client.id).order(:created_at)
+    @documents = Document.where(owner: @data_client.id).where(type_research: params[:request]).order(:created_at)
     #pra guardar o tipo de pesquisa na hora de pedir um novo anexo
     @type_research = 'airsearches'
     end
     
     if params[:request] == 'meetings'
     @data_client = Meeting.find(params[:id])  
-    @documents = Document.where(owner: @data_client.id).order(:created_at)
+    @documents = Document.where(owner: @data_client.id).where(type_research: params[:request]).order(:created_at)
     #pra guardar o tipo de pesquisa na hora de pedir um novo anexo
     @type_research = 'meetings'
     end

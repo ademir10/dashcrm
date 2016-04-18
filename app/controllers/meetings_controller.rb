@@ -56,9 +56,15 @@ class MeetingsController < ApplicationController
       #pegando o id que foi salvo pra montar o path do agendamento
        Meeting.update(@meeting.id, research_path: 'meetings' + '/' + @meeting.id.to_s, research_id: @meeting.id)
        
-         
+       if @meeting.status == 'COMPROU'
+        flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
+        redirect_to meetings_path and return
+        else
         format.html { redirect_to @meeting, notice: 'Agendamento criado com sucesso.' }
-        format.json { render :show, status: :created, location: @meeting }
+        format.json { render :show, status: :created, location: @meeting }  
+       end 
+         
+        
       else
         format.html { render :new }
         format.json { render json: @meeting.errors, status: :unprocessable_entity }
@@ -98,11 +104,9 @@ class MeetingsController < ApplicationController
   # DELETE /meetings/1.json
   def destroy
     @meeting.destroy
-    Document.destroy_all(owner: @meeting)
-    respond_to do |format|
-      format.html { redirect_to meetings_url, notice: 'Agendamento excluido com sucesso.' }
-      format.json { head :no_content }
-    end
+    Document.where(owner: @meeting).where(type_research: params[:request]).delete_all
+    flash[:success] = 'Agendamento excluido com sucesso.'
+      redirect_to meetings_url and return
   end
 
   private
