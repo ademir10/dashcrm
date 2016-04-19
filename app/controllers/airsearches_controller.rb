@@ -264,19 +264,18 @@ class AirsearchesController < ApplicationController
         @total_score = @total_score / 10
         
         check_score = Airsearch.find_by(id: @airsearch)
-              
-              if @total_score > 0 && @total_score <= 2
+        
+        #pegando os ranges cadastrado na categoria criada
+        @ranges = Category.find_by(link: 'airsearches')
+             
+              if @total_score > @ranges.r1.to_i && @total_score <= @ranges.r2.to_i
               check_score.update_attributes(type_client: 'FRIO')
-              elsif @total_score >= 3 && @total_score <= 6
+              elsif @total_score >= @ranges.r3.to_i && @total_score <= @ranges.r4.to_i
               check_score.update_attributes(type_client: 'MORNO') 
-              elsif @total_score >= 7 && @total_score <= 10 
+              elsif @total_score >= @ranges.r5.to_i && @total_score <= @ranges.r6.to_i
               check_score.update_attributes(type_client: 'QUENTE')
               end  
-        
-        
-        
-        
-        
+                
         #cadastrando automáticamente esse cliente pesquisado no cadastro de clientes
         client = Client.new(params[:client])
         client.name = airsearch_params[:client]
@@ -320,17 +319,18 @@ class AirsearchesController < ApplicationController
         @total_score = @total_score / 10
         
         check_score = Airsearch.find_by(id: @airsearch)
-              
-              if @total_score > 0 && @total_score <= 2
+        
+        #pegando os ranges cadastrado na categoria criada
+        @ranges = Category.find_by(link: 'airsearches')
+             
+              if @total_score > @ranges.r1.to_i && @total_score <= @ranges.r2.to_i
               check_score.update_attributes(type_client: 'FRIO')
-              elsif @total_score >= 3 && @total_score <= 6
+              elsif @total_score >= @ranges.r3.to_i && @total_score <= @ranges.r4.to_i
               check_score.update_attributes(type_client: 'MORNO') 
-              elsif @total_score >= 7 && @total_score <= 10 
+              elsif @total_score >= @ranges.r5.to_i && @total_score <= @ranges.r6.to_i
               check_score.update_attributes(type_client: 'QUENTE')
               end  
-        
-        
-        
+           
         format.html { redirect_to @airsearch, notice: 'Questionário atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @airsearch }
       else

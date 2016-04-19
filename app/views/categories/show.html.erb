@@ -10,12 +10,24 @@
   <dt><strong><%= model_class.human_attribute_name('link da pagina') %>:</strong></dt>
   <dd><%= @category.link %></dd>
   <% end %>
+  
+  <% if @category.link != 'meetings/new' %>  
+  <hr />
+  <h3>Range de perfis do cliente</h3>
+  <h4><font color="red">Cliente Frio:</font></h4>
+  de <b><%= @category.r1 %></b> até <b><%= @category.r2 %></b>
+  <h4><font color="orange">Cliente Morno:</font></h5>
+  de <b><%= @category.r3 %></b> até <b><%= @category.r4 %></b>
+  <h4><font color="green">Cliente Quente:</font></h4>
+  de <b><%= @category.r5 %></b> até <b><%= @category.r6 %></b>
+  <% end %>
 </dl>
-
+ 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               categories_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_category_path(@category), :class => 'btn btn-default' %>
+<% if @category.link != 'meetings/new' %>              
+<%= link_to t('.edit', :default => t("helpers.links.edit")), edit_category_path(@category), :class => 'btn btn-default' %>
+<% end %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               category_path(@category),
               :method => 'delete',

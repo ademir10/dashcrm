@@ -33,6 +33,30 @@
   </div>
   <% end %>
     
+  <hr />
+  <h3>Editar range de perfis</h3>
+  
+  <h5>Cliente Frio: </h5>
+  <div class="input-group col-lg-2">
+  <%= f.number_field :r1, class: 'form-control', placeholder: "de" %>  
+  <span class="input-group-addon">-</span>
+  <%= f.number_field :r2, class: 'form-control', placeholder: "até" %> 
+  </div>
+  
+  <h5>Cliente Morno: </h5>
+  <div class="input-group col-lg-2">
+  <%= f.number_field :r3, class: 'form-control', placeholder: "de" %>  
+  <span class="input-group-addon">-</span>
+  <%= f.number_field :r4, class: 'form-control', placeholder: "até" %> 
+  </div>
+  
+  <h5>Cliente Quente: </h5>
+  <div class="input-group col-lg-2">
+  <%= f.number_field :r5, class: 'form-control', placeholder: "de" %>  
+  <span class="input-group-addon">-</span>
+  <%= f.number_field :r6, class: 'form-control', placeholder: "até" %> 
+  </div>
+    
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit 'Salvar', :class => 'btn btn-primary' %>

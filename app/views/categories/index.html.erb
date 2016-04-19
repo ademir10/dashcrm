@@ -16,8 +16,9 @@
         <td><%= link_to category.name, category_path(category) %></td>
         <td><%= category.created_at.strftime("%d/%m/%Y")%></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_category_path(category), :class => 'btn btn-default btn-xs' %>
+        <% if category.link != 'meetings/new' %>	
+          <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_category_path(category), :class => 'btn btn-default btn-xs' %>
+        <% end %>  
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       category_path(category),
                       :method => :delete,
