@@ -1,0 +1,8 @@
+DOCUMENTAÇÃO PARA CRIAR NOVAS PESQUISAS COM BASE EM MODELO EXISTENTE
+1º - fazer um scaffold sem nenhum campo informado, somente pra que seja criada a migration e as views em branco
+2º - copiar o conteúdo da migration modelo para a nova migration e fazer o rake db:migrate
+3º - criar as views adicionais e inseri-las no arquivo de rotas
+4º - deixo o model igual ao da pesquisa modelo
+5º - copiar o conteudo de todas as views da pesquisa modelo para as views do scaffold substituindo o nome do modelo em tudo
+6º - copiar o conteudo do controller e deixar igual, alterando somente o nome do modelo e a quantidade de perguntas se 
+for maior ou menor que 10

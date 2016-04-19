@@ -12,7 +12,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.includes(:category).order(:category_id, :description)
+    @questions = Question.includes(:category).order('updated_at DESC')
     
   end
 
@@ -84,6 +84,6 @@ class QuestionsController < ApplicationController
     end
     
     def show_category
-      @categories = Category.order(:name)
+      @categories = Category.where('link != ?', 'meetings/new').order(:name)
     end
 end

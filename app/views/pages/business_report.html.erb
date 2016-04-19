@@ -36,12 +36,21 @@
   <% if @datainicial.present? && @datafinal.present? %>
   <font color="blue">Transporte Aéreo</font>
   <%= pie_chart Airsearch.where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).group('airsearches.user').count %>
-  <font color="blue">Outros Agendamentos</font>
+  
+  <font color="blue">Transporte Rodoviário</font>
+  <%= pie_chart Rodosearch.where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).group('rodosearches.user').count %>
+
+  
+  <font color="blue">Agendamentos</font>
   <%= pie_chart Meeting.where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).group('meetings.clerk_name').count %>
   <% else %>
   <font color="blue">Transporte Aéreo</font>
   <%= pie_chart Airsearch.where("created_at::date = ?", Date.today).group('airsearches.user').count %>
-  <font color="blue">Outros Agendamentos</font>
+  
+  <font color="blue">Transporte Rodoviário</font>
+  <%= pie_chart Rodosearch.where("created_at::date = ?", Date.today).group('rodosearches.user').count %>
+  
+  <font color="blue">Agendamentos</font>
   <%= pie_chart Meeting.where("created_at::date = ?", Date.today).group('meetings.clerk_name').count %>  
   <% end %>
   </h5>
@@ -53,12 +62,21 @@
   <% if @datainicial.present? && @datafinal.present? %>
   <font color="blue">Transporte Aéreo</font>
   <%= pie_chart Airsearch.where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).group('airsearches.type_client').count %>
-  <font color="blue">Outros Agendamentos</font>
+  
+  <font color="blue">Transporte Rodoviário</font>
+  <%= pie_chart Rodosearch.where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).group('rodosearches.type_client').count %>
+  
+  <font color="blue">Agendamentos</font>
   <%= pie_chart Meeting.where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).group('meetings.type_client').count %>
   <% else %>	
   <font color="blue">Transporte Aéreo</font>
   <%= pie_chart Airsearch.where("created_at::date = ?", Date.today).group('airsearches.type_client').count %>
-  <font color="blue">Outros Agendamentos</font>
+  
+  <font color="blue">Transporte Rodoviário</font>
+  <%= pie_chart Rodosearch.where("created_at::date = ?", Date.today).group('rodosearches.type_client').count %>
+
+  
+  <font color="blue">Agendamentos</font>
   <%= pie_chart Meeting.where("created_at::date = ?", Date.today).group('meetings.type_client').count %>
   <% end %>
  </h5>
@@ -68,14 +86,24 @@
   <div class="panel-heading" >Vendas efetivadas por Colaborador </div>
   <h5 class="panel-body">
   <% if @datainicial.present? && @datafinal.present? %>	
-   <font color="blue">Transporte Aéreo</font>		
+  
+  <font color="blue">Transporte Aéreo</font>		
   <%= bar_chart Airsearch.order('airsearches.user').where("updated_at::date BETWEEN ? AND ?", @datainicial, @datafinal).where('finished = ?', 'SIM').group('airsearches.user').sum("airsearches.cotation_value") %>
-  <font color="blue">Outros Agendamentos</font>
+  
+  <font color="blue">Transporte Rodoviário</font>		
+  <%= bar_chart Rodosearch.order('rodosearches.user').where("updated_at::date BETWEEN ? AND ?", @datainicial, @datafinal).where('finished = ?', 'SIM').group('rodosearches.user').sum("rodosearches.cotation_value") %>
+  
+  <font color="blue">Agendamentos</font>
   <%= bar_chart Meeting.order('meetings.clerk_name').where("updated_at::date BETWEEN ? AND ?", @datainicial, @datafinal).where('status = ?', 'COMPROU').group('meetings.clerk_name').sum("meetings.cotation_value") %>
   <% else %>
-   <font color="blue">Transporte Aéreo</font>		
+  <font color="blue">Transporte Aéreo</font>		
   <%= bar_chart Airsearch.order('airsearches.user').where("updated_at::date = ?", Date.today).where('finished = ?', 'SIM').group('airsearches.user').sum("airsearches.cotation_value") %>
-  <font color="blue">Outros Agendamentos</font>
+  
+  <font color="blue">Transporte Rodoviário</font>		
+  <%= bar_chart Rodosearch.order('rodosearches.user').where("updated_at::date = ?", Date.today).where('finished = ?', 'SIM').group('rodosearches.user').sum("rodosearches.cotation_value") %>
+
+  
+  <font color="blue">Agendamentos</font>
   <%= bar_chart Meeting.order('meetings.clerk_name').where("updated_at::date = ?", Date.today).where('status = ?', 'COMPROU').group('meetings.clerk_name').sum("meetings.cotation_value") %>
 
   <% end %>

@@ -20,7 +20,9 @@
 <h1>Relatório análitico de vendas <%= image_tag 'analitic_report.png' %></h1>
  <% if params[:date1].present? && params[:date2].present? %>
  <div id="printOnly">
+ <%if params[:seller].present? %>	
  <h4>Vendedor: <%= params[:seller] %></h4>
+ <% end %>
  <h4>Periodo: <%= params[:date1].to_date %> até <%= params[:date2].to_date %></h4>
  </div>
  <% end %>
@@ -114,5 +116,39 @@
    </table>
   </h5>
 </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading" >Transportes Rodoviários - Total vendido R$: <b><%= @total_rodosearch %></b></div>
+  <h5 class="panel-body">
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th> <%= 'cliente' %></th>
+      <th><%= 'fone' %></th>
+      <th><%= 'valor cotado R$' %></th>
+      <th><%= 'vendedor' %></th>
+      <th><%= 'vendido em' %></th>
+                
+    </tr>
+  </thead>
+  <tbody>
+ 
+ 	<% @rodosearch.each do |f| %>
+ 	    <tr>
+        <td><%= f.client %></td>
+        <td><%= f.phone %></td>
+        <td><%= f.cotation_value %></td>
+        <td><%= f.user %></td>
+        <td><%= f.updated_at.strftime("%d/%m/%Y") %></td>
+      </tr>
+      <% end %>
+       </tbody>
+       
+   </table>
+  </h5>
+</div>
+<h2 class="panel-body">Total Geral vendido R$: <strong><%= @total_geral %></strong></h2>
 </div>    	
-<h4>Total Geral vendido R$: <strong><%= @total_geral %></strong></h4>
+
+

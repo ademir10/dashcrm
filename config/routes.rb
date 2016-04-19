@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
    
+  #transporte rodoviario
+  resources :rodosearches do
+  member do
+      get 'manage_air'
+      post 'update_status_air'
+     end
+  end  
+  
   resources :meetings
   resources :clients
   resources :documents
@@ -9,6 +17,7 @@ Rails.application.routes.draw do
   resources :answers 
   end
   
+  #transporte aéreo
   resources :airsearches do
     member do
       get 'manage_air'

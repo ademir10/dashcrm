@@ -25,6 +25,13 @@ class DocumentsController < ApplicationController
     @type_research = 'meetings'
     end
     
+    if params[:request] == 'rodosearches'
+    @data_client = Rodosearch.find(params[:id])  
+    @documents = Document.where(owner: @data_client.id).where(type_research: params[:request]).order(:created_at)
+    #pra guardar o tipo de pesquisa na hora de pedir um novo anexo
+    @type_research = 'rodosearches'
+    end
+    
   end
 
   # GET /documents/1
@@ -45,6 +52,12 @@ class DocumentsController < ApplicationController
       @research = Meeting.find_by_id(params[:id])
       @type_research = 'meetings'
     end
+    
+    if params[:request] == 'rodosearches'
+      @research = Rodosearch.find_by_id(params[:id])
+      @type_research = 'rodosearches'
+    end
+    
     @document = Document.new
     
   end
@@ -67,6 +80,11 @@ class DocumentsController < ApplicationController
         @meeting = document_params[:owner]
         format.html { redirect_to meeting_path(@meeting), notice: 'Arquivo salvo com sucesso.' }
         end
+        #se for um anexo de pesquisa de transportes rodoviarios
+        if @document.type_research == 'rodosearches'
+        @rodosearch = document_params[:owner]
+        format.html { redirect_to rodosearch_path(@rodosearch), notice: 'Arquivo salvo com sucesso.' }
+        end
         
         
         format.json { render action: 'show', status: :created, location: @document }
@@ -82,7 +100,7 @@ class DocumentsController < ApplicationController
   def destroy
     @document.destroy
     respond_to do |format|
-      format.html { redirect_to airsearches_path }
+      format.html { redirect_to meetings_path }
       format.json { head :no_content }
     end
   end

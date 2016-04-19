@@ -1,4 +1,4 @@
-<h1>Gerenciamento de Pesquisa - Transporte Aéreo</h1>
+<h1>Gerenciamento de Pesquisa - Transporte Rodoviário</h1>
 
 <h3>Dados do cliente</h3>
 
@@ -8,7 +8,7 @@
   </dl>
   <hr />
     
-  <%= form_for(@result, :html => { :class => "form-horizontal invoice" }, url: update_status_air_airsearch_path, method: :post) do |f| %>
+  <%= form_for(@result, :html => { :class => "form-horizontal invoice" }, url: update_status_air_rodosearch_path, method: :post) do |f| %>
   
 	  <% if @result.errors.any? %>
 	    <div id="error_expl" class="panel panel-danger">
@@ -85,7 +85,7 @@
   
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
-  <%= link_to 'Voltar', airsearches_path ,class: 'btn btn-default' %>
+  <%= link_to 'Voltar', rodosearches_path ,class: 'btn btn-default' %>
   <%= f.submit 'Salvar', class: 'btn btn-primary' %>
   
   </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418231723) do
+ActiveRecord::Schema.define(version: 20160419120728) do
 
   create_table "advices", force: :cascade do |t|
     t.string   "description"
@@ -120,6 +120,36 @@ ActiveRecord::Schema.define(version: 20160418231723) do
 
   add_index "questions", ["category_id"], name: "index_questions_on_category_id", using: :btree
 
+  create_table "rodosearches", force: :cascade do |t|
+    t.string   "user"
+    t.string   "client"
+    t.string   "type_client"
+    t.string   "phone"
+    t.integer  "q1"
+    t.integer  "q2"
+    t.integer  "q3"
+    t.integer  "q4"
+    t.integer  "q5"
+    t.integer  "q6"
+    t.integer  "q7"
+    t.integer  "q8"
+    t.integer  "q9"
+    t.integer  "q10"
+    t.decimal  "cotation_value"
+    t.string   "status"
+    t.string   "reason"
+    t.string   "pains"
+    t.string   "solution_applied"
+    t.string   "schedule"
+    t.string   "obs"
+    t.string   "finished"
+    t.integer  "user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "rodosearches", ["user_id"], name: "index_rodosearches_on_user_id", using: :btree
+
   create_table "solutions", force: :cascade do |t|
     t.integer  "answer_id"
     t.string   "description"
@@ -154,5 +184,6 @@ ActiveRecord::Schema.define(version: 20160418231723) do
   add_foreign_key "airsearches", "users"
   add_foreign_key "answers", "questions"
   add_foreign_key "questions", "categories"
+  add_foreign_key "rodosearches", "users"
   add_foreign_key "solutions", "answers"
 end

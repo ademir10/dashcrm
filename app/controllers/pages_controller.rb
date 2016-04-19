@@ -32,7 +32,11 @@ class PagesController < ApplicationController
       @airsearch = Airsearch.where(status: 'COMPROU').where("updated_at::Date ?",Date.today).order(:updated_at)
       @total_airsearch = Airsearch.where(status: 'COMPROU').where("updated_at::Date ?",Date.today).sum(:cotation_value)
       
-      @total_geral = @total_meeting.to_f + @total_airsearch.to_f
+      @rodosearch = Rodosearch.where(status: 'COMPROU').where("updated_at::Date ?",Date.today).order(:updated_at)
+      @total_rodosearch = Rodosearch.where(status: 'COMPROU').where("updated_at::Date ?",Date.today).sum(:cotation_value)
+
+      
+      @total_geral = @total_meeting.to_f + @total_airsearch.to_f + @total_rodosearch.to_f
       @total_geral = @total_geral.round(2)
     end
     
@@ -44,7 +48,11 @@ class PagesController < ApplicationController
       @airsearch = Airsearch.where(status: 'COMPROU').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
       @total_airsearch = Airsearch.where(status: 'COMPROU').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).sum(:cotation_value)
       
-      @total_geral = @total_meeting.to_f + @total_airsearch.to_f 
+      @rodosearch = Rodosearch.where(status: 'COMPROU').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+      @total_rodosearch = Rodosearch.where(status: 'COMPROU').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).sum(:cotation_value)
+
+      
+      @total_geral = @total_meeting.to_f + @total_airsearch.to_f + @total_rodosearch.to_f 
       @total_geral = @total_geral.round(2)  
     end
     
@@ -56,7 +64,11 @@ class PagesController < ApplicationController
       @airsearch = Airsearch.where(user: params[:seller]).where(status: 'COMPROU').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
       @total_airsearch = Airsearch.where(user: params[:seller]).where(status: 'COMPROU').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).sum(:cotation_value)
       
-      @total_geral = @total_meeting.to_f + @total_airsearch.to_f
+      @rodosearch = Rodosearch.where(user: params[:seller]).where(status: 'COMPROU').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+      @total_rodosearch = Rodosearch.where(user: params[:seller]).where(status: 'COMPROU').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).sum(:cotation_value)
+
+      
+      @total_geral = @total_meeting.to_f + @total_airsearch.to_f + @total_rodosearch.to_f
       @total_geral = @total_geral.round(2)
     end
   end

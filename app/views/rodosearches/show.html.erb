@@ -24,24 +24,24 @@
 </style>
 <% end %>
 
-<%- model_class = Airsearch -%>
+<%- model_class = Rodosearch -%>
 
 <%= image_tag "logo_rpt.png",id: 'printOnly' %>
 
 <div class="page-header">
-<h1>Dados da Pesquisa - Transporte Aéreo</h1>
+<h1>Dados da Pesquisa - Transporte Rodoviário</h1>
 </div>
 
 <dl class="dl-horizonta l">
-  <h4><strong><%= model_class.human_attribute_name('cliente') %>:</strong>&nbsp;<%= @airsearch.client %><br />
-  <strong><%= model_class.human_attribute_name('celular') %>:</strong>&nbsp;<%= @airsearch.phone %>
-  <% if @airsearch.cotation_value.present? %>
-  <br /><strong><%= model_class.human_attribute_name('Valor cotado R$') %>:</strong>&nbsp;<%= @airsearch.cotation_value %></h4>
+  <h4><strong><%= model_class.human_attribute_name('cliente') %>:</strong>&nbsp;<%= @rodosearch.client %><br />
+  <strong><%= model_class.human_attribute_name('celular') %>:</strong>&nbsp;<%= @rodosearch.phone %>
+  <% if @rodosearch.cotation_value.present? %>
+  <br /><strong><%= model_class.human_attribute_name('Valor cotado R$') %>:</strong>&nbsp;<%= @rodosearch.cotation_value %></h4>
   <% end %></h4>
   <hr />
 
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              airsearch_path(@airsearch),
+              rodosearch_path(@rodosearch),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger', id: 'hide_buttom' %>
@@ -63,9 +63,9 @@
   <% end %>
   <div class="panel-body">
     	
-  <%= form_tag(manage_air_airsearch_path, method: :get) do %>
+  <%= form_tag(manage_air_rodosearch_path, method: :get) do %>
   
-  <%= hidden_field_tag :air_id, @airsearch.id %>
+  <%= hidden_field_tag :air_id, @rodosearch.id %>
  	
     <font color="black"><% if @show_solution1.present? %>
     <h5><%= check_box_tag :t1, @show_solution1.description %> <%= @show_solution1.description %></h5>
@@ -100,10 +100,10 @@
   	<% end %>
   	
   	<%= link_to t('.back', :default => t("helpers.links.back")),
-              airsearches_path, :class => 'btn btn-default', id: 'hide_buttom' %>
-    <%= link_to 'Editar pesquisa', edit_airsearch_path(@airsearch), :class => 'btn btn-default', id: 'hide_buttom' %>
+              rodosearches_path, :class => 'btn btn-default', id: 'hide_buttom' %>
+    <%= link_to 'Editar pesquisa', edit_rodosearch_path(@rodosearch), :class => 'btn btn-default', id: 'hide_buttom' %>
 
-    <%= link_to "Anexos", documents_path(:id => @airsearch, :request => 'airsearches'), class: 'btn btn-default', id: 'hide_buttom' %>	
+    <%= link_to "Anexos", documents_path(:id => @rodosearch, :request => 'rodosearches'), class: 'btn btn-default', id: 'hide_buttom' %>	
 
     <%= submit_tag "Gerenciamento", class: 'btn btn-primary', id: 'hide_buttom' %>    
 <% end %>  
@@ -111,27 +111,27 @@
   </div>
   </div>
   
-  <% if @airsearch.pains.present? %>
+  <% if @rodosearch.pains.present? %>
   <div class="panel panel-default">
   <div class="panel-heading" >DORES </div>
   <div class="panel-body">
-  <%= simple_format(@airsearch.pains, :class => 'h4') %>
+  <%= simple_format(@rodosearch.pains, :class => 'h4') %>
   </div>
   </div>
   <% end %>
-  <% if @airsearch.solution_applied.present? %>
+  <% if @rodosearch.solution_applied.present? %>
   <div class="panel panel-default">
   <div class="panel-heading" >TRATATIVAS APLICADAS </div>
   <div class="panel-body">
-  <%= simple_format(@airsearch.solution_applied, :class => 'h4') %>
+  <%= simple_format(@rodosearch.solution_applied, :class => 'h4') %>
   </div>
   </div>
   <% end %>  
-  <% if @airsearch.obs.present? %>
+  <% if @rodosearch.obs.present? %>
   <div class="panel panel-default">
   <div class="panel-heading" >OBSERVAÇÕES </div>
   <div class="panel-body">
-  <%= simple_format(@airsearch.obs, :class => 'h4') %>
+  <%= simple_format(@rodosearch.obs, :class => 'h4') %>
   </div>
   </div>
  <% end %>
