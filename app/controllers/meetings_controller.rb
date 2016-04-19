@@ -56,6 +56,12 @@ class MeetingsController < ApplicationController
       #pegando o id que foi salvo pra montar o path do agendamento
        Meeting.update(@meeting.id, research_path: 'meetings' + '/' + @meeting.id.to_s, research_id: @meeting.id)
        
+       #cadastrando automáticamente esse cliente pesquisado no cadastro de clientes
+        client = Client.new(params[:client])
+        client.name = meeting_params[:client]
+        client.cellphone = meeting_params[:phone]
+        client.save!
+       
        if @meeting.status == 'COMPROU'
         flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
         redirect_to meetings_path and return

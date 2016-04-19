@@ -1,4 +1,4 @@
-<!-- CSS PARA REMOVER O BOTÃO IMPRIMIR NA VIEW DE IMPRESSÃO -->
+<!-- CSS PARA REMOVER O BOTÃO IMPRIMIR NA VIEW E FAZER O INVERSO NAS RESPOSTAS DE IMPRESSÃO -->
   <style type="text/css">
 	@media print {
     #hide_buttom {
@@ -39,10 +39,6 @@
   <br /><strong><%= model_class.human_attribute_name('Valor cotado R$') %>:</strong>&nbsp;<%= @airsearch.cotation_value %></h4>
   <% end %></h4>
   <hr />
-
-
-
-<%= link_to 'Finalizar prospecção', end_research_airsearch_path(:id=> @airsearch),class: 'btn btn-warning', id: 'hide_buttom' %>
 
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               airsearch_path(@airsearch),

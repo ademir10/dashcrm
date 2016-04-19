@@ -8,28 +8,27 @@
 </style>
 
 <h1>Análises gráficas <%= image_tag 'chart.png' %></h1>
- <% if @datainicial.present? && @datafinal.present? %>
- Periodo: <%= @datainicial.to_date %> até <%=@datafinal.to_date %><br />
- <% end %> 
+ 
  <%= form_tag(business_report_path, method: :get) do %>
  
 <div class="form-group">			  
 		<div class="row">
 			  <div class="col-lg-3">
-		<%= date_field_tag(:date1, nil, placeholder: 'data inicial', class: 'form-control', id: 'printbtn') %>
+		<%= date_field_tag(:date1,params[:date1], placeholder: 'data inicial', class: 'form-control', id: 'printbtn') %>
 		</div>
 		</div>
 
 <div class="form-group">			  
 		<div class="row">
 			  <div class="col-lg-3">
-		<%= date_field_tag(:date2, nil, placeholder: 'data final', class: 'form-control', id: 'printbtn') %>	
+		<%= date_field_tag(:date2,params[:date2], placeholder: 'data final', class: 'form-control', id: 'printbtn') %>	
 		</div>
 		</div>
 	</div>	
 
 		<%= submit_tag "Consultar", class: 'btn btn-success', id: 'printbtn' %>
 <% end %>
+</p>
  
 <div class="panel panel-default">
   <div class="panel-heading" >Percentual de pesquisas por funcionários </div>
@@ -70,14 +69,14 @@
   <h5 class="panel-body">
   <% if @datainicial.present? && @datafinal.present? %>	
    <font color="blue">Transporte Aéreo</font>		
-  <%= bar_chart Airsearch.order('airsearches.user').where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).where('finished = ?', 'SIM').group('airsearches.user').sum("airsearches.cotation_value") %>
+  <%= bar_chart Airsearch.order('airsearches.user').where("updated_at::date BETWEEN ? AND ?", @datainicial, @datafinal).where('finished = ?', 'SIM').group('airsearches.user').sum("airsearches.cotation_value") %>
   <font color="blue">Outros Agendamentos</font>
-  <%= bar_chart Meeting.order('meetings.clerk_name').where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).where('status = ?', 'COMPROU').group('meetings.clerk_name').sum("meetings.cotation_value") %>
+  <%= bar_chart Meeting.order('meetings.clerk_name').where("updated_at::date BETWEEN ? AND ?", @datainicial, @datafinal).where('status = ?', 'COMPROU').group('meetings.clerk_name').sum("meetings.cotation_value") %>
   <% else %>
    <font color="blue">Transporte Aéreo</font>		
-  <%= bar_chart Airsearch.order('airsearches.user').where("created_at::date = ?", Date.today).where('finished = ?', 'SIM').group('airsearches.user').sum("airsearches.cotation_value") %>
+  <%= bar_chart Airsearch.order('airsearches.user').where("updated_at::date = ?", Date.today).where('finished = ?', 'SIM').group('airsearches.user').sum("airsearches.cotation_value") %>
   <font color="blue">Outros Agendamentos</font>
-  <%= bar_chart Meeting.order('meetings.clerk_name').where("created_at::date = ?", Date.today).where('status = ?', 'COMPROU').group('meetings.clerk_name').sum("meetings.cotation_value") %>
+  <%= bar_chart Meeting.order('meetings.clerk_name').where("updated_at::date = ?", Date.today).where('status = ?', 'COMPROU').group('meetings.clerk_name').sum("meetings.cotation_value") %>
 
   <% end %>
  </h5>

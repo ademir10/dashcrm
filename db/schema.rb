@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417213154) do
+ActiveRecord::Schema.define(version: 20160418231723) do
 
   create_table "advices", force: :cascade do |t|
     t.string   "description"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20160417213154) do
     t.boolean  "rbusiness"
     t.boolean  "ccli"
     t.boolean  "mmeeting"
+    t.boolean  "ranalitic"
   end
 
   add_foreign_key "airsearches", "users"

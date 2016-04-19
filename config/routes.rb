@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     member do
       get 'manage_air'
       post 'update_status_air'
-      get 'end_research'
+      #get 'end_research'
     end
   end
   resources :categories
@@ -44,7 +44,10 @@ Rails.application.routes.draw do
   #---------------------------------------------
   
   #relatórios
+  #relatorio de analises graficas
   get 'business_report', to: 'pages#business_report'
+  #relatorio analitico de vendas
+  get 'analitics_report', to: 'pages#analitics_report'
   
     
   #para carregar a view informando que não pode excluir cadastro com relacionamento em outra table

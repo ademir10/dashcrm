@@ -3,26 +3,30 @@ class AirsearchesController < ApplicationController
   before_action :show_question, only: [:show, :new, :edit, :update, :destroy]
   before_action :must_login
   
+  
+  #POSSO REMOVER ESSA DEF PORQUE REMOVI O BOTTÃO PARA FINALIZAR A PESQUISA NO FORM
   #finaliza a prospecção da pesquisa alterando o status para FINALIZADA
-  def end_research
-   @airsearch = Airsearch.find(params[:id])
+  #def end_research
+  # @airsearch = Airsearch.find(params[:id])
    
     #verifica se os campos foram preenchidos antes de finalizar a pesquisa
-    if @airsearch.status.blank? || @airsearch.obs.blank? || @airsearch.reason.blank? || @airsearch.pains.blank? || @airsearch.solution_applied.blank? || @airsearch.cotation_value.blank?
+  #  if @airsearch.status.blank? || @airsearch.obs.blank? || @airsearch.reason.blank? || @airsearch.pains.blank? || @airsearch.solution_applied.blank? || @airsearch.cotation_value.blank?
       
-      flash[:warning] = "Não é possivel finalizar uma pesquisa sem que todos os campos dela já estejam preenchidos e salvos, verifique se é realmente isso que você quer!"
-      redirect_to airsearch_path(params[:id]) and return
-    end
+  #    flash[:warning] = "Não é possivel finalizar uma pesquisa sem que todos os campos dela já estejam preenchidos e salvos, verifique se é realmente isso que você quer!"
+  #    redirect_to airsearch_path(params[:id]) and return
+  #  end
     
-    Airsearch.update(params[:id], finished: 'SIM')
+  #  Airsearch.update(params[:id], finished: 'SIM')
     
     #vai na agenda e exclui todos os agendamentos deste cliente
-    Meeting.destroy.all(research_id: params[:id])
+  #  Meeting.destroy.all(research_id: params[:id])
         
-    flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
-    redirect_to airsearches_path and return
+  #  flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
+  #  redirect_to airsearches_path and return
     
-  end
+ # end
+ 
+ 
   
   #para atualizar os dados como o status, agendamento e inserir arquivos para upload
   def update_status_air

@@ -92,7 +92,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :type_access,:ccategory,:cresearch,:cquestion,:cadvice,:cuser, :mcli, :rbusiness, :ccli, :mmeeting)
+      params.require(:user).permit(:name, :email, :password, :type_access,:ccategory,:cresearch,:cquestion,:cadvice,:cuser, :mcli, :rbusiness, :ccli, :mmeeting, :ranalitic)
     end
     
     #verifica o perfil do usuario
