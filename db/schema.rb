@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413020920) do
+ActiveRecord::Schema.define(version: 20160419225842) do
 
   create_table "advices", force: :cascade do |t|
     t.string   "description"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160413020920) do
   create_table "airsearches", force: :cascade do |t|
     t.string   "user"
     t.string   "client"
+    t.string   "type_client"
     t.string   "phone"
     t.integer  "q1"
     t.integer  "q2"
@@ -30,21 +31,23 @@ ActiveRecord::Schema.define(version: 20160413020920) do
     t.integer  "q5"
     t.integer  "q6"
     t.integer  "q7"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "q8"
-    t.string   "q9"
-    t.string   "q10"
+    t.integer  "q8"
+    t.integer  "q9"
+    t.integer  "q10"
+    t.decimal  "cotation_value"
     t.string   "status"
-    t.string   "obs"
-    t.date     "schedule"
-    t.string   "type_client"
     t.string   "reason"
     t.string   "pains"
     t.string   "solution_applied"
-    t.decimal  "cotation_value"
+    t.string   "schedule"
+    t.string   "obs"
     t.string   "finished"
+    t.integer  "user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
+
+  add_index "airsearches", ["user_id"], name: "index_airsearches_on_user_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
     t.string   "description"
@@ -86,15 +89,6 @@ ActiveRecord::Schema.define(version: 20160413020920) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "images", force: :cascade do |t|
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
   create_table "meetings", force: :cascade do |t|
     t.string   "name"
     t.string   "cellphone"
@@ -104,6 +98,7 @@ ActiveRecord::Schema.define(version: 20160413020920) do
     t.integer  "research_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "type_client"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -150,6 +145,7 @@ ActiveRecord::Schema.define(version: 20160413020920) do
     t.boolean  "mmeeting"
   end
 
+  add_foreign_key "airsearches", "users"
   add_foreign_key "answers", "questions"
   add_foreign_key "questions", "categories"
   add_foreign_key "solutions", "answers"

@@ -1,10 +1,11 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+  before_action :show_user, only: [:index]
 
   # GET /meetings
   # GET /meetings.json
   def index
-    @meetings = Meeting.all
+    @meetings = Meeting.where(clerk_id: current_user.id)
   end
 
   # GET /meetings/1
@@ -70,5 +71,9 @@ class MeetingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
       params.require(:meeting).permit(:name, :cellphone, :start_time, :clerk_id, :research_path, :research_id)
+    end
+    
+    def show_user
+      @users = User.where('type_access != ?', 'MASTER').where('type_access != ?', 'ADMIN')
     end
 end

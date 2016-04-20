@@ -54,7 +54,7 @@
 <h2>Resultado: <%= @total_score %> pontos</h2>
   
   <% if @total_score > 0 && @total_score <= 2 %>
-  <div class="panel panel-success">
+  <div class="panel panel-danger">
   <div class="panel-heading" >CLIENTE FRIO - TRATATIVAS SUGERIDAS </div>
   
   <% elsif @total_score >= 3 && @total_score <= 6 %>
@@ -62,7 +62,7 @@
   <div class="panel-heading">CLIENTE MORNO - TRATATIVAS SUGERIDAS </div>
   
   <% elsif @total_score >= 7 && @total_score <= 10 %>
-  <div class="panel panel-danger">
+  <div class="panel panel-success">
   <div class="panel-heading">CLIENTE QUENTE - TRATATIVAS SUGERIDAS </div>
   <% end %>
   <div class="panel-body">

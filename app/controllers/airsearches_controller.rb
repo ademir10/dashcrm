@@ -15,6 +15,10 @@ class AirsearchesController < ApplicationController
     end
     
     Airsearch.update(params[:id], finished: 'SIM')
+    
+    #vai na agenda e exclui todos os agendamentos deste cliente
+    Meeting.destroy.all(research_id: params[:id])
+        
     flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
     redirect_to airsearches_path and return
     
@@ -35,6 +39,10 @@ class AirsearchesController < ApplicationController
     if airsearch_params[:status] == 'COMPROU'
     
     Airsearch.update(params[:id], finished: 'SIM')
+    
+    #vai na agenda e exclui todos os agendamentos deste cliente
+    Meeting.destroy_all(research_id: @airsearch)
+    
     flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
     redirect_to airsearches_path and return  
     end
@@ -79,6 +87,7 @@ class AirsearchesController < ApplicationController
       meeting.clerk_id = current_user.id
       meeting.research_path = 'airsearches' + '/' + params[:id]
       meeting.research_id = params[:id]
+      meeting.type_client = @airsearch.type_client
       meeting.save!
       flash[:success] = 'Os dados foram atualizados com sucesso e agendado um compromisso para o dia ' + airsearch_params[:schedule].to_time.strftime("%d/%m/%Y")
     elsif
@@ -147,7 +156,7 @@ class AirsearchesController < ApplicationController
 
   def index
   if params[:tipo_consulta].blank?  
-    @airsearches = Airsearch.order(:created_at, :client).where('finished = ?', 'NÃO').limit(50)
+    @airsearches = Airsearch.order(:created_at, :client).where('finished = ?', 'NÃO').where(user_id: current_user.id).limit(50)
   else
     if params[:search] && params[:tipo_consulta] == "1"
           @airsearches = Airsearch.where("client like ?", "%#{params[:search]}%")
@@ -225,6 +234,7 @@ class AirsearchesController < ApplicationController
    end
     
     respond_to do |format|
+      @airsearch.user_id = current_user.id
       @airsearch.user = current_user.name
       @airsearch.status = 'NÃO DEFINIDO'
       @airsearch.finished = 'NÃO'
@@ -344,7 +354,7 @@ class AirsearchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def airsearch_params
-      params.require(:airsearch).permit(:client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :status, :obs, :schedule, :reason, :pains, :solution_applied, :cotation_value, :finished)
+      params.require(:airsearch).permit(:user, :client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :status, :obs, :schedule, :reason, :pains, :solution_applied, :cotation_value, :finished, :user_id)
     end
     
     def show_question
@@ -367,4 +377,5 @@ class AirsearchesController < ApplicationController
       end  
            
     end
+    
 end
