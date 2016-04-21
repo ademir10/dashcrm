@@ -11,10 +11,6 @@ class CreateRodosearches < ActiveRecord::Migration
       t.integer :q4
       t.integer :q5
       t.integer :q6
-      t.integer :q7
-      t.integer :q8
-      t.integer :q9
-      t.integer :q10
       t.decimal :cotation_value
       t.string :status
       t.string :reason

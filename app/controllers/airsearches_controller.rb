@@ -121,7 +121,7 @@ class AirsearchesController < ApplicationController
   if @result.solution_applied.blank?
   
     #primeiro verifica se foi selecionada pelo menos uma tratativa
-    if params[:t1].blank? && params[:t2].blank? && params[:t3].blank? && params[:t4].blank? && params[:t5].blank? && params[:t6].blank? && params[:t7].blank? && params[:t8].blank? && params[:t9].blank? && params[:t10].blank?
+    if params[:t1].blank? && params[:t2].blank? && params[:t3].blank? && params[:t4].blank? && params[:t5].blank? && params[:t6].blank? && params[:t7].blank? && params[:t8].blank? && params[:t9].blank? && params[:t10].blank? && params[:t11].blank? && params[:t12].blank?
       flash[:warning] = 'Você não selecionou nenhuma das tratativas propostas, selecione a(s) tratativa(s) adequada(s) para este cliente!'
       redirect_to airsearch_path(@result) and return
     end
@@ -156,6 +156,12 @@ class AirsearchesController < ApplicationController
         end
         if params[:t10].present?
         @solutions = @solutions.to_s + params[:t10].to_s + "\n"
+        end
+        if params[:t11].present?
+        @solutions = @solutions.to_s + params[:t11].to_s + "\n"
+        end
+        if params[:t12].present?
+        @solutions = @solutions.to_s + params[:t12].to_s + "\n"
         end
       
       @result.solution_applied = @solutions
@@ -192,6 +198,8 @@ class AirsearchesController < ApplicationController
     @q8 = Answer.find_by(id: @airsearch.q8)
     @q9 = Answer.find_by(id: @airsearch.q9)
     @q10 = Answer.find_by(id: @airsearch.q10)
+    @q11 = Answer.find_by(id: @airsearch.q11)
+    @q12 = Answer.find_by(id: @airsearch.q12)
     
     #faz o calculo do score pra saber se o cliente é quente, morno ou frio
     score1 = Answer.find_by(id: @airsearch.q1)
@@ -204,11 +212,13 @@ class AirsearchesController < ApplicationController
     score8 = Answer.find_by(id: @airsearch.q8)
     score9 = Answer.find_by(id: @airsearch.q9)
     score10 = Answer.find_by(id: @airsearch.q10)
+    score11 = Answer.find_by(id: @airsearch.q11)
+    score12 = Answer.find_by(id: @airsearch.q12)
     
     #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
     @ranges = Category.find_by(link: 'airsearches')
     
-    @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
+    @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i + score11.score.to_i + score12.score.to_i
     @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
     
     #exibe as tratativas
@@ -222,6 +232,8 @@ class AirsearchesController < ApplicationController
     @show_solution8 = Solution.find_by(answer_id: @q8)
     @show_solution9 = Solution.find_by(answer_id: @q9)
     @show_solution10 = Solution.find_by(answer_id: @q10)
+    @show_solution11 = Solution.find_by(answer_id: @q11)
+    @show_solution12 = Solution.find_by(answer_id: @q12)
   end
 
   # GET /airsearches/new
@@ -239,7 +251,7 @@ class AirsearchesController < ApplicationController
   def create
    @airsearch = Airsearch.new(airsearch_params)
    #verifica se todos os campos estão preenchidos
-   if airsearch_params[:client].blank? || airsearch_params[:phone].blank? || airsearch_params[:q1].blank? || airsearch_params[:q2].blank? || airsearch_params[:q3].blank? || airsearch_params[:q4].blank? || airsearch_params[:q5].blank? || airsearch_params[:q6].blank? || airsearch_params[:q7].blank? || airsearch_params[:q8].blank? || airsearch_params[:q9].blank? || airsearch_params[:q10].blank?
+   if airsearch_params[:client].blank? || airsearch_params[:phone].blank? || airsearch_params[:q1].blank? || airsearch_params[:q2].blank? || airsearch_params[:q3].blank? || airsearch_params[:q4].blank? || airsearch_params[:q5].blank? || airsearch_params[:q6].blank? || airsearch_params[:q7].blank? || airsearch_params[:q8].blank? || airsearch_params[:q9].blank? || airsearch_params[:q10].blank? || airsearch_params[:q11].blank? || airsearch_params[:q12].blank?
      flash[:warning] = 'Os dados do cliente e todas as perguntas precisam ser respondidas!'
      redirect_to new_airsearch_path and return
    end
@@ -263,11 +275,13 @@ class AirsearchesController < ApplicationController
         score8 = Answer.find_by(id: airsearch_params[:q8])
         score9 = Answer.find_by(id: airsearch_params[:q9])
         score10 = Answer.find_by(id: airsearch_params[:q10])
+        score11 = Answer.find_by(id: airsearch_params[:q11])
+        score12 = Answer.find_by(id: airsearch_params[:q12])
         
         #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
         @ranges = Category.find_by(link: 'airsearches')
         
-        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
+        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i + score11.score.to_i + score12.score.to_i
         @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
         
         check_score = Airsearch.find_by(id: @airsearch)
@@ -286,7 +300,7 @@ class AirsearchesController < ApplicationController
         client.cellphone = airsearch_params[:phone]
         client.save!
                       
-        format.html { redirect_to @airsearch, notice: 'Questionário criado com sucesso.' }
+        format.html { redirect_to @airsearch, notice: 'Pesquisa criada com sucesso.' }
         format.json { render :show, status: :created, location: @airsearch }
       else
         format.html { render :new }
@@ -324,11 +338,13 @@ class AirsearchesController < ApplicationController
         score8 = Answer.find_by(id: airsearch_params[:q8])
         score9 = Answer.find_by(id: airsearch_params[:q9])
         score10 = Answer.find_by(id: airsearch_params[:q10])
+        score11 = Answer.find_by(id: airsearch_params[:q11])
+        score12 = Answer.find_by(id: airsearch_params[:q12])
         
         #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
         @ranges = Category.find_by(link: 'airsearches')
         
-        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
+        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i + score11.score.to_i + score12.score.to_i
         @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
         
         check_score = Airsearch.find_by(id: @airsearch)
@@ -357,7 +373,7 @@ class AirsearchesController < ApplicationController
               meeting_data.update_attributes(type_client: 'QUENTE')
               end
                  
-        format.html { redirect_to @airsearch, notice: 'Questionário atualizado com sucesso.' }
+        format.html { redirect_to @airsearch, notice: 'Pesquisa atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @airsearch }
       else
         format.html { render :edit }
@@ -373,7 +389,7 @@ class AirsearchesController < ApplicationController
     Document.destroy_all(owner: @airsearch)
     Meeting.destroy_all(research_id: @airsearch)
     respond_to do |format|
-      format.html { redirect_to airsearches_url, notice: 'Questionário Excluido com sucesso.' }
+      format.html { redirect_to airsearches_url, notice: 'Pesquisa Excluida com sucesso.' }
       format.json { head :no_content }
     end
   end
@@ -387,7 +403,7 @@ class AirsearchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def airsearch_params
-      params.require(:airsearch).permit(:user, :client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :status, :obs, :schedule, :reason, :pains, :solution_applied, :cotation_value, :finished, :user_id)
+      params.require(:airsearch).permit(:user, :client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :q11, :q12, :status, :obs, :schedule, :reason, :pains, :solution_applied, :cotation_value, :finished, :user_id)
     end
     
     def show_question
@@ -402,10 +418,12 @@ class AirsearchesController < ApplicationController
       @question8 = Question.find_by(id: '8')
       @question9 = Question.find_by(id: '9')
       @question10 = Question.find_by(id: '10')
+      @question11 = Question.find_by(id: '11')
+      @question12 = Question.find_by(id: '12')
       
       
-      if @question1.blank? || @question2.blank? || @question3.blank? || @question4.blank? || @question5.blank? || @question6.blank? || @question7.blank? || @question8.blank? || @question9.blank? || @question10.blank?
-      flash[:warning] = "Você precisa cadastrar primeiro as 10 perguntas e respostas com as tratativas para esta pesquisa!"
+      if @question1.blank? || @question2.blank? || @question3.blank? || @question4.blank? || @question5.blank? || @question6.blank? || @question7.blank? || @question8.blank? || @question9.blank? || @question10.blank? || @question11.blank? || @question12.blank?
+      flash[:warning] = "Você precisa cadastrar primeiro as 12 perguntas e respostas com as tratativas para esta pesquisa!"
       redirect_to questions_path and return
       end  
            

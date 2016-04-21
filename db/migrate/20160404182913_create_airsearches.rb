@@ -15,6 +15,8 @@ class CreateAirsearches < ActiveRecord::Migration
       t.integer :q8
       t.integer :q9
       t.integer :q10
+      t.integer :q11
+      t.integer :q12
       t.decimal :cotation_value
       t.string :status
       t.string :reason

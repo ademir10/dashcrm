@@ -70,7 +70,6 @@
     <font color="black"><% if @show_solution1.present? %>
     <h5><%= check_box_tag :t1, @show_solution1.description %> <%= @show_solution1.description %></h5>
     <% end %>
-     
     <% if @show_solution2.present? %>
   	<h5><%= check_box_tag :t2, @show_solution2.description %> <%= @show_solution2.description %></h5>
   	<% end %>
@@ -97,6 +96,12 @@
   	<% end %>
   	<% if @show_solution10.present? %>
   	<h5><%= check_box_tag :t10, @show_solution10.description %> <%= @show_solution10.description %></h5>
+  	<% end %>
+  	<% if @show_solution11.present? %>
+  	<h5><%= check_box_tag :t11, @show_solution11.description %> <%= @show_solution11.description %></h5>
+  	<% end %>
+  	<% if @show_solution12.present? %>
+  	<h5><%= check_box_tag :t12, @show_solution12.description %> <%= @show_solution12.description %></h5>
   	<% end %>
   	
   	<%= link_to t('.back', :default => t("helpers.links.back")),
@@ -159,6 +164,9 @@
   <h5 class="form-group"><strong><%= @question9.description %>:</strong>&nbsp; <%= @q9.description %><br />
   </h5>
   <h5 class="form-group"><strong><%= @question10.description %>:</strong>&nbsp; <%= @q10.description %><br /></h5>
+  <h5 class="form-group"><strong><%= @question11.description %>:</strong>&nbsp; <%= @q11.description %><br /></h5>
+  <h5 class="form-group"><strong><%= @question12.description %>:</strong>&nbsp; <%= @q12.description %><br /></h5>
+
   </div>
   </div>
   </div>

@@ -176,6 +176,32 @@
   <%=f.error_span(:q10) %>
   </div>
   
+    <div class="form-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <%= @question10.description %>
+            </h1>
+        </div>
+        <div class="panel-body">
+  <%= f.collection_radio_buttons :q11, Answer.where(question_id: @question11.id), :id, :description %>  </div>
+  </div>
+  <%=f.error_span(:q11) %>
+  </div>
+  
+    <div class="form-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <%= @question10.description %>
+            </h1>
+        </div>
+        <div class="panel-body">
+  <%= f.collection_radio_buttons :q12, Answer.where(question_id: @question12.id), :id, :description %>  </div>
+  </div>
+  <%=f.error_span(:q12) %>
+  </div>
+  
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
