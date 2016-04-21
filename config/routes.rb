@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-   
+  #pacote de viagens 
+  resources :packsearches do
+    member do
+      get 'manage_pack'
+      post 'update_status_pack'
+    end
+  end
   #transporte rodoviario
   resources :rodosearches do
   member do

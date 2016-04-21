@@ -32,6 +32,13 @@ class DocumentsController < ApplicationController
     @type_research = 'rodosearches'
     end
     
+    if params[:request] == 'packsearches'
+    @data_client = Packsearch.find(params[:id])  
+    @documents = Document.where(owner: @data_client.id).where(type_research: params[:request]).order(:created_at)
+    #pra guardar o tipo de pesquisa na hora de pedir um novo anexo
+    @type_research = 'packsearches'
+    end
+    
   end
 
   # GET /documents/1
@@ -56,6 +63,11 @@ class DocumentsController < ApplicationController
     if params[:request] == 'rodosearches'
       @research = Rodosearch.find_by_id(params[:id])
       @type_research = 'rodosearches'
+    end
+    
+    if params[:request] == 'packsearches'
+      @research = Packsearch.find_by_id(params[:id])
+      @type_research = 'packsearches'
     end
     
     @document = Document.new
@@ -84,6 +96,11 @@ class DocumentsController < ApplicationController
         if @document.type_research == 'rodosearches'
         @rodosearch = document_params[:owner]
         format.html { redirect_to rodosearch_path(@rodosearch), notice: 'Arquivo salvo com sucesso.' }
+        end
+        #se for um anexo de pesquisa de transportes rodoviarios
+        if @document.type_research == 'packsearches'
+        @packsearch = document_params[:owner]
+        format.html { redirect_to packsearch_path(@packsearch), notice: 'Arquivo salvo com sucesso.' }
         end
         
         

@@ -11,6 +11,7 @@ class CreateMeetings < ActiveRecord::Migration
       t.string :research_path
       t.integer :research_id
       t.string :obs
+      t.string :clerk_name
       
 
       t.timestamps null: false

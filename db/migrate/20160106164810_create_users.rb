@@ -5,6 +5,19 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :password_digest
       t.string :type_access
+      t.boolean :ccategory
+      t.boolean :cresearch
+      t.boolean :cquestion
+      t.boolean :cadvice
+      t.boolean :cuser
+      t.boolean :mupload
+      t.boolean :rfecha
+      t.boolean :minput
+      t.boolean :mcli
+      t.boolean :rbusiness
+      t.boolean :ccli
+      t.boolean :mmeeting
+      t.boolean :ranalitic
 
       t.timestamps null: false
     end

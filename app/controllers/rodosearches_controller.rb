@@ -338,15 +338,15 @@ class RodosearchesController < ApplicationController
     
     def show_question
       
-      @question1 = Question.find_by(id: '11')
-      @question2 = Question.find_by(id: '12')
-      @question3 = Question.find_by(id: '13')
-      @question4 = Question.find_by(id: '14')
-      @question5 = Question.find_by(id: '15')
-      @question6 = Question.find_by(id: '16')
+      @question1 = Question.find_by(id: '26')
+      @question2 = Question.find_by(id: '27')
+      @question3 = Question.find_by(id: '28')
+      @question4 = Question.find_by(id: '29')
+      @question5 = Question.find_by(id: '30')
+      @question6 = Question.find_by(id: '31')
             
       if @question1.blank? || @question2.blank? || @question3.blank? || @question4.blank? || @question5.blank? || @question6.blank?
-      flash[:warning] = "Você precisa cadastrar primeiro as 10 perguntas e respostas com as tratativas para esta pesquisa!"
+      flash[:warning] = "Você precisa cadastrar primeiro as 6 perguntas e respostas com as tratativas para esta pesquisa!"
       redirect_to questions_path and return
       end  
            

@@ -408,18 +408,18 @@ class AirsearchesController < ApplicationController
     
     def show_question
       
-      @question1 = Question.find_by(id: '1')
-      @question2 = Question.find_by(id: '2')
-      @question3 = Question.find_by(id: '3')
-      @question4 = Question.find_by(id: '4')
-      @question5 = Question.find_by(id: '5')
-      @question6 = Question.find_by(id: '6')
-      @question7 = Question.find_by(id: '7')
-      @question8 = Question.find_by(id: '8')
-      @question9 = Question.find_by(id: '9')
-      @question10 = Question.find_by(id: '10')
-      @question11 = Question.find_by(id: '11')
-      @question12 = Question.find_by(id: '12')
+      @question1 = Question.find_by(id: '14')
+      @question2 = Question.find_by(id: '15')
+      @question3 = Question.find_by(id: '16')
+      @question4 = Question.find_by(id: '17')
+      @question5 = Question.find_by(id: '18')
+      @question6 = Question.find_by(id: '19')
+      @question7 = Question.find_by(id: '20')
+      @question8 = Question.find_by(id: '21')
+      @question9 = Question.find_by(id: '22')
+      @question10 = Question.find_by(id: '23')
+      @question11 = Question.find_by(id: '24')
+      @question12 = Question.find_by(id: '25')
       
       
       if @question1.blank? || @question2.blank? || @question3.blank? || @question4.blank? || @question5.blank? || @question6.blank? || @question7.blank? || @question8.blank? || @question9.blank? || @question10.blank? || @question11.blank? || @question12.blank?

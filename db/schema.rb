@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420195702) do
-
-  create_table "advices", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
+ActiveRecord::Schema.define(version: 20160421141620) do
 
   create_table "airsearches", force: :cascade do |t|
     t.string   "user"
@@ -34,6 +28,8 @@ ActiveRecord::Schema.define(version: 20160420195702) do
     t.integer  "q8"
     t.integer  "q9"
     t.integer  "q10"
+    t.integer  "q11"
+    t.integer  "q12"
     t.decimal  "cotation_value"
     t.string   "status"
     t.string   "reason"
@@ -62,8 +58,6 @@ ActiveRecord::Schema.define(version: 20160420195702) do
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "link"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
     t.decimal  "r1"
     t.decimal  "r2"
     t.decimal  "r3"
@@ -71,6 +65,8 @@ ActiveRecord::Schema.define(version: 20160420195702) do
     t.decimal  "r5"
     t.decimal  "r6"
     t.integer  "qnt_question"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "clients", force: :cascade do |t|
@@ -85,9 +81,9 @@ ActiveRecord::Schema.define(version: 20160420195702) do
     t.string   "filename"
     t.string   "content_type"
     t.binary   "file_contents"
+    t.string   "type_research"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.string   "type_research"
   end
 
   create_table "expire_dates", force: :cascade do |t|
@@ -108,15 +104,48 @@ ActiveRecord::Schema.define(version: 20160420195702) do
     t.string   "research_path"
     t.integer  "research_id"
     t.string   "obs"
+    t.string   "clerk_name"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.string   "clerk_name"
   end
 
   create_table "messages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "packsearches", force: :cascade do |t|
+    t.string   "user"
+    t.string   "client"
+    t.string   "type_client"
+    t.string   "phone"
+    t.integer  "q1"
+    t.integer  "q2"
+    t.integer  "q3"
+    t.integer  "q4"
+    t.integer  "q5"
+    t.integer  "q6"
+    t.integer  "q7"
+    t.integer  "q8"
+    t.integer  "q9"
+    t.integer  "q10"
+    t.integer  "q11"
+    t.integer  "q12"
+    t.integer  "q13"
+    t.decimal  "cotation_value"
+    t.string   "status"
+    t.string   "reason"
+    t.string   "pains"
+    t.string   "solution_applied"
+    t.string   "schedule"
+    t.string   "obs"
+    t.string   "finished"
+    t.integer  "user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "packsearches", ["user_id"], name: "index_packsearches_on_user_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.integer  "category_id"
@@ -138,10 +167,6 @@ ActiveRecord::Schema.define(version: 20160420195702) do
     t.integer  "q4"
     t.integer  "q5"
     t.integer  "q6"
-    t.integer  "q7"
-    t.integer  "q8"
-    t.integer  "q9"
-    t.integer  "q10"
     t.decimal  "cotation_value"
     t.string   "status"
     t.string   "reason"
@@ -171,8 +196,6 @@ ActiveRecord::Schema.define(version: 20160420195702) do
     t.string   "email"
     t.string   "password_digest"
     t.string   "type_access"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
     t.boolean  "ccategory"
     t.boolean  "cresearch"
     t.boolean  "cquestion"
@@ -186,10 +209,13 @@ ActiveRecord::Schema.define(version: 20160420195702) do
     t.boolean  "ccli"
     t.boolean  "mmeeting"
     t.boolean  "ranalitic"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_foreign_key "airsearches", "users"
   add_foreign_key "answers", "questions"
+  add_foreign_key "packsearches", "users"
   add_foreign_key "questions", "categories"
   add_foreign_key "rodosearches", "users"
   add_foreign_key "solutions", "answers"

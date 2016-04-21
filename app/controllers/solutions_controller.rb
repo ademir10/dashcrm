@@ -15,6 +15,13 @@ class SolutionsController < ApplicationController
 
   # GET /solutions/new
   def new
+    #verifica se já existe uma tratativa cadastrada para a pergunta, se já estiver, não deixa cadastrar outra tratativa
+    check_solution = Solution.where(answer_id: params[:id_answer])
+    if check_solution.present?
+      flash[:warning] = 'Você já cadastrou uma tratativa para essa resposta!'
+      redirect_to solutions_path and return
+    end
+    
      @solution = Solution.new
   end
 
