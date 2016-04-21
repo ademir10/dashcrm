@@ -1,6 +1,7 @@
 class AirsearchesController < ApplicationController
   before_action :set_airsearch, only: [:show, :edit, :update, :destroy]
   before_action :show_question, only: [:show, :new, :edit, :update, :destroy]
+  before_action :show_user, only: [:new, :edit]
   before_action :must_login
   
   
@@ -204,8 +205,11 @@ class AirsearchesController < ApplicationController
     score9 = Answer.find_by(id: @airsearch.q9)
     score10 = Answer.find_by(id: @airsearch.q10)
     
+    #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
+    @ranges = Category.find_by(link: 'airsearches')
+    
     @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
-    @total_score = @total_score / 10
+    @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
     
     #exibe as tratativas
     @show_solution1 = Solution.find_by(answer_id: @q1)
@@ -260,19 +264,19 @@ class AirsearchesController < ApplicationController
         score9 = Answer.find_by(id: airsearch_params[:q9])
         score10 = Answer.find_by(id: airsearch_params[:q10])
         
+        #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
+        @ranges = Category.find_by(link: 'airsearches')
+        
         @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
-        @total_score = @total_score / 10
+        @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
         
         check_score = Airsearch.find_by(id: @airsearch)
-        
-        #pegando os ranges cadastrado na categoria criada
-        @ranges = Category.find_by(link: 'airsearches')
-             
-              if @total_score > @ranges.r1.to_i && @total_score <= @ranges.r2.to_i
+                    
+              if @total_score > @ranges.r1.to_f && @total_score <= @ranges.r2.to_f
               check_score.update_attributes(type_client: 'FRIO')
-              elsif @total_score >= @ranges.r3.to_i && @total_score <= @ranges.r4.to_i
+              elsif @total_score >= @ranges.r3.to_f && @total_score <= @ranges.r4.to_f
               check_score.update_attributes(type_client: 'MORNO') 
-              elsif @total_score >= @ranges.r5.to_i && @total_score <= @ranges.r6.to_i
+              elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
               check_score.update_attributes(type_client: 'QUENTE')
               end  
                 
@@ -295,10 +299,16 @@ class AirsearchesController < ApplicationController
   # PATCH/PUT /airsearches/1.json
   def update
     
-    if airsearch_params[:client].blank? || airsearch_params[:phone].blank?
-     flash[:warning] = 'Informe o nome e Celular do cliente!'
+    if airsearch_params[:user].blank? || airsearch_params[:client].blank? || airsearch_params[:phone].blank?
+     flash[:warning] = 'Selecione o atendente e informe o nome e Celular do cliente!'
      redirect_to edit_airsearch_path(@airsearch) and return
     end
+        
+    #atualizando o atendente caso tenha sido feita a alteração para outro atendente
+    if airsearch_params[:user] != current_user.name
+    go_update = 'yes'  
+    @id_usuario = User.find_by(name: airsearch_params[:user])
+    end 
     
     respond_to do |format|
       if @airsearch.update(airsearch_params)
@@ -315,22 +325,32 @@ class AirsearchesController < ApplicationController
         score9 = Answer.find_by(id: airsearch_params[:q9])
         score10 = Answer.find_by(id: airsearch_params[:q10])
         
+        #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
+        @ranges = Category.find_by(link: 'airsearches')
+        
         @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
-        @total_score = @total_score / 10
+        @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
         
         check_score = Airsearch.find_by(id: @airsearch)
-        
-        #pegando os ranges cadastrado na categoria criada
-        @ranges = Category.find_by(link: 'airsearches')
-             
-              if @total_score > @ranges.r1.to_i && @total_score <= @ranges.r2.to_i
+                    
+              if @total_score > @ranges.r1.to_f && @total_score <= @ranges.r2.to_f
               check_score.update_attributes(type_client: 'FRIO')
-              elsif @total_score >= @ranges.r3.to_i && @total_score <= @ranges.r4.to_i
+              elsif @total_score >= @ranges.r3.to_f && @total_score <= @ranges.r4.to_f
               check_score.update_attributes(type_client: 'MORNO') 
-              elsif @total_score >= @ranges.r5.to_i && @total_score <= @ranges.r6.to_i
+              elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
               check_score.update_attributes(type_client: 'QUENTE')
-              end  
-           
+              end
+        
+        #se houve alteração de atendente é atualizado na pesquisa e na agenda
+        if go_update == 'yes'
+        check_score.update_attributes(user_id: @id_usuario.id)
+        #pegando os dados lá na agenda pra atualizar o id do atendente trocado na pesquisa
+        @caminho = 'airsearches/' + @airsearch.id.to_s
+        meeting_data = Meeting.find_by(research_path: @caminho)
+        meeting_data.update_attributes(clerk_id: @id_usuario.id)
+        end
+
+                 
         format.html { redirect_to @airsearch, notice: 'Questionário atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @airsearch }
       else
@@ -383,6 +403,9 @@ class AirsearchesController < ApplicationController
       redirect_to questions_path and return
       end  
            
+    end
+    def show_user
+      @users = User.order(:name)
     end
     
 end

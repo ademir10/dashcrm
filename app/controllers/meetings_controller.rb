@@ -50,7 +50,7 @@ class MeetingsController < ApplicationController
       flash[:warning] = 'Não é possivel finalizar um atendimento onde ocorreu a compra sem informar o valor, verifique os dados!'
       redirect_to new_meeting_path and return
     end
-            
+           
      respond_to do |format|
       if @meeting.save
       #pegando o id que foi salvo pra montar o path do agendamento

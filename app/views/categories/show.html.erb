@@ -7,6 +7,8 @@
   <dt><strong><%= model_class.human_attribute_name('nome') %>:</strong></dt>
   <dd><%= @category.name %></dd>
   <% if current_user.type_access == 'MASTER' %>
+  <dt><strong><%= model_class.human_attribute_name('qnt perguntas') %>:</strong></dt>
+  <dd><%= @category.qnt_question %></dd>
   <dt><strong><%= model_class.human_attribute_name('link da pagina') %>:</strong></dt>
   <dd><%= @category.link %></dd>
   <% end %>

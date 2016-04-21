@@ -40,7 +40,13 @@ jQuery(function($){
    $("#cnpj").mask("99.999.999/9999-99",{placeholder:" "});
    //Faz a mascara de moeda do Brasil
    //maskMoney({symbol:"R$",decimal:",",thousands:"."})
-   $("#real").maskMoney({symbol:"R$",decimal:".",thousands:""});});
+   $("#real").maskMoney({symbol:"R$",decimal:".",thousands:""});
+   
+   $("#r1").maskMoney({symbol:"R$",decimal:".",thousands:""});
+   $("#r2").maskMoney({symbol:"R$",decimal:".",thousands:""});
+   $("#r3").maskMoney({symbol:"R$",decimal:".",thousands:""});
+   $("#r4").maskMoney({symbol:"R$",decimal:".",thousands:""});
+   $("#r5").maskMoney({symbol:"R$",decimal:".",thousands:""});});
    
    $("#total_geral").mask("99.999.999/9999-99",{placeholder:" "});
    

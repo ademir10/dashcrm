@@ -6,3 +6,4 @@ DOCUMENTAÇÃO PARA CRIAR NOVAS PESQUISAS COM BASE EM MODELO EXISTENTE
 5º - copiar o conteudo de todas as views da pesquisa modelo para as views do scaffold substituindo o nome do modelo em tudo
 6º - copiar o conteudo do controller e deixar igual, alterando somente o nome do modelo e a quantidade de perguntas se 
 for maior ou menor que 10
+7º - adicionar a nova pesquisa no controller Documents para os anexos

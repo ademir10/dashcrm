@@ -15,7 +15,18 @@
       </div>
     </div>
   <% end %>
-
+  
+  <% if @airsearch.user.present? %>
+    <div class="form-group">
+    <%= f.label 'Trocar Atendente', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-5">
+    
+       <%= f.collection_select(:user, @users, :name, :name, {include_blank: 'Selecione o atendente'},:class => 'form-control') %>
+    
+          </div>
+    <%=f.error_span(:user) %>
+  </div>
+  <% end %>	
   <div class="form-group">
     <%= f.label 'Cliente', :class => 'control-label col-lg-2' %>
     <div class="col-lg-5">

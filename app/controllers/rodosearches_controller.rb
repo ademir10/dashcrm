@@ -1,6 +1,7 @@
 class RodosearchesController < ApplicationController
   before_action :set_rodosearch, only: [:show, :edit, :update, :destroy]
   before_action :show_question, only: [:show, :new, :edit, :update, :destroy]
+  before_action :show_user, only: [:new, :edit]
   before_action :must_login
   
    
@@ -180,8 +181,11 @@ class RodosearchesController < ApplicationController
     score9 = Answer.find_by(id: @rodosearch.q9)
     score10 = Answer.find_by(id: @rodosearch.q10)
     
+    #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
+    @ranges = Category.find_by(link: 'rodosearches')
+    
     @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
-    @total_score = @total_score / 10
+    @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
     
     #exibe as tratativas
     @show_solution1 = Solution.find_by(answer_id: @q1)
@@ -236,19 +240,19 @@ class RodosearchesController < ApplicationController
         score9 = Answer.find_by(id: rodosearch_params[:q9])
         score10 = Answer.find_by(id: rodosearch_params[:q10])
         
+        #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
+        @ranges = Category.find_by(link: 'rodosearches')
+        
         @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
-        @total_score = @total_score / 10
+        @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
         
         check_score = Rodosearch.find_by(id: @rodosearch)
-              
-        #pegando os ranges cadastrado na categoria criada
-        @ranges = Category.find_by(link: 'rodosearches')
-             
-              if @total_score > @ranges.r1.to_i && @total_score <= @ranges.r2.to_i
+                    
+              if @total_score > @ranges.r1.to_f && @total_score <= @ranges.r2.to_f
               check_score.update_attributes(type_client: 'FRIO')
-              elsif @total_score >= @ranges.r3.to_i && @total_score <= @ranges.r4.to_i
+              elsif @total_score >= @ranges.r3.to_f && @total_score <= @ranges.r4.to_f
               check_score.update_attributes(type_client: 'MORNO') 
-              elsif @total_score >= @ranges.r5.to_i && @total_score <= @ranges.r6.to_i
+              elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
               check_score.update_attributes(type_client: 'QUENTE')
               end  
         
@@ -276,6 +280,12 @@ class RodosearchesController < ApplicationController
      redirect_to edit_rodosearch_path(@rodosearch) and return
     end
     
+    #atualizando o atendente caso tenha sido feita a alteração para outro atendente
+    if rodosearch_params[:user] != current_user.name
+    go_update = 'yes'  
+    @id_usuario = User.find_by(name: rodosearch_params[:user])
+    end 
+    
     respond_to do |format|
       if @rodosearch.update(rodosearch_params)
         
@@ -291,21 +301,30 @@ class RodosearchesController < ApplicationController
         score9 = Answer.find_by(id: rodosearch_params[:q9])
         score10 = Answer.find_by(id: rodosearch_params[:q10])
         
+        #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
+        @ranges = Category.find_by(link: 'rodosearches')
+        
         @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
-        @total_score = @total_score / 10
+        @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
         
         check_score = Rodosearch.find_by(id: @rodosearch)
-              
-        #pegando os ranges cadastrado na categoria criada
-        @ranges = Category.find_by(link: 'rodosearches')
-             
-              if @total_score > @ranges.r1.to_i && @total_score <= @ranges.r2.to_i
+                    
+              if @total_score > @ranges.r1.to_f && @total_score <= @ranges.r2.to_f
               check_score.update_attributes(type_client: 'FRIO')
-              elsif @total_score >= @ranges.r3.to_i && @total_score <= @ranges.r4.to_i
+              elsif @total_score >= @ranges.r3.to_f && @total_score <= @ranges.r4.to_f
               check_score.update_attributes(type_client: 'MORNO') 
-              elsif @total_score >= @ranges.r5.to_i && @total_score <= @ranges.r6.to_i
+              elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
               check_score.update_attributes(type_client: 'QUENTE')
-              end         
+              end
+        
+        #se houve alteração de atendente é atualizado na pesquisa e na agenda
+        if go_update == 'yes'
+        check_score.update_attributes(user_id: @id_usuario.id)
+        #pegando os dados lá na agenda pra atualizar o id do atendente trocado na pesquisa
+        @caminho = 'rodosearches/' + @rodosearch.id.to_s
+        meeting_data = Meeting.find_by(research_path: @caminho)
+        meeting_data.update_attributes(clerk_id: @id_usuario.id)
+        end         
         
         format.html { redirect_to @rodosearch, notice: 'Questionário atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @rodosearch }
@@ -360,4 +379,7 @@ class RodosearchesController < ApplicationController
       end  
            
     end
+      def show_user
+        @users = User.order(:name)
+      end
 end
