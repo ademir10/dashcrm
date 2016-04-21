@@ -87,6 +87,38 @@
 </div>
 
 <div class="panel panel-default">
+  <div class="panel-heading" >Pacotes de Viagem - Total vendido R$: <b><%= @total_packsearch %></b></div>
+  <h5 class="panel-body">
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th> <%= 'cliente' %></th>
+      <th><%= 'fone' %></th>
+      <th><%= 'valor cotado R$' %></th>
+      <th><%= 'vendedor' %></th>
+      <th><%= 'vendido em' %></th>
+                
+    </tr>
+  </thead>
+  <tbody>
+ 
+ 	<% @packsearch.each do |f| %>
+ 	    <tr>
+        <td><%= f.client %></td>
+        <td><%= f.phone %></td>
+        <td><%= f.cotation_value %></td>
+        <td><%= f.user %></td>
+        <td><%= f.updated_at.strftime("%d/%m/%Y") %></td>
+      </tr>
+      <% end %>
+       </tbody>
+       
+   </table>
+  </h5>
+</div>
+</div>
+
+<div class="panel panel-default">
   <div class="panel-heading" >Transportes Aéreos - Total vendido R$: <b><%= @total_airsearch %></b></div>
   <h5 class="panel-body">
   <table class="table table-striped">
@@ -116,7 +148,7 @@
    </table>
   </h5>
 </div>
-</div>
+
 
 <div class="panel panel-default">
   <div class="panel-heading" >Transportes Rodoviários - Total vendido R$: <b><%= @total_rodosearch %></b></div>

@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
-  before_action :show_user, only: [:index]
+  before_action :show_user, only: [:index, :new, :edit, :create]
 
   # GET /meetings
   # GET /meetings.json
@@ -88,9 +88,27 @@ class MeetingsController < ApplicationController
       redirect_to meeting_path(meeting_params) and return
     end
     
+    #atualizando o atendente caso tenha sido feita a alteração para outro atendente
+    if meeting_params[:clerk_name] != current_user.name
+    go_update = 'yes'  
+    @id_usuario = User.find_by(name: meeting_params[:clerk_name])
+    puts 'O CAMINHO É ' + @id_usuario.id.to_s  
+    end 
+
     respond_to do |format|
       if @meeting.update(meeting_params)
-      
+        
+        check_meeting = Meeting.find_by(id: @meeting)
+                    
+        #se houve alteração de atendente é atualizado na pesquisa e na agenda
+        if go_update == 'yes'
+        check_meeting.update_attributes(clerk_id: @id_usuario.id)
+        #pegando os dados lá na agenda pra atualizar o id do atendente trocado na pesquisa
+        @caminho = 'meetings/' + @meeting.id.to_s
+        meeting_data = Meeting.find_by(research_path: @caminho)
+        meeting_data.update_attributes(clerk_id: @id_usuario.id)
+        end 
+    
           #se comprou é direcionado para a agenda de compromissos
           if @meeting.status == 'COMPROU' && @meeting.cotation_value.present?
             flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
@@ -128,6 +146,6 @@ class MeetingsController < ApplicationController
     end
     
     def show_user
-      @users = User.where('type_access != ?', 'MASTER').where('type_access != ?', 'ADMIN')
+      @users = User.where('type_access != ?', 'MASTER').order(:name)
     end
 end

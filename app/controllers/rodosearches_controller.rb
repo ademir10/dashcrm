@@ -352,6 +352,6 @@ class RodosearchesController < ApplicationController
            
     end
       def show_user
-        @users = User.order(:name)
+        @users = User.where('type_access != ?', 'MASTER').order(:name)
       end
 end
