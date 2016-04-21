@@ -333,14 +333,6 @@ class AirsearchesController < ApplicationController
         
         check_score = Airsearch.find_by(id: @airsearch)
                     
-              if @total_score > @ranges.r1.to_f && @total_score <= @ranges.r2.to_f
-              check_score.update_attributes(type_client: 'FRIO')
-              elsif @total_score >= @ranges.r3.to_f && @total_score <= @ranges.r4.to_f
-              check_score.update_attributes(type_client: 'MORNO') 
-              elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
-              check_score.update_attributes(type_client: 'QUENTE')
-              end
-        
         #se houve alteração de atendente é atualizado na pesquisa e na agenda
         if go_update == 'yes'
         check_score.update_attributes(user_id: @id_usuario.id)
@@ -348,8 +340,22 @@ class AirsearchesController < ApplicationController
         @caminho = 'airsearches/' + @airsearch.id.to_s
         meeting_data = Meeting.find_by(research_path: @caminho)
         meeting_data.update_attributes(clerk_id: @id_usuario.id)
-        end
-
+        end 
+        
+        #para atualizar sempre na pesquisa o perfil do cliente quando a pesquisa for editada
+        @caminho = 'airsearches/' + @airsearch.id.to_s
+        meeting_data = Meeting.find_by(research_path: @caminho)  
+                    
+              if @total_score > @ranges.r1.to_f && @total_score <= @ranges.r2.to_f
+              check_score.update_attributes(type_client: 'FRIO')
+              meeting_data.update_attributes(type_client: 'FRIO')
+              elsif @total_score >= @ranges.r3.to_f && @total_score <= @ranges.r4.to_f
+              check_score.update_attributes(type_client: 'MORNO')
+              meeting_data.update_attributes(type_client: 'MORNO') 
+              elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
+              check_score.update_attributes(type_client: 'QUENTE')
+              meeting_data.update_attributes(type_client: 'QUENTE')
+              end
                  
         format.html { redirect_to @airsearch, notice: 'Questionário atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @airsearch }

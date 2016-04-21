@@ -97,7 +97,7 @@ class RodosearchesController < ApplicationController
   if @result.solution_applied.blank?
   
     #primeiro verifica se foi selecionada pelo menos uma tratativa
-    if params[:t1].blank? && params[:t2].blank? && params[:t3].blank? && params[:t4].blank? && params[:t5].blank? && params[:t6].blank? && params[:t7].blank? && params[:t8].blank? && params[:t9].blank? && params[:t10].blank?
+    if params[:t1].blank? && params[:t2].blank? && params[:t3].blank? && params[:t4].blank? && params[:t5].blank? && params[:t6].blank?
       flash[:warning] = 'Você não selecionou nenhuma das tratativas propostas, selecione a(s) tratativa(s) adequada(s) para este cliente!'
       redirect_to rodosearch_path(@result) and return
     end
@@ -121,19 +121,7 @@ class RodosearchesController < ApplicationController
         if params[:t6].present?
         @solutions = @solutions.to_s + params[:t6].to_s + "\n"
         end
-        if params[:t7].present?
-        @solutions = @solutions.to_s + params[:t7].to_s + "\n"
-        end
-        if params[:t8].present?
-        @solutions = @solutions.to_s + params[:t8].to_s + "\n"
-        end
-        if params[:t9].present?
-        @solutions = @solutions.to_s + params[:t9].to_s + "\n"
-        end
-        if params[:t10].present?
-        @solutions = @solutions.to_s + params[:t10].to_s + "\n"
-        end
-      
+              
       @result.solution_applied = @solutions
    end
   end
@@ -164,11 +152,7 @@ class RodosearchesController < ApplicationController
     @q4 = Answer.find_by(id: @rodosearch.q4)
     @q5 = Answer.find_by(id: @rodosearch.q5)
     @q6 = Answer.find_by(id: @rodosearch.q6)
-    @q7 = Answer.find_by(id: @rodosearch.q7)
-    @q8 = Answer.find_by(id: @rodosearch.q8)
-    @q9 = Answer.find_by(id: @rodosearch.q9)
-    @q10 = Answer.find_by(id: @rodosearch.q10)
-    
+        
     #faz o calculo do score pra saber se o cliente é quente, morno ou frio
     score1 = Answer.find_by(id: @rodosearch.q1)
     score2 = Answer.find_by(id: @rodosearch.q2)
@@ -176,15 +160,11 @@ class RodosearchesController < ApplicationController
     score4 = Answer.find_by(id: @rodosearch.q4)
     score5 = Answer.find_by(id: @rodosearch.q5)
     score6 = Answer.find_by(id: @rodosearch.q6)
-    score7 = Answer.find_by(id: @rodosearch.q7)
-    score8 = Answer.find_by(id: @rodosearch.q8)
-    score9 = Answer.find_by(id: @rodosearch.q9)
-    score10 = Answer.find_by(id: @rodosearch.q10)
-    
+        
     #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
     @ranges = Category.find_by(link: 'rodosearches')
     
-    @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
+    @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i
     @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
     
     #exibe as tratativas
@@ -194,10 +174,7 @@ class RodosearchesController < ApplicationController
     @show_solution4 = Solution.find_by(answer_id: @q4)
     @show_solution5 = Solution.find_by(answer_id: @q5)
     @show_solution6 = Solution.find_by(answer_id: @q6)
-    @show_solution7 = Solution.find_by(answer_id: @q7)
-    @show_solution8 = Solution.find_by(answer_id: @q8)
-    @show_solution9 = Solution.find_by(answer_id: @q9)
-    @show_solution10 = Solution.find_by(answer_id: @q10)
+    
   end
 
   # GET /rodosearches/new
@@ -215,7 +192,7 @@ class RodosearchesController < ApplicationController
   def create
    @rodosearch = Rodosearch.new(rodosearch_params)
    #verifica se todos os campos estão preenchidos
-   if rodosearch_params[:client].blank? || rodosearch_params[:phone].blank? || rodosearch_params[:q1].blank? || rodosearch_params[:q2].blank? || rodosearch_params[:q3].blank? || rodosearch_params[:q4].blank? || rodosearch_params[:q5].blank? || rodosearch_params[:q6].blank? || rodosearch_params[:q7].blank? || rodosearch_params[:q8].blank? || rodosearch_params[:q9].blank? || rodosearch_params[:q10].blank?
+   if rodosearch_params[:client].blank? || rodosearch_params[:phone].blank? || rodosearch_params[:q1].blank? || rodosearch_params[:q2].blank? || rodosearch_params[:q3].blank? || rodosearch_params[:q4].blank? || rodosearch_params[:q5].blank? || rodosearch_params[:q6].blank?
      flash[:warning] = 'Os dados do cliente e todas as perguntas precisam ser respondidas!'
      redirect_to new_rodosearch_path and return
    end
@@ -235,15 +212,11 @@ class RodosearchesController < ApplicationController
         score4 = Answer.find_by(id: rodosearch_params[:q4])
         score5 = Answer.find_by(id: rodosearch_params[:q5])
         score6 = Answer.find_by(id: rodosearch_params[:q6])
-        score7 = Answer.find_by(id: rodosearch_params[:q7])
-        score8 = Answer.find_by(id: rodosearch_params[:q8])
-        score9 = Answer.find_by(id: rodosearch_params[:q9])
-        score10 = Answer.find_by(id: rodosearch_params[:q10])
-        
+                
         #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
         @ranges = Category.find_by(link: 'rodosearches')
         
-        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
+        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i
         @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
         
         check_score = Rodosearch.find_by(id: @rodosearch)
@@ -296,26 +269,15 @@ class RodosearchesController < ApplicationController
         score4 = Answer.find_by(id: rodosearch_params[:q4])
         score5 = Answer.find_by(id: rodosearch_params[:q5])
         score6 = Answer.find_by(id: rodosearch_params[:q6])
-        score7 = Answer.find_by(id: rodosearch_params[:q7])
-        score8 = Answer.find_by(id: rodosearch_params[:q8])
-        score9 = Answer.find_by(id: rodosearch_params[:q9])
-        score10 = Answer.find_by(id: rodosearch_params[:q10])
+        
         
         #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
         @ranges = Category.find_by(link: 'rodosearches')
         
-        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i + score7.score.to_i + score8.score.to_i + score9.score.to_i + score10.score.to_i
+        @total_score = score1.score.to_i + score2.score.to_i + score3.score.to_i + score4.score.to_i + score5.score.to_i + score6.score.to_i
         @total_score = @total_score.fdiv(@ranges.qnt_question.to_i).round(2)
         
         check_score = Rodosearch.find_by(id: @rodosearch)
-                    
-              if @total_score > @ranges.r1.to_f && @total_score <= @ranges.r2.to_f
-              check_score.update_attributes(type_client: 'FRIO')
-              elsif @total_score >= @ranges.r3.to_f && @total_score <= @ranges.r4.to_f
-              check_score.update_attributes(type_client: 'MORNO') 
-              elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
-              check_score.update_attributes(type_client: 'QUENTE')
-              end
         
         #se houve alteração de atendente é atualizado na pesquisa e na agenda
         if go_update == 'yes'
@@ -324,8 +286,23 @@ class RodosearchesController < ApplicationController
         @caminho = 'rodosearches/' + @rodosearch.id.to_s
         meeting_data = Meeting.find_by(research_path: @caminho)
         meeting_data.update_attributes(clerk_id: @id_usuario.id)
-        end         
+        end 
         
+        #para atualizar sempre na pesquisa o perfil do cliente quando a pesquisa for editada
+        @caminho = 'rodosearches/' + @rodosearch.id.to_s
+        meeting_data = Meeting.find_by(research_path: @caminho)  
+                    
+              if @total_score > @ranges.r1.to_f && @total_score <= @ranges.r2.to_f
+              check_score.update_attributes(type_client: 'FRIO')
+              meeting_data.update_attributes(type_client: 'FRIO')
+              elsif @total_score >= @ranges.r3.to_f && @total_score <= @ranges.r4.to_f
+              check_score.update_attributes(type_client: 'MORNO')
+              meeting_data.update_attributes(type_client: 'MORNO') 
+              elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
+              check_score.update_attributes(type_client: 'QUENTE')
+              meeting_data.update_attributes(type_client: 'QUENTE')
+              end
+       
         format.html { redirect_to @rodosearch, notice: 'Questionário atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @rodosearch }
       else
@@ -356,7 +333,7 @@ class RodosearchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rodosearch_params
-      params.require(:rodosearch).permit(:user, :client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :status, :obs, :schedule, :reason, :pains, :solution_applied, :cotation_value, :finished, :user_id)
+      params.require(:rodosearch).permit(:user, :client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :status, :obs, :schedule, :reason, :pains, :solution_applied, :cotation_value, :finished, :user_id)
     end
     
     def show_question
@@ -367,13 +344,8 @@ class RodosearchesController < ApplicationController
       @question4 = Question.find_by(id: '14')
       @question5 = Question.find_by(id: '15')
       @question6 = Question.find_by(id: '16')
-      @question7 = Question.find_by(id: '17')
-      @question8 = Question.find_by(id: '18')
-      @question9 = Question.find_by(id: '19')
-      @question10 = Question.find_by(id: '20')
-      
-      
-      if @question1.blank? || @question2.blank? || @question3.blank? || @question4.blank? || @question5.blank? || @question6.blank? || @question7.blank? || @question8.blank? || @question9.blank? || @question10.blank?
+            
+      if @question1.blank? || @question2.blank? || @question3.blank? || @question4.blank? || @question5.blank? || @question6.blank?
       flash[:warning] = "Você precisa cadastrar primeiro as 10 perguntas e respostas com as tratativas para esta pesquisa!"
       redirect_to questions_path and return
       end  
