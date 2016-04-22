@@ -1,5 +1,8 @@
 jQuery(function($){
 	//MASCARAS PARA O CONTAS Á PAGAR E RECEBER
+	
+	//NEWLINE
+	$("#t").html("#{simple_format title}");
         
       
    //carregar o calendário contas a pagar em portugues

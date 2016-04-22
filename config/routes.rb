@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :loginfos
   #pacote de viagens 
   resources :packsearches do
     member do

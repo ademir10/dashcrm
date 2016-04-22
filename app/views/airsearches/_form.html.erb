@@ -1,4 +1,3 @@
-
 <%= form_for @airsearch, :html => { :class => "form-horizontal airsearch" } do |f| %>
 
   <% if @airsearch.errors.any? %>
@@ -42,7 +41,7 @@
     <%=f.error_span(:phone) %>
   </div>
 <h4>Questionário</h4>
- 
+
   <div class="form-group">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -51,8 +50,9 @@
             </h1>
         </div>
         <div class="panel-body">
-  <%= f.collection_radio_buttons :q1, Answer.where(question_id: @question1.id), :id, :description %>
   
+  <%= f.collection_radio_buttons :q1, Answer.where(question_id: @question1.id), :id, :description, {:item_wrapper_class => 'inline-block'}, {:class => "radio" } %>
+      
   </div>
   </div>
   <%=f.error_span(:q1) %>

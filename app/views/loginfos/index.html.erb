@@ -1,0 +1,24 @@
+<%- model_class = Loginfo -%>
+<div class="page-header">
+  <h1>Log de Atividades</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name('usuário') %></th>
+      <th><%= model_class.human_attribute_name('tarefa') %></th>
+      <th><%= model_class.human_attribute_name('realizado em') %></th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @logs.each do |f| %>
+      <tr>
+      	<td><%= f.employee %></td>
+        <td><%= f.task %></td>
+        <td><%= f.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
