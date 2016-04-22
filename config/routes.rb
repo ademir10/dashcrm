@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   resources :clients
   resources :documents
   resources :solutions
-  resources :advices
   resources :questions do
   resources :answers 
   end

@@ -89,11 +89,13 @@
         	<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administração <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                	
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Gerenciamento de pesquisas</li>
+
                 <% if current_user.mmeeting == true %>	
                 <li><%= link_to "Agenda de compromissos", meetings_path %></li>
+                <% end %>
+                
+                <% if current_user.mlog == true %>	
+                <li><%= link_to "Log de atividades", loginfos_path %></li>
                 <% end %>
                 	
                 

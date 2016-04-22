@@ -106,8 +106,10 @@
   	
   	<%= link_to t('.back', :default => t("helpers.links.back")),
               packsearches_path, :class => 'btn btn-default', id: 'hide_buttom' %>
+    
+    <% if @packsearch.schedule.present? %>  
     <%= link_to 'Editar pesquisa', edit_packsearch_path(@packsearch), :class => 'btn btn-default', id: 'hide_buttom' %>
-
+    <% end %>
     <%= link_to "Anexos", documents_path(:id => @packsearch, :request => 'packsearches'), class: 'btn btn-default', id: 'hide_buttom' %>	
 
     <%= submit_tag "Gerenciamento", class: 'btn btn-primary', id: 'hide_buttom' %>    

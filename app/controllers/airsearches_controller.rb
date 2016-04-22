@@ -48,6 +48,12 @@ class AirsearchesController < ApplicationController
     #vai na agenda e exclui todos os agendamentos deste cliente
     Meeting.destroy_all(research_id: @airsearch)
     
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Finalizou compra de pesquisa - Transporte Aéreo / Cliente ' + @airsearch.client.to_s
+        log.save!
+    
     flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
     redirect_to meetings_path and return  
     end
@@ -97,8 +103,21 @@ class AirsearchesController < ApplicationController
       meeting.research_id = params[:id]
       meeting.type_client = @airsearch.type_client
       meeting.save!
+      
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Gerenciou pesquisa - Transporte Aéreo com agendamento para ' + airsearch_params[:schedule].to_time.strftime("%d/%m/%Y") + ' / Cliente ' + @airsearch.client.to_s
+        log.save!
+        
       flash[:success] = 'Os dados foram atualizados com sucesso e agendado um compromisso para o dia ' + airsearch_params[:schedule].to_time.strftime("%d/%m/%Y")
     elsif
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Gerenciou pesquisa atualizando dados - Transporte Aéreo / Cliente ' + @airsearch.client.to_s
+        log.save!
+      
     flash[:success] = 'Os dados foram atualizados com sucesso!' 
     end  
     #pego o id da pesquisa pra chamar a view
@@ -264,6 +283,12 @@ class AirsearchesController < ApplicationController
       
       if @airsearch.save
         
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Cadastrou nova pesquisa - Transporte Aéreo / Cliente ' + airsearch_params[:client].to_s
+        log.save!
+        
         #faz o calculo do score pra atualizar o tipo de cliente na tabela
         score1 = Answer.find_by(id: airsearch_params[:q1])
         score2 = Answer.find_by(id: airsearch_params[:q2])
@@ -327,6 +352,12 @@ class AirsearchesController < ApplicationController
     respond_to do |format|
       if @airsearch.update(airsearch_params)
         
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Gerenciou pesquisa atualizando dados - Transporte Aéreo / Cliente ' + @airsearch.client.to_s
+        log.save!
+        
         #faz o calculo do score pra atualizar o tipo de cliente na tabela
         score1 = Answer.find_by(id: airsearch_params[:q1])
         score2 = Answer.find_by(id: airsearch_params[:q2])
@@ -388,6 +419,13 @@ class AirsearchesController < ApplicationController
     @airsearch.destroy
     Document.destroy_all(owner: @airsearch)
     Meeting.destroy_all(research_id: @airsearch)
+    
+    #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Excluiu pesquisa - Transporte Aéreo / Cliente ' + @airsearch.client.to_s
+        log.save!
+        
     respond_to do |format|
       format.html { redirect_to airsearches_url, notice: 'Pesquisa Excluida com sucesso.' }
       format.json { head :no_content }

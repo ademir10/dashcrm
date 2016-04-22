@@ -109,6 +109,13 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       
       if @document.save
+      
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Efetuou upload de anexo para pesquisa do tipo ' + @document.type_research.to_s
+        log.save!  
+        
         #se for um anexo de pesquisa de transportes aéreos
         if @document.type_research == 'airsearches'
         @airsearch = document_params[:owner]
@@ -143,6 +150,12 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1.json
   def destroy
     @document.destroy
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Excluiu anexo / arquivo ' + @document.file.to_s + 'referente a pesquisa tipo ' + @document.type_research.to_s
+        log.save
+    
     respond_to do |format|
       format.html { redirect_to meetings_path }
       format.json { head :no_content }

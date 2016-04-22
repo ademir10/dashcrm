@@ -61,6 +61,12 @@ class MeetingsController < ApplicationController
         client.name = meeting_params[:client]
         client.cellphone = meeting_params[:phone]
         client.save!
+        
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Cadastrou novo Agendamento / Cliente ' + meeting_params[:client].to_s
+        log.save!
        
        if @meeting.status == 'COMPROU'
         flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
@@ -110,9 +116,23 @@ class MeetingsController < ApplicationController
     
           #se comprou é direcionado para a agenda de compromissos
           if @meeting.status == 'COMPROU' && @meeting.cotation_value.present?
+        #COMPROU
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Finalizou compra em agendamento / Cliente ' + @meeting.client.to_s
+        log.save!
+            
             flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
             redirect_to meetings_path and return
             else
+              
+            
+        #ATUALIZOU DADOS
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Gerenciou agendamento atualizando dados / Cliente ' + @meeting.client.to_s
+        log.save!  
+              
             format.html { redirect_to @meeting, notice: 'Agendamento atualizado com sucesso.' }
           end
         format.json { render :show, status: :ok, location: @meeting }
@@ -127,6 +147,13 @@ class MeetingsController < ApplicationController
   # DELETE /meetings/1.json
   def destroy
     @meeting.destroy
+    
+    #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Excluiu agendamento / Cliente ' + @meeting.client.to_s
+        log.save!
+    
     #tive que fazer essa query junto com o delete pra escluir com dois parametros
     Document.where(owner: @meeting).where(type_research: params[:request]).delete_all
     flash[:success] = 'Agendamento excluido com sucesso.'

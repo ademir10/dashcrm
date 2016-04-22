@@ -42,6 +42,12 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       if @client.update(client_params)
+        #ATUALIZOU DADOS
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Atualizou Cliente ' + @client.name.to_s
+        log.save!  
+        
         format.html { redirect_to @client, notice: 'Client was successfully updated.' }
         format.json { render :show, status: :ok, location: @client }
       else
@@ -55,6 +61,13 @@ class ClientsController < ApplicationController
   # DELETE /clients/1.json
   def destroy
     @client.destroy
+    
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Excluiu Cliente ' + @client.name.to_s
+        log.save!
+        
     respond_to do |format|
       format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
       format.json { head :no_content }

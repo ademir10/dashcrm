@@ -5,7 +5,7 @@ class SolutionsController < ApplicationController
   # GET /solutions
   # GET /solutions.json
   def index
-    @solutions = Solution.includes(:answer).all
+    @solutions = Solution.includes(:answer).order(created_at: :desc)
   end
 
   # GET /solutions/1
@@ -40,6 +40,12 @@ class SolutionsController < ApplicationController
 
     respond_to do |format|
       if @solution.save
+                #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Cadastrou nova tratativa - Descrição: ' + solution_params[:description].to_s
+        log.save!
+        
         format.html { redirect_to @solution, notice: 'Tratativa criada com sucesso.' }
         format.json { render :show, status: :created, location: @solution }
       else
@@ -54,6 +60,12 @@ class SolutionsController < ApplicationController
   def update
     respond_to do |format|
       if @solution.update(solution_params)
+               #ATUALIZOU DADOS
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Atualizou tratativa - Descrição ' + @solution.description.to_s
+        log.save! 
+        
         format.html { redirect_to @solution, notice: 'Tratativa atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @solution }
       else
@@ -67,6 +79,12 @@ class SolutionsController < ApplicationController
   # DELETE /solutions/1.json
   def destroy
     @solution.destroy
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Excluiu tratativa / Descrição: ' + @solution.description.to_s
+        log.save!
+        
     respond_to do |format|
       format.html { redirect_to solutions_url, notice: 'Tratativa excluida com sucesso.' }
       format.json { head :no_content }
@@ -86,6 +104,5 @@ class SolutionsController < ApplicationController
     
     def show_question_answer
       @answer = Answer.find_by(id: params[:id_answer])
-      @advices = Advice.order(:description)
     end
 end

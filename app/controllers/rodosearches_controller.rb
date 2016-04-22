@@ -24,6 +24,12 @@ class RodosearchesController < ApplicationController
     #vai na agenda e exclui todos os agendamentos deste cliente
     Meeting.destroy_all(research_id: @rodosearch)
     
+            #COMPROU
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Finalizou compra de pesquisa - Transporte rodoviário / Cliente ' + @rodosearch.client.to_s
+        log.save!
+    
     flash[:success] = 'Parabens pelo excelente desempenho ' + current_user.name + '! ' + 'Este processo já foi finalizado com sucesso, e ai vamos para o próximo desafio?'
     redirect_to meetings_path and return  
     end
@@ -73,8 +79,23 @@ class RodosearchesController < ApplicationController
       meeting.research_id = params[:id]
       meeting.type_client = @rodosearch.type_client
       meeting.save!
+      
+              #AGENDAMENTO
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Gerenciou pesquisa - Transporte Rodoviário com agendamento para ' + rodosearch_params[:schedule].to_time.strftime("%d/%m/%Y") + ' / Cliente ' + @rodosearch.client.to_s
+        log.save!
+      
       flash[:success] = 'Os dados foram atualizados com sucesso e agendado um compromisso para o dia ' + rodosearch_params[:schedule].to_time.strftime("%d/%m/%Y")
     elsif
+      
+      
+        #ATUALIZOU DADOS
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Gerenciou pesquisa atualizando dados - Transporte Rodoviário / Cliente ' + @rodosearch.client.to_s
+        log.save!
+      
     flash[:success] = 'Os dados foram atualizados com sucesso!' 
     end  
     #pego o id da pesquisa pra chamar a view
@@ -204,6 +225,11 @@ class RodosearchesController < ApplicationController
       @rodosearch.finished = 'NÃO'
       
       if @rodosearch.save
+              #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Cadastrou nova pesquisa - Transporte Rodoviário / Cliente ' + rodosearch_params[:client].to_s
+        log.save!
         
         #faz o calculo do score pra atualizar o tipo de cliente na tabela
         score1 = Answer.find_by(id: rodosearch_params[:q1])
@@ -261,6 +287,11 @@ class RodosearchesController < ApplicationController
     
     respond_to do |format|
       if @rodosearch.update(rodosearch_params)
+                #ATUALIZOU DADOS
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Gerenciou pesquisa atualizando dados - Transporte Rodoviário / Cliente ' + @rodosearch.client.to_s
+        log.save!
         
         #faz o calculo do score pra atualizar o tipo de cliente na tabela
         score1 = Answer.find_by(id: rodosearch_params[:q1])
@@ -316,6 +347,12 @@ class RodosearchesController < ApplicationController
   # DELETE /rodosearches/1.json
   def destroy
     @rodosearch.destroy
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Excluiu pesquisa - Transporte Rodoviário / Cliente ' + @rodosearch.client.to_s
+        log.save!
+        
     Document.destroy_all(owner: @rodosearch)
     Meeting.destroy_all(research_id: @rodosearch)
     respond_to do |format|

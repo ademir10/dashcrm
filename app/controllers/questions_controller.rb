@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   
   def add_solution
     @answer = Answer.find_by(id: params[:id_answer])
-    @advices = Advice.order(:description)
+    #@advices = Advice.order(:description)
     redirect_to new_solution_path
   end
 
@@ -38,6 +38,12 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
+              #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Cadastrou nova pergunta / Descrição: ' + question_params[:description].to_s
+        log.save  
+        
         format.html { redirect_to @question, notice: 'Pergunta criada com sucesso.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -52,6 +58,13 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
+      
+              #ATUALIZOU DADOS
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Atualizou pergunta - Descrição: ' + @question.description.to_s
+        log.save!
+          
         format.html { redirect_to @question, notice: 'Pergunta atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @question }
       else
@@ -65,6 +78,11 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.json
   def destroy
     @question.destroy
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Excluiu pergunta - Descrição: ' + @question.description.to_s
+        log.save!
     
     respond_to do |format|
       format.html { redirect_to questions_url, notice: 'Pergunta excluida com sucesso.' }

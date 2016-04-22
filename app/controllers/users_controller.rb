@@ -48,6 +48,12 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Cadastrou novo usuário - Nome: ' + user_params[:name].to_s
+        log.save!
+        
               #Sends email to user when user is created.
       UserNotifier.send_signup_email(@user).deliver_now
         format.html { redirect_to @user }
@@ -65,6 +71,12 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+                #ATUALIZOU DADOS
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Atualizou usuário - Nome: ' + @user.name.to_s
+        log.save
+        
         format.html { redirect_to @user, notice: 'Usuário atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -78,6 +90,12 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user.destroy
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Excluiu usuário - Nome: ' + @user.name.to_s
+        log.save!
+        
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'Usuário excluido com sucesso.' }
       format.json { head :no_content }
@@ -92,7 +110,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :type_access,:ccategory,:cresearch,:cquestion,:cadvice,:cuser, :mcli, :rbusiness, :ccli, :mmeeting, :ranalitic)
+      params.require(:user).permit(:name, :email, :password, :type_access,:ccategory,:cresearch,:cquestion,:cadvice,:cuser, :mcli, :rbusiness, :ccli, :mmeeting, :ranalitic, :mlog)
     end
     
     #verifica o perfil do usuario

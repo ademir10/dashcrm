@@ -29,6 +29,13 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
+      
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Cadastrou nova categoria de pesquisa - ' + category_params[:name].to_s
+        log.save!  
+        
         format.html { redirect_to @category, notice: 'Categoria criada com sucesso.' }
         format.json { render :show, status: :created, location: @category }
       else
@@ -43,6 +50,13 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
+      
+        #ATUALIZOU DADOS
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Atualizou categoria de despesas - ' + @category.name.to_s
+        log.save!  
+        
         format.html { redirect_to @category, notice: 'Categoria atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @category }
       else
@@ -56,6 +70,13 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1.json
   def destroy
     @category.destroy
+    
+        #inserindo no log de atividades
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Excluiu categoria de despesas - ' + @category.name.to_s
+        log.save!
+    
     respond_to do |format|
       format.html { redirect_to categories_url, notice: 'Categoria excluida com sucesso.' }
       format.json { head :no_content }
