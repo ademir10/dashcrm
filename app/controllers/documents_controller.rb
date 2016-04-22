@@ -78,6 +78,33 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(document_params)
+    
+    if document_params[:file].blank?
+        if @document.type_research == 'airsearches'
+        flash[:warning] = 'selecione o arquivo desejado!'
+        @airsearch = document_params[:owner]  
+        redirect_to airsearch_path(@airsearch) and return
+        end
+        #se for um anexo vindo de um agendamento simples
+        if @document.type_research == 'meetings'
+        flash[:warning] = 'selecione o arquivo desejado!'
+        @meeting = document_params[:owner]  
+        redirect_to meeting_path(@meeting) and return
+        end
+        #se for um anexo de pesquisa de transportes rodoviarios
+        if @document.type_research == 'rodosearches'
+        flash[:warning] = 'selecione o arquivo desejado!'
+        @rodosearch = document_params[:owner]  
+        redirect_to rodosearch_path(@rodosearch) and return
+        end
+        #se for um anexo de pesquisa de transportes rodoviarios
+        if @document.type_research == 'packsearches'
+        flash[:warning] = 'selecione o arquivo desejado!'
+        @packsearch = document_params[:owner]  
+        redirect_to packsearch_path(@packsearch) and return
+        end
+
+    end
 
     respond_to do |format|
       

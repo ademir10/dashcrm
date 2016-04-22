@@ -20,8 +20,8 @@
     <%= f.label 'Trocar Atendente', :class => 'control-label col-lg-2' %>
     <div class="col-lg-5">
     
-       <%= f.collection_select(:clerk_name, @users, :name, :name, {include_blank: 'Selecione o atendente'},:class => 'form-control') %>
-    
+       <%= f.collection_select(:clerk_name, @users, :name, :name, {include_blank: 'Selecione o atendente'}, :class => 'form-control') %>
+
           </div>
     <%=f.error_span(:clerk_name) %>
   </div>
@@ -76,10 +76,12 @@
     </div>
     <%=f.error_span(:start_time) %>
   </div>
+  
     <% if @meeting.clerk_name.blank? %>
       <%= f.hidden_field :clerk_id, :value => current_user.id %>
       <%= f.hidden_field :clerk_name, :value => current_user.name %>
-    <% end %>  
+    <% end %>
+      
    <div class="form-group">
     <%= f.label 'Observações', :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">

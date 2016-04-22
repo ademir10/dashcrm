@@ -92,7 +92,6 @@ class MeetingsController < ApplicationController
     if meeting_params[:clerk_name] != current_user.name
     go_update = 'yes'  
     @id_usuario = User.find_by(name: meeting_params[:clerk_name])
-    puts 'O CAMINHO É ' + @id_usuario.id.to_s  
     end 
 
     respond_to do |format|
