@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
      end
     #se estiver tudo ok e a licença ok
     flash[:success] = "Hi" + " " +  user.name + "!"
-    redirect_to root_path
+    redirect_to meetings_path
     
     else
       flash[:danger] = "Email ou Senha incorretos, por favor verifique os dados."

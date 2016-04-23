@@ -5,7 +5,14 @@ class SolutionsController < ApplicationController
   # GET /solutions
   # GET /solutions.json
   def index
+    
+    if params[:search].present?
+    @solutions = Solution.where("description LIKE ?", "%#{params[:search]}%").order(:description)  
+    else 
     @solutions = Solution.includes(:answer).order(created_at: :desc)
+    end
+        
+    
   end
 
   # GET /solutions/1

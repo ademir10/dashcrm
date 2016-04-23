@@ -12,8 +12,14 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.includes(:category).order('updated_at DESC')
+    @show_category = Category.order(:name)
     
+    if params[:category].present?
+    @questions = Question.includes(:category).where('questions.category_id = ?', params[:category]).order('questions.description')    
+    else 
+    @questions = Question.includes(:category).order('updated_at DESC')  
+    end
+
   end
 
   # GET /questions/1

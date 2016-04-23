@@ -59,11 +59,11 @@
                 <ul class="dropdown-menu">
                 	
                 <%if current_user.cresearch == true %>
-                <li><%= link_to 'Agenda / Pesquisas', root_path %></li>
+                <li><%= link_to 'Pesquisas', root_path %></li>
                 <% end %> 	
 
                 <% if current_user.ccategory == true %>	
-                <li><%= link_to "Categorias de pesquisa", categories_path %></li>
+                <li><%= link_to "Score", categories_path %></li>
                 <% end %>
                 
                 <% if current_user.ccli == true %>	
@@ -75,7 +75,7 @@
                 <% end %>
                 
                 <% if current_user.cadvice == true %>	
-                <li><%= link_to "Tratativas", solutions_path %></li>
+                <li><%= link_to "Conselhos", solutions_path %></li>
                 <% end %>
                                                                
                 <% if current_user.cuser == true && current_user.type_access == 'User' %>

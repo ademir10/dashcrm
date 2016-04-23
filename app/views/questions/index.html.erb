@@ -1,10 +1,21 @@
 <%- model_class = Question -%>
 <div class="page-header">
   <h1>Perguntas e Respostas <%= image_tag 'question.png' %></h1>
+    
+ <%= form_tag(questions_path, method: :get) do %>
+<div class="form-group">			  
+		<div class="row">
+			  <div class="col-lg-3">		
+		<%= select_tag(:category, options_from_collection_for_select(@show_category, "id", "name", :selected => params[:category]), include_blank: 'Selecione a categoria', class: 'form-control')%>			  	
+		  	  </div>
+		</div>
+	</div>	
+<%= submit_tag "Consultar", class: 'btn btn-success' %>
+<%= link_to t('.new', :default => t("helpers.links.new")), new_question_path, :class => 'btn btn-primary' %>
+
+<% end %>
+  
 </div>
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_question_path,
-            :class => 'btn btn-primary' %>
 <table class="table table-striped">
   <thead>
     <tr>
