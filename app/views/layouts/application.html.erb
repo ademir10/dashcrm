@@ -78,15 +78,15 @@
                 <!-- start:content -->
                 <div class="row">
                     <div class="col-lg-12">
-                                            <% flash.each do |type, message|%>
+      	
+        <% flash.each do |type, message|%>
+        <br />
+        <br />
 		<div class="alert alert-<%= type %>"><%= message %></div>
-		 <% end %>
-		 
+    	<% end %>
+
           <%= yield %>
-                    </div>  
-
-
-                </div>
+        </div>
                 <!-- end:content -->
             </section>
 
@@ -274,13 +274,14 @@
                 <!-- start:content -->
                 <div class="row">
                     <div class="col-lg-12">
+         <div class="container">           	
                                             <% flash.each do |type, message|%>
 		<div class="alert alert-<%= type %>"><%= message %></div>
 		 <% end %>
 		 
           <%= yield %>
                     </div>  
-
+         </div> 
 
                 </div>
                 <!-- end:content -->
