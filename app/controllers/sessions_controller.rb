@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
       end
      end
     #se estiver tudo ok e a licença ok
-    flash[:success] = "Hi" + " " +  user.name + "!"
+    #flash[:success] = "Hi" + " " +  user.name + "!"
     redirect_to meetings_path
     
     else
@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
   
   def destroy
     session[:user_id] = nil
-    flash[:success] = "See you soon!"
+    #flash[:success] = "See you soon!"
     redirect_to root_path
   end
   
