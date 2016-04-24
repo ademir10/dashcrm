@@ -14,8 +14,18 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require_tree .
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
 //= require maskedinput
+
+
+//= require bootstrap.min
+//= require arjuna
+//= require dashboard
+
+//= require demo
+//= require owl.carousel
+//= require owl-carousel
+
+//= require_tree .

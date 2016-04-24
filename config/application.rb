@@ -34,6 +34,17 @@ module Dsoft
     #configurando para executar em modo de produção
     config.assets.enabled = true
     
+    #PARA O DASHBOARD
+    config.assets.precompile += %w( bootstrap.min.js )
+    config.assets.precompile += %w( arjuna.js )
+    config.assets.precompile += %w( demo.js )
+    config.assets.precompile += %w( owl.carousel.js )
+    config.assets.precompile += %w( owl-carousel.js )
+    #PARA USAR A MESMA FONTE DO DASHBOARD
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    
+    
+  
     #configurando o css para o pdf local
     #config.assets.paths << "#{Rails.root}/app/assets/stylesheets"
  

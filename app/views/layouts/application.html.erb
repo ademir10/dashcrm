@@ -4,169 +4,273 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
+    <meta name="description" content="Desenvolvido por D&D Support service - Consultoria em T.I">
     <meta name="author" content="D&D Support Service - Consultoria em T.I and God ever!!!">
     <link rel="icon" href="../../images/favicon.ico">
-	
-  <title>DsoftWeb - Prepara Mala</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
-
-
-</head>
-<body>
-
-<!-- AQUI COMEÇA O CABEÇALHO DA APP -->	
-
-    <nav class="navbar navbar-inverse navbar-static-top">
     
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">DsoftWeb</a>
-          <%= image_tag "logo.png" %>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-        
-        <% if !logged_in? %>
-                   
-       	<li><%= link_to "Home", root_path %></li>
-	    <li><%= link_to "Contato", contact_path %></li>
-        </ul>
-        <%= form_tag('/login', class: "navbar-form navbar-right") do %>
-		<div class="form-group">
-		<%= text_field_tag :email, nil, placeholder: 'Email', class: 'form-control' %>	
-		</div>
-		<div class="form-group">
-		<%= password_field_tag :password, nil, placeholder: 'Senha', class: 'form-control' %>
-		</div>
-		<%= submit_tag "Login", class: 'btn btn-success' %>
-		<% end %>
-            
-        <!-- SE ESTIVER LOGADO -->
-        <% else %>		
-        	<li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                	
-                <%if current_user.cresearch == true %>
-                <li><%= link_to 'Pesquisas', root_path %></li>
-                <% end %> 	
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
+	<%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
+	
+	<%= stylesheet_link_tag    'bootstrap.min', media: 'all', 'data-turbolinks-track' => true %>
+	<%= stylesheet_link_tag    'font-awesome.min', media: 'all', 'data-turbolinks-track' => true %>
+	<%= stylesheet_link_tag    'bootstrap-reset', media: 'all', 'data-turbolinks-track' => true %>
+	<%= stylesheet_link_tag    'dashboard', media: 'all', 'data-turbolinks-track' => true %>
 
-                <% if current_user.ccategory == true %>	
-                <li><%= link_to "Score", categories_path %></li>
-                <% end %>
-                
-                <% if current_user.ccli == true %>	
-                <li><%= link_to "Clientes", clients_path %></li>
-                <% end %>
+    
+    <!-- start:style for this page -->
+    <!--<link href="plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet">-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
 
-                <%if current_user.cquestion == true %>
-                <li><%= link_to 'Perguntas e Respostas', questions_path %></li>
-                <% end %>
-                
-                <% if current_user.cadvice == true %>	
-                <li><%= link_to "Conselhos", solutions_path %></li>
-                <% end %>
-                                                               
-                <% if current_user.cuser == true && current_user.type_access == 'User' %>
-                <li><%= link_to "Usuários", editar_user_path %></li>
-                <% elsif current_user.cuser == true && current_user.type_access != 'User' %>
-                <li><%= link_to "Usuários", users_path %></li>
-                <% end %>
-                
-               
-				</ul>
-        	<li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administração <span class="caret"></span></a>
-                <ul class="dropdown-menu">
+<body class="cl-default fixed">
 
-                <% if current_user.mmeeting == true %>	
-                <li><%= link_to "Agenda de compromissos", meetings_path %></li>
-                <% end %>
-                
-                <% if current_user.mlog == true %>	
-                <li><%= link_to "Log de atividades", loginfos_path %></li>
-                <% end %>
-                	
-                
-                
+    <!-- start:navbar top -->
+    <header class="header">
+        <a href="index-2.html" class="logo">
+            <%= image_tag "logo.png" %> DsoftWeb
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="navbar-btn sidebar-toggle" data-target="#atas" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <%= image_tag "logo.png", class: "img-circle img-responsive img-user" %>
+                                <strong>usuario logado</strong>
+                            </a>
+                            <ul class="dropdown-menu dropdown-login">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="text-center">
+                                                   <%= image_tag "logo.png", class: "img-responsive img-circle" %>
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p class="text-left"><strong>John Doe</strong></p>
+                                                <p class="text-left small">johndoe@email.com</p>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <small><a href="#">Edit Profile</a></small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <small><a href="#">Notification</a></small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="navbar-login navbar-login-session">
+                                        <a href="#" class="btn btn-default btn-square btn-block">Logout</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- end:navbar top -->
+
+    <!-- start:wrapper body -->
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+        <!-- start:left sidebar -->
+        <aside class="left-side sidebar-offcanvas">
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#user" role="tab" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+                        <li><a href="#notif" role="tab" data-toggle="tab"><i class="fa fa-bullhorn"></i></a></li>
+                        <li><a href="#profile" role="tab" data-toggle="tab"><i class="fa fa-cog"></i></a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="user">
+                            <div class="image">
+                                
+                                <%= image_tag "logo.png", class: "img-circle" %>
+                            </div>
+                            <div class="info">
+                                <p>Hello, John Doe</p>
+                                <small style="color: #eee;">Welcome Back</small>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="notif">
+                            <ul class="menu">
+                                <li><!-- start message -->
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <%= image_tag "logo.png", class: "img-circle" %>
+                                        </div>
+                                        <p>
+                                            Support Team<br>
+                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                        </p>
+                                    </a>
+                                </li><!-- end message -->
+                                <li>
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <%= image_tag "logo.png", class: "img-circle" %>
+                                        </div>
+                                        <p>
+                                            Admin Team<br>
+                                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="profile">
+                            <div class="text-center profile">
+                                <p>Complete your Profile</p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                    </div>
+                                </div>
+                                <p>Next Step : <a href="#">Got 320 Points</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="active">
+                        <a href="index-2.html">
+                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-cog"></i>
+                            <span>Cadastros</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="todo-list.html"><i class="fa fa-circle-o"></i> Todo List</a></li>
+                            <li><a href="draggable-portlet.html"><i class="fa fa-circle-o"></i> Draggable Portlet</a></li>
+                            <li><a href="nestable.html"><i class="fa fa-circle-o"></i> Nestable</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-edit"></i>
+                            <span>Administração</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                            <li><a href="xchart.html"><i class="fa fa-circle-o"></i> XChart</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-table"></i>
+                            <span>Relatórios</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="general.html"><i class="fa fa-circle-o"></i> General</a></li>
+                            <li><a href="icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+                            <li><a href="button.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+                            <li><a href="slider.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+                            <li><a href="timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
+                            <li><a href="typography.html"><i class="fa fa-circle-o"></i> Typography</a></li>
+                            <li><a href="grid.html"><i class="fa fa-circle-o"></i> Grid</a></li>
+                            <li><a href="panel-well.html"><i class="fa fa-circle-o"></i> Panel & Well</a></li>
+                            <li><a href="collapse.html"><i class="fa fa-circle-o"></i> Collapse</a></li>
+                            <li><a href="list-media.html"><i class="fa fa-circle-o"></i> List Media</a></li>
+                            <li><a href="popup-notif.html"><i class="fa fa-circle-o"></i> Popup & Notification</a></li>
+                            <li><a href="jumbotron-thumbnail.html"><i class="fa fa-circle-o"></i> Jumbotron & Thumbnail</a></li>
+                            <li><a href="breadcrumb-pagination.html"><i class="fa fa-circle-o"></i> Breadcrumb & Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-laptop"></i> <span>Utilitários</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="form-component.html"><i class="fa fa-circle-o"></i> Form Component</a></li>
+                            <li><a href="advance-component.html"><i class="fa fa-circle-o"></i> Advance Component</a></li>
+                            <li><a href="form-wizard.html"><i class="fa fa-circle-o"></i> Form Wizard</a></li>
+                            <li><a href="form-validation.html"><i class="fa fa-circle-o"></i> Form Validation</a></li>
+                            <li><a href="dropzone-file-upload.html"><i class="fa fa-circle-o"></i> Dropzone File Upload</a></li>
+                            <li><a href="multiple-file-upload.html"><i class="fa fa-circle-o"></i> Multiple File upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="index-2.html">
+                            <i class="fa fa-dashboard"></i> <span>Logout</span>
+                        </a>
+                    </li>                    
+                    
                 </ul>
                 
-               
-        	
-              
-                      	<li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relatórios <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                <li class="dropdown-header">Gerais</li>
-                
-                <% if current_user.ranalitic == true %>	
-                <li><%= link_to "Análitico de vendas", analitics_report_path %></li>
-                <% end %>
-                
-                <% if current_user.rbusiness == true %>	
-                <li><%= link_to "Análise de rendimento", business_report_path %></li>
-                <% end %>
-                
-                
-                                                           
-                <!--
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Movimentações</li>
-                -->               
-                                                                               
-              </ul>
-              
-              <%if current_user.type_access == 'MASTER' %>
-              <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utilitários <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-              
-                <li><%= link_to "Alterar data de Expiração", expire_dates_path %></li>
-                </ul>
-              <% end %>  
-				<li><%= link_to current_user.email, logout_path, method: :delete %></li>
-        	</ul>
-        	 
-        	
-         <% end %>
-        
-        
-        </li>
-          </ul>
-          
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+            </section>
+        </aside>
+        <!-- end:left sidebar -->
 
-        
-<div class="container">
-    	
-    	<% flash.each do |type, message|%>
+        <!-- start:right sidebar -->
+        <aside class="right-side">
+            <section class="content">
+
+                <!-- start:content -->
+                <div class="row">
+                    <div class="col-lg-12">
+                                            <% flash.each do |type, message|%>
 		<div class="alert alert-<%= type %>"><%= message %></div>
 		 <% end %>
 		 
           <%= yield %>
-        
+                    </div>  
+                    
 
-      <footer>
-        
-      </footer>
-    </div> <!-- /container -->
+                </div>
+                <!-- end:content -->
+            </section>
+        </aside>
+        <!-- end:right sidebar -->
+    </div>
+    <!-- end:wrapper body -->
 
+	<!-- start:javascript for all pages -->
+	
+	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'arjuna', 'data-turbolinks-track' => true %>
 
+	<!-- end:javascript for all pages-->
+	
+	<%= javascript_include_tag 'demo', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'owl.carousel', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'owl-carousel', 'data-turbolinks-track' => true %>
+    <!-- start:javascript for this page -->
+    
+    <!-- end:javascript for this page -->
 
-
-
-  </body>
+</body>
 </html>
