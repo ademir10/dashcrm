@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   
   def index
     @date = DateTime.now.year
-    @categories = Category.order(:name)
+    @categories = Category.order(:position)
   end
   
   #Relatório geral de rendimento dos funcionários separado por perquisa

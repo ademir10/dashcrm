@@ -19,7 +19,6 @@
 //= require bootstrap-datepicker/core
 //= require maskedinput
 
-
 //= require bootstrap.min
 //= require arjuna
 //= require dashboard

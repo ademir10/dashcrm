@@ -13,5 +13,5 @@ Rails.application.config.assets.version = '1.0'
 #DASHBOARD ENV DEVELOPMENT
 Rails.application.config.assets.precompile += %w( bootstrap.min.css )
 Rails.application.config.assets.precompile += %w( font-awesome.min.css )
-Rails.application.config.assets.precompile += %w( bootstrap-reset.css )
+#Rails.application.config.assets.precompile += %w( bootstrap-reset.css )
 Rails.application.config.assets.precompile += %w( dashboard.css )
