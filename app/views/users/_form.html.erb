@@ -50,6 +50,13 @@
     </div>
     <%=f.error_span(:type_access) %>
   </div>
+  <div class="form-group">
+    <%= f.label "meta mensal R$", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-2">
+      <%= f.text_field :goal, :class => 'form-control', id: 'real' %>
+    </div>
+    <%=f.error_span(:goal) %>
+  </div>
   <hr />
   <% if current_user.type_access != 'User' %>
 <h4><%= "Perfil de acesso" %></h4>
@@ -68,8 +75,7 @@
      <%= f.check_box :mmeeting %>&nbsp;<%= f.label "Agenda de compromissos" %>&nbsp;
      <%= f.check_box :mlog %>&nbsp;<%= f.label "Log de atividades" %>
   
-  <h5><%= "Relatórios" %></h5><br />
-  <strong>Gerais</strong><br />
+  <h5><%= "Relatórios" %></h5>
   <%= f.check_box :ranalitic %>&nbsp;<%= f.label "Análitico de vendas" %>
   <%= f.check_box :rbusiness %>&nbsp;<%= f.label "Análises gráficas" %>
   <% end %>

@@ -52,6 +52,10 @@ class MeetingsController < ApplicationController
     end
            
      respond_to do |format|
+      #inseri a linha abaixo pra garantir que o id do user fosse salvo, pq notei que se esquecer de informar data
+      #o campo do id do usuario fica em branco 
+      
+      @meeting.clerk_id = current_user.id 
       if @meeting.save
       #pegando o id que foi salvo pra montar o path do agendamento
        Meeting.update(@meeting.id, research_path: 'meetings' + '/' + @meeting.id.to_s, research_id: @meeting.id)

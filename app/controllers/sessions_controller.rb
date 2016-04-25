@@ -12,7 +12,8 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
     session[:user_id] = user.id
-    
+    session[:goal] = user.goal
+     
     if current_user.type_access != 'MASTER'
       #verifica se a licença de uso está ok somente se o usuario não for MASTER
       check_date = ExpireDate.first

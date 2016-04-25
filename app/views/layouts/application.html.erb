@@ -136,7 +136,7 @@
                                         </div>
                                         <p>
                                             Pesquisas hoje<br>
-                                            <small><i class="fa fa-clock-o"></i> 5 total</small>
+                                            <small><i class="fa fa-clock-o"></i> <%= @total_qnt %> total</small>
                                         </p>
                                     </a>
                                 </li><!-- end message -->
@@ -145,12 +145,16 @@
                         </div>
                         <div class="tab-pane" id="profile">
                             <div class="text-center profile">
-                                <p>Meta mensal R$ 80000.00</p>
+                                <p>Meta mensal R$ <%= current_user.goal %></p>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success progress-bar-striped active"  role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped active"  role="progressbar" aria-valuenow=<%= @current_goal %> aria-valuemin="0" aria-valuemax= '100%' style="width: <%= @current_goal %>%">
                                     </div>
                                 </div>
-                                <p>Jà vendido R$ <a href="#">70546.70</a></p>
+                                <% if @current_goal.to_f < 100 %>
+                                <p>Jà vendido R$ <a href="#"><%= @total_research %></a></p>
+                                <% else %>
+                                <p>PARABÉNS <a href="#">META BATIDA!</a></p>
+                                <% end %>
                             </div>
                         </div>
                     </div>
