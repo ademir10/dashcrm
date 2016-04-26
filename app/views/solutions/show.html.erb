@@ -6,6 +6,8 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name('para a resposta') %>:</strong></dt>
   <dd><%= @solution.answer.description %></dd>
+  <dt><strong><%= model_class.human_attribute_name('categoria') %>:</strong></dt>
+  <dd><%= @solution.category_name %></dd>
   <dt><strong><%= model_class.human_attribute_name('descrição') %>:</strong></dt>
   <dd><%= @solution.description %></dd>
 </dl>
