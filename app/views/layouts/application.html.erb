@@ -1,3 +1,12 @@
+	<!-- CSS PARA REMOVER O BOTÃO IMPRIMIR NA VIEW DE IMPRESSÃO -->
+  <style type="text/css">
+	@media print {
+    #hide_navbar {
+        display :  none;
+    }
+}
+</style>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,10 +43,11 @@
 <body class="cl-default fixed">
 
     <!-- start:navbar top -->
-    <header class="header">
-        <a href="index-2.html" class="logo">
+    <header class="header" id="hide_navbar">
+        <a href="index-2.html" class="logo" >
             <%= image_tag "logo.png" %> DsoftWeb
         </a>
+        
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
@@ -49,6 +59,7 @@
             </a>
 
               <!-- INICIO DO MENU SUPERIOR -->
+               
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
                   	
@@ -109,14 +120,14 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
+                    <ul class="nav nav-tabs" role="tablist" id="hide_navbar">
                         <li class="active"><a href="#user" role="tab" data-toggle="tab"><i class="fa fa-users"></i></a></li>
                         <li><a href="#notif" role="tab" data-toggle="tab"><i class="fa fa-bullhorn"></i></a></li>
                         <li><a href="#profile" role="tab" data-toggle="tab"><i class="fa fa-cog"></i></a></li>
                     </ul>
 
                     <!-- Tab panes -->
-                    <div class="tab-content">
+                    <div class="tab-content" id="hide_navbar">
                         <div class="tab-pane active" id="user">
                             <div class="image">
                                 
@@ -161,7 +172,7 @@
                     
                 </div>
                 <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu">
+                <ul class="sidebar-menu" id="hide_navbar">
                 	<li class="treeview">
                         <a href="#">
  							<i class="fa fa-dashboard"></i>
