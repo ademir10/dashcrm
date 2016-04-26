@@ -29,11 +29,11 @@ class PacksearchesController < ApplicationController
 
                   
         #calcula os totais por categoria de pesquisa com base no usuário logado
-        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
-        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_pack.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
         @total_research = @total_research.round(2)
         #calcula o percentual já vendido
         @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
@@ -84,11 +84,11 @@ class PacksearchesController < ApplicationController
 
                   
         #calcula os totais por categoria de pesquisa com base no usuário logado
-        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
-        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_pack.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
         @total_research = @total_research.round(2)
         #calcula o percentual já vendido
         @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
@@ -285,7 +285,8 @@ class PacksearchesController < ApplicationController
 
   # POST /packsearches
   # POST /packsearches.json
-  def create
+
+def create
    @packsearch = Packsearch.new(packsearch_params)
    #verifica se todos os campos estão preenchidos
    if packsearch_params[:client].blank? || packsearch_params[:phone].blank? || packsearch_params[:q1].blank? || packsearch_params[:q2].blank? || packsearch_params[:q3].blank? || packsearch_params[:q4].blank? || packsearch_params[:q5].blank? || packsearch_params[:q6].blank? || packsearch_params[:q7].blank? || packsearch_params[:q8].blank? || packsearch_params[:q9].blank? || packsearch_params[:q10].blank? || packsearch_params[:q11].blank? || packsearch_params[:q12].blank? || packsearch_params[:q13].blank?
@@ -301,17 +302,17 @@ class PacksearchesController < ApplicationController
       
       if @packsearch.save
         
-            #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
+      #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
         #calculando o total de agendamentos do dia
         @total_qnt = Meeting.where(start_time: Date.today).where(clerk_id: current_user.id).where(status: 'EM ANDAMENTO').count
 
                   
         #calcula os totais por categoria de pesquisa com base no usuário logado
-        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
-        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_pack.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
         @total_research = @total_research.round(2)
         #calcula o percentual já vendido
         @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
@@ -321,10 +322,10 @@ class PacksearchesController < ApplicationController
         User.update(current_user.id, qnt_research: @total_qnt.to_i, total_sale: @total_research, current_percent: @current_goal.to_f)
      #-----------------------------------FIM DO BLOCO-------------------------------------------------------------
         
-        #inserindo no log de atividades
+              #inserindo no log de atividades
         log = Loginfo.new(params[:loginfo])
         log.employee = current_user.name
-        log.task = 'Cadastrou nova pesquisa - Pacote de Viagem / Cliente ' + packsearch_params[:client].to_s
+        log.task = 'Cadastrou nova pesquisa - Transporte Packviário / Cliente ' + packsearch_params[:client].to_s
         log.save!
         
         #faz o calculo do score pra atualizar o tipo de cliente na tabela
@@ -334,6 +335,7 @@ class PacksearchesController < ApplicationController
         score4 = Answer.find_by(id: packsearch_params[:q4])
         score5 = Answer.find_by(id: packsearch_params[:q5])
         score6 = Answer.find_by(id: packsearch_params[:q6])
+        
         score7 = Answer.find_by(id: packsearch_params[:q7])
         score8 = Answer.find_by(id: packsearch_params[:q8])
         score9 = Answer.find_by(id: packsearch_params[:q9])
@@ -341,7 +343,7 @@ class PacksearchesController < ApplicationController
         score11 = Answer.find_by(id: packsearch_params[:q11])
         score12 = Answer.find_by(id: packsearch_params[:q12])
         score13 = Answer.find_by(id: packsearch_params[:q13])
-        
+                
         #pegando os ranges e quantidade de pesquisas cadastrados na categoria criada
         @ranges = Category.find_by(link: 'packsearches')
         
@@ -357,14 +359,14 @@ class PacksearchesController < ApplicationController
               elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
               check_score.update_attributes(type_client: 'QUENTE')
               end  
-                
+        
         #cadastrando automáticamente esse cliente pesquisado no cadastro de clientes
         client = Client.new(params[:client])
         client.name = packsearch_params[:client]
         client.cellphone = packsearch_params[:phone]
         client.save!
                       
-        format.html { redirect_to @packsearch, notice: 'Pesquisa criada com sucesso.' }
+        format.html { redirect_to @packsearch, notice: 'Questionário criado com sucesso.' }
         format.json { render :show, status: :created, location: @packsearch }
       else
         format.html { render :new }
@@ -397,11 +399,11 @@ class PacksearchesController < ApplicationController
 
                   
         #calcula os totais por categoria de pesquisa com base no usuário logado
-        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
-        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_pack.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
         @total_research = @total_research.round(2)
         #calcula o percentual já vendido
         @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
@@ -486,11 +488,11 @@ class PacksearchesController < ApplicationController
 
                   
         #calcula os totais por categoria de pesquisa com base no usuário logado
-        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
         @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
-        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_pack.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
         @total_research = @total_research.round(2)
         #calcula o percentual já vendido
         @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
@@ -515,7 +517,7 @@ class PacksearchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def packsearch_params
-      params.require(:packsearch).permit(:user, :client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :q11, :q12, :q13, :status, :obs, :schedule, :reason, :pains, :solution_applied, :cotation_value, :finished, :user_id)
+      params.require(:packsearch).permit(:user, :client, :type_client, :phone, :q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :q11, :q12, :q13, :status, :obs, :schedule, :reason, :pains, :solution_applied, :cotation_value, :finished, :user_id)
     end
     
     def show_question
