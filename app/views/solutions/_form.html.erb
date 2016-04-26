@@ -15,8 +15,10 @@
     </div>
   <% end %>
 
-      <%= f.hidden_field :answer_id, :class => 'form-control', readonly: true, value: @answer.id %>
-    
+      <%= f.hidden_field :answer_id, value: @answer.id %>
+      <% if @solution.category_name.blank? %>
+      <%= f.hidden_field :category_name, value: params[:category] %>
+      <% end %>
   <div class="form-group">
     <%= f.label 'descreva a tratativa', :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">

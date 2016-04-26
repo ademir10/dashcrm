@@ -106,7 +106,7 @@ class SolutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def solution_params
-      params.require(:solution).permit(:answer_id, :description)
+      params.require(:solution).permit(:answer_id, :description, :category_name)
     end
     
     def show_question_answer

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426010048) do
+ActiveRecord::Schema.define(version: 20160426131027) do
 
   create_table "airsearches", force: :cascade do |t|
     t.string   "user"
@@ -198,8 +198,9 @@ ActiveRecord::Schema.define(version: 20160426010048) do
   create_table "solutions", force: :cascade do |t|
     t.integer  "answer_id"
     t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "category_name"
   end
 
   add_index "solutions", ["answer_id"], name: "index_solutions_on_answer_id", using: :btree
