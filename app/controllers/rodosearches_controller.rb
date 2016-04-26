@@ -19,7 +19,7 @@ class RodosearchesController < ApplicationController
     #se o cliente COMPROU
     if rodosearch_params[:status] == 'COMPROU'
     
-    Rodosearch.update(params[:id],status: 'COMPROU', finished: 'SIM')
+    Rodosearch.update(params[:id],cotation_value: rodosearch_params[:cotation_value], status: 'COMPROU', finished: 'SIM')
     
     #vai na agenda e exclui todos os agendamentos deste cliente
     Meeting.destroy_all(research_id: @rodosearch)

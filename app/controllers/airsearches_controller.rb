@@ -18,7 +18,7 @@ class AirsearchesController < ApplicationController
     #se o cliente COMPROU
     if airsearch_params[:status] == 'COMPROU'
     
-    Airsearch.update(params[:id],status: 'COMPROU', finished: 'SIM')
+    Airsearch.update(params[:id],cotation_value: airsearch_params[:cotation_value] ,status: 'COMPROU', finished: 'SIM')
            
     #vai na agenda e exclui todos os agendamentos deste cliente
     Meeting.destroy_all(research_id: @airsearch)

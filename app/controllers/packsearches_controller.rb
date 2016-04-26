@@ -18,7 +18,7 @@ class PacksearchesController < ApplicationController
     #se o cliente COMPROU
     if packsearch_params[:status] == 'COMPROU'
     
-    Packsearch.update(params[:id],status: 'COMPROU', finished: 'SIM')
+    Packsearch.update(params[:id],cotation_value: packsearch_params[:cotation_value],status: 'COMPROU', finished: 'SIM')
               
     #vai na agenda e exclui todos os agendamentos deste cliente
     Meeting.destroy_all(research_id: @packsearch)
