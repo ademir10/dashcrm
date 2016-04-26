@@ -12,8 +12,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
     session[:user_id] = user.id
-    session[:goal] = user.goal
-     
+         
     if current_user.type_access != 'MASTER'
       #verifica se a licença de uso está ok somente se o usuario não for MASTER
       check_date = ExpireDate.first
@@ -23,9 +22,8 @@ class SessionsController < ApplicationController
       redirect_to contact_path and return
       end
      end
-    #se estiver tudo ok e a licença ok
-    #flash[:success] = "Hi" + " " +  user.name + "!"
-    redirect_to meetings_path
+     
+      redirect_to meetings_path
     
     else
       flash[:danger] = "Email ou Senha incorretos, por favor verifique os dados."

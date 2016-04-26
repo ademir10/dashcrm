@@ -135,8 +135,8 @@
                                             <%= image_tag "microresearch.png", class: "img-circle" %>
                                         </div>
                                         <p>
-                                            Pesquisas hoje<br>
-                                            <small><i class="fa fa-clock-o"></i> <%= @total_qnt %> total</small>
+                                            Agendamentos hoje<br>
+                                            <small><i class="fa fa-clock-o"></i> <%= current_user.qnt_research %> total</small>
                                         </p>
                                     </a>
                                 </li><!-- end message -->
@@ -147,11 +147,11 @@
                             <div class="text-center profile">
                                 <p>Meta mensal R$ <%= current_user.goal %></p>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success progress-bar-striped active"  role="progressbar" aria-valuenow=<%= @current_goal %> aria-valuemin="0" aria-valuemax= '100%' style="width: <%= @current_goal %>%">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped active"  role="progressbar" aria-valuenow=<%= current_user.current_percent %> aria-valuemin="0" aria-valuemax= '100%' style="width: <%= current_user.current_percent %>%">
                                     </div>
                                 </div>
-                                <% if @current_goal.to_f < 100 %>
-                                <p>Jà vendido R$ <a href="#"><%= @total_research %></a></p>
+                                <% if current_user.current_percent.to_f < 100 %>
+                                <p>Jà vendido R$ <a href="#"><%= current_user.total_sale %></a></p>
                                 <% else %>
                                 <p>PARABÉNS <a href="#">META BATIDA!</a></p>
                                 <% end %>

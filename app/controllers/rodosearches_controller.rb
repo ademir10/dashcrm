@@ -24,6 +24,27 @@ class RodosearchesController < ApplicationController
     #vai na agenda e exclui todos os agendamentos deste cliente
     Meeting.destroy_all(research_id: @rodosearch)
     
+      #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
+        #calculando o total de agendamentos do dia
+        @total_qnt = Meeting.where(start_time: Date.today).where(clerk_id: current_user.id).where(status: 'EM ANDAMENTO').count
+
+                  
+        #calcula os totais por categoria de pesquisa com base no usuário logado
+        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
+        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_research.round(2)
+        #calcula o percentual já vendido
+        @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
+        @current_goal = @current_goal.round(2)
+        
+        #atualiza os dados de meta mensal do usuário
+        User.update(current_user.id, qnt_research: @total_qnt.to_i, total_sale: @total_research, current_percent: @current_goal.to_f)
+     #-----------------------------------FIM DO BLOCO-------------------------------------------------------------
+    
+    
             #COMPROU
         log = Loginfo.new(params[:loginfo])
         log.employee = current_user.name
@@ -55,13 +76,29 @@ class RodosearchesController < ApplicationController
     if rodosearch_params[:status].blank? && rodosearch_params[:schedule].blank?
       flash[:warning] = 'Informe o Status e se for o caso uma data para agendamento!'
       redirect_to rodosearch_path(@rodosearch) and return
-    elsif rodosearch_params[:status] == 'NÃO COMPROU' && rodosearch_params[:schedule].present?
-      flash[:warning] = 'Você informou uma data para retorno e não informou o status corretamente, volte e atualize esta pesquisa!'
-      redirect_to rodosearch_path(@rodosearch) and return
     end
-        
-    
+     
     @rodosearch.update(rodosearch_params)
+    
+  #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
+        #calculando o total de agendamentos do dia
+        @total_qnt = Meeting.where(start_time: Date.today).where(clerk_id: current_user.id).where(status: 'EM ANDAMENTO').count
+
+                  
+        #calcula os totais por categoria de pesquisa com base no usuário logado
+        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
+        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_research.round(2)
+        #calcula o percentual já vendido
+        @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
+        @current_goal = @current_goal.round(2)
+        
+        #atualiza os dados de meta mensal do usuário
+        User.update(current_user.id, qnt_research: @total_qnt.to_i, total_sale: @total_research, current_percent: @current_goal.to_f)
+     #-----------------------------------FIM DO BLOCO-------------------------------------------------------------
     
     #verifica se a data para um novo agendamento foi inserida
     #só faz o agendamento automático se a data for informada com uma data posterior a data atual
@@ -225,6 +262,27 @@ class RodosearchesController < ApplicationController
       @rodosearch.finished = 'NÃO'
       
       if @rodosearch.save
+        
+      #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
+        #calculando o total de agendamentos do dia
+        @total_qnt = Meeting.where(start_time: Date.today).where(clerk_id: current_user.id).where(status: 'EM ANDAMENTO').count
+
+                  
+        #calcula os totais por categoria de pesquisa com base no usuário logado
+        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
+        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_research.round(2)
+        #calcula o percentual já vendido
+        @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
+        @current_goal = @current_goal.round(2)
+        
+        #atualiza os dados de meta mensal do usuário
+        User.update(current_user.id, qnt_research: @total_qnt.to_i, total_sale: @total_research, current_percent: @current_goal.to_f)
+     #-----------------------------------FIM DO BLOCO-------------------------------------------------------------
+        
               #inserindo no log de atividades
         log = Loginfo.new(params[:loginfo])
         log.employee = current_user.name
@@ -287,6 +345,27 @@ class RodosearchesController < ApplicationController
     
     respond_to do |format|
       if @rodosearch.update(rodosearch_params)
+        
+ #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
+        #calculando o total de agendamentos do dia
+        @total_qnt = Meeting.where(start_time: Date.today).where(clerk_id: current_user.id).where(status: 'EM ANDAMENTO').count
+
+                  
+        #calcula os totais por categoria de pesquisa com base no usuário logado
+        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
+        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_research.round(2)
+        #calcula o percentual já vendido
+        @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
+        @current_goal = @current_goal.round(2)
+        
+        #atualiza os dados de meta mensal do usuário
+        User.update(current_user.id, qnt_research: @total_qnt.to_i, total_sale: @total_research, current_percent: @current_goal.to_f)
+     #-----------------------------------FIM DO BLOCO-------------------------------------------------------------
+               
                 #ATUALIZOU DADOS
         log = Loginfo.new(params[:loginfo])
         log.employee = current_user.name
@@ -355,6 +434,27 @@ class RodosearchesController < ApplicationController
         
     Document.destroy_all(owner: @rodosearch)
     Meeting.destroy_all(research_id: @rodosearch)
+    
+  #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
+        #calculando o total de agendamentos do dia
+        @total_qnt = Meeting.where(start_time: Date.today).where(clerk_id: current_user.id).where(status: 'EM ANDAMENTO').count
+
+                  
+        #calcula os totais por categoria de pesquisa com base no usuário logado
+        @total_rodo = Rodosearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_air = Airsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_pack = Packsearch.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(user_id: current_user.id).where(finished: 'SIM').sum(:cotation_value)
+        @total_meeting = Meeting.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).where(clerk_id: current_user.id).where(status: 'COMPROU').sum(:cotation_value)
+        @total_research = @total_rodo.to_f + @total_air.to_f + @total_pack.to_f + @total_meeting.to_f
+        @total_research = @total_research.round(2)
+        #calcula o percentual já vendido
+        @current_goal = (@total_research.to_f / current_user.goal.to_f) * 100
+        @current_goal = @current_goal.round(2)
+        
+        #atualiza os dados de meta mensal do usuário
+        User.update(current_user.id, qnt_research: @total_qnt.to_i, total_sale: @total_research, current_percent: @current_goal.to_f)
+     #-----------------------------------FIM DO BLOCO-------------------------------------------------------------
+    
     respond_to do |format|
       format.html { redirect_to rodosearches_url, notice: 'Questionário Excluido com sucesso.' }
       format.json { head :no_content }

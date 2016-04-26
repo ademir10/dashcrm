@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425192710) do
+ActiveRecord::Schema.define(version: 20160426010048) do
 
   create_table "airsearches", force: :cascade do |t|
     t.string   "user"
@@ -226,6 +226,9 @@ ActiveRecord::Schema.define(version: 20160425192710) do
     t.datetime "updated_at",      null: false
     t.boolean  "mlog"
     t.decimal  "goal"
+    t.integer  "qnt_research"
+    t.decimal  "total_sale"
+    t.decimal  "current_percent"
   end
 
   add_foreign_key "airsearches", "users"
