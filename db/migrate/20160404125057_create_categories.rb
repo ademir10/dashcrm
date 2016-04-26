@@ -10,6 +10,7 @@ class CreateCategories < ActiveRecord::Migration
       t.decimal :r5
       t.decimal :r6
       t.integer :qnt_question
+      t.integer :position
 
       t.timestamps null: false
     end

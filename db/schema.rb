@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426131027) do
+ActiveRecord::Schema.define(version: 20160422175832) do
 
   create_table "airsearches", force: :cascade do |t|
     t.string   "user"
@@ -65,19 +65,14 @@ ActiveRecord::Schema.define(version: 20160426131027) do
     t.decimal  "r5"
     t.decimal  "r6"
     t.integer  "qnt_question"
+    t.integer  "position"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "position"
   end
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
     t.string   "cellphone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "dashboards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -198,9 +193,9 @@ ActiveRecord::Schema.define(version: 20160426131027) do
   create_table "solutions", force: :cascade do |t|
     t.integer  "answer_id"
     t.string   "description"
+    t.string   "category_name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.string   "category_name"
   end
 
   add_index "solutions", ["answer_id"], name: "index_solutions_on_answer_id", using: :btree
@@ -223,13 +218,13 @@ ActiveRecord::Schema.define(version: 20160426131027) do
     t.boolean  "ccli"
     t.boolean  "mmeeting"
     t.boolean  "ranalitic"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
     t.boolean  "mlog"
     t.decimal  "goal"
     t.integer  "qnt_research"
     t.decimal  "total_sale"
     t.decimal  "current_percent"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_foreign_key "airsearches", "users"
