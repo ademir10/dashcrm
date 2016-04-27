@@ -16,6 +16,6 @@ Nos links de Airsearches, Rodosearches e Packsearches colocar (airsearches, rodo
 
 
 OBS - SEMPRE CADASTRAR AS PERGUNTAS NA SEGUINTE ORDEM:
-- PACOTE DE VIAGEM
-- TRANSPORTE AÉREO
-- TRANSPORTE RODOVIÁRIO
+- PACOTE DE VIAGEM - 13 perguntas
+- TRANSPORTE AÉREO - 12 perguntas
+- TRANSPORTE RODOVIÁRIO - 6 perguntas
