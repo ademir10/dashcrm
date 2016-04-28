@@ -52,7 +52,7 @@
             </h1>
         </div>
         <div class="panel-body">
-  <%= f.collection_radio_buttons(:q1, Answer.where(question_id: @questio1.id), :id, :description) do |b| b.label { b.radio_button + b.text } + "<div class='group'></div>".html_safe end %>
+  <%= f.collection_radio_buttons(:q1, Answer.where(question_id: @question1.id), :id, :description) do |b| b.label { b.radio_button + b.text } + "<div class='group'></div>".html_safe end %>
   
   </div>
   </div>

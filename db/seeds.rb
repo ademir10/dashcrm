@@ -13,3 +13,8 @@
     type_access: 'MASTER',
     cuser: 'TRUE'
     )
+    
+    ExpireDate.create(
+    date_expire: '31/12/2016',
+    active: 'FALSE'
+    )
