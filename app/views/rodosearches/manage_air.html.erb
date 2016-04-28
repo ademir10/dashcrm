@@ -46,7 +46,7 @@
   <div class="form-group">
     <%= f.label 'Motivo', :class => 'control-label col-lg-2' %>
     <div class="col-lg-3">
-      <%= f.select(:reason, options_for_select([["FATOR FINANCEIRO"], ["FATOR PSICOLÓGICO"],["OUTRO FATOR"]], @result.reason), {include_blank: 'Selecione o Motivo'}, :class => 'form-control') %>
+      <%= f.select(:reason, options_for_select([["PROBLEMA FINANCEIRO"], ["PROBLEMA COM DATA"],["LIMITAÇÃO PSICOLÓGICA"]], @result.reason), {include_blank: 'Selecione o Motivo'}, :class => 'form-control') %>
     </div>
     <%=f.error_span(:reason) %>
   </div>
