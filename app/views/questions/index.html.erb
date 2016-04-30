@@ -1,5 +1,4 @@
 <%- model_class = Question -%>
-<div class="page-header">
   <h1>Perguntas e Respostas <%= image_tag 'question.png' %></h1>
     
  <%= form_tag(questions_path, method: :get) do %>
@@ -14,8 +13,7 @@
 <%= link_to t('.new', :default => t("helpers.links.new")), new_question_path, :class => 'btn btn-primary' %>
 
 <% end %>
-  
-</div>
+
 <table class="table table-striped">
   <thead>
     <tr>

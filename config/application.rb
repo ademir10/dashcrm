@@ -43,8 +43,7 @@ module Dsoft
     #PARA USAR A MESMA FONTE DO DASHBOARD
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     
-    
-  
+   
     #configurando o css para o pdf local
     #config.assets.paths << "#{Rails.root}/app/assets/stylesheets"
  
