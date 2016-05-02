@@ -62,6 +62,8 @@ Rails.application.routes.draw do
   #relatórios
   #relatorio de analises graficas
   get 'business_report', to: 'pages#business_report'
+  #analises graficas de vendas por segmento de marketing
+  get 'marketing_report', to: 'pages#marketing_report'
   #relatorio analitico de vendas
   get 'analitics_report', to: 'pages#analitics_report'
   

@@ -84,7 +84,7 @@
         </div>
         <div class="panel-body">
   <%= f.collection_radio_buttons(:q3, Answer.where(question_id: @question3.id), :id, :description) do |b| b.label { b.radio_button + b.text } + "<div class='group'></div>".html_safe end %>
-
+  </div>
   </div>
   <%=f.error_span(:q3) %>
   </div>
@@ -100,7 +100,6 @@
   <%= f.collection_radio_buttons(:q4, Answer.where(question_id: @question4.id), :id, :description) do |b| b.label { b.radio_button + b.text } + "<div class='group'></div>".html_safe end %>
 
   </div>
-  
   </div>
   <%=f.error_span(:q4) %>
   </div>

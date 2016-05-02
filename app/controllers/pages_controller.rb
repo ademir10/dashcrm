@@ -6,11 +6,16 @@ class PagesController < ApplicationController
     @categories = Category.order(:position)
   end
   
+  #Analise grafica de vendas por segmento de marketing
+  def marketing_report
+    @datainicial = params[:date1]
+    @datafinal = params[:date2]
+  end
+  
   #Relatório geral de rendimento dos funcionários separado por perquisa
   def business_report
     @datainicial = params[:date1]
     @datafinal = params[:date2]
-    
   end
   
   #Relatório geral analitico por tipo de venda e data

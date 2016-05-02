@@ -110,6 +110,7 @@ class AirsearchesController < ApplicationController
       meeting.type_client = airsearch.type_client
       meeting.start_time = airsearch_params[:schedule]
       meeting.clerk_id = current_user.id
+      meeting.clerk_name = current_user.name
       meeting.research_path = 'airsearches' + '/' + params[:id]
       meeting.research_id = params[:id]
       meeting.type_client = @airsearch.type_client

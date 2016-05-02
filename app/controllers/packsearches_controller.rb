@@ -110,6 +110,7 @@ class PacksearchesController < ApplicationController
       meeting.type_client = packsearch.type_client
       meeting.start_time = packsearch_params[:schedule]
       meeting.clerk_id = current_user.id
+      meeting.clerk_name = current_user.name
       meeting.research_path = 'packsearches' + '/' + params[:id]
       meeting.research_id = params[:id]
       meeting.type_client = @packsearch.type_client

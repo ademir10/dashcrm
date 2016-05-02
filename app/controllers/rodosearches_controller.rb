@@ -112,6 +112,7 @@ class RodosearchesController < ApplicationController
       meeting.type_client = rodosearch.type_client
       meeting.start_time = rodosearch_params[:schedule]
       meeting.clerk_id = current_user.id
+      meeting.clerk_name = current_user.name
       meeting.research_path = 'rodosearches' + '/' + params[:id]
       meeting.research_id = params[:id]
       meeting.type_client = @rodosearch.type_client
