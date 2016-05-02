@@ -66,6 +66,8 @@ Rails.application.routes.draw do
   get 'marketing_report', to: 'pages#marketing_report'
   #relatorio analitico de vendas
   get 'analitics_report', to: 'pages#analitics_report'
+  #relatorio de pendencia de pesquisas com status "NÃO DEFINIDO"
+  get 'pendencies_report', to: 'pages#pendencies_report'
   
     
   #para carregar a view informando que não pode excluir cadastro com relacionamento em outra table

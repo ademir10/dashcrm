@@ -17,7 +17,7 @@
 }
 </style>
 
-<h1>Relatório análitico de vendas <%= image_tag 'analitic_report.png' %></h1>
+<h1>Relatório de Pesquisas pendentes <%= image_tag 'interrogation.png' %></h1>
  <% if params[:date1].present? && params[:date2].present? %>
  <div id="printOnly">
  <%if params[:seller].present? %>	
@@ -27,7 +27,7 @@
  </div>
  <% end %>
 
- <%= form_tag(analitics_report_path, method: :get) do %>
+ <%= form_tag(pendencies_report_path, method: :get) do %>
 <div class="form-group">			  
 		<div class="row">
 			  <div class="col-lg-3">		
@@ -54,49 +54,18 @@
 <button type="button" id ="printbtn" class="btn btn-success", onclick ="window.print();return false;">Imprimir</button>
 
 <p />
-<div class="panel panel-default">
-  <div class="panel-heading" >Agendamentos - Total vendido R$: <b><%= @total_meeting %></b></div>
-  <h5 class="panel-body">
-  <table class="table table-striped">
-  <thead>
-    <tr>
-      <th> <%= 'cliente' %></th>
-      <th><%= 'fone' %></th>
-      <th><%= 'valor cotado R$' %></th>
-      <th><%= 'atendente' %></th>
-      <th><%= 'vendido em' %></th>
-                
-    </tr>
-  </thead>
-  <tbody>
- 
- 	<% @meeting.each do |f| %>
- 	    <tr>
-        <td><%= f.client %></td>
-        <td><%= f.phone %></td>
-        <td><%= f.cotation_value %></td>
-        <td><%= f.clerk_name %></td>
-        <td><%= f.updated_at.strftime("%d/%m/%Y") %></td>
-      </tr>
-      <% end %>
-       </tbody>
-       
-   </table>
-  </h5>
-</div>
-</div>
 
+<% if @packsearch.present? %>
 <div class="panel panel-default">
-  <div class="panel-heading" >Pacotes de Viagem - Total vendido R$: <b><%= @total_packsearch %></b></div>
+  <div class="panel-heading" >Pacotes de Viagem - Pendencias</b></div>
   <h5 class="panel-body">
   <table class="table table-striped">
   <thead>
     <tr>
       <th> <%= 'cliente' %></th>
       <th><%= 'fone' %></th>
-      <th><%= 'valor cotado R$' %></th>
       <th><%= 'atendente' %></th>
-      <th><%= 'vendido em' %></th>
+      <th><%= 'atendido em' %></th>
                 
     </tr>
   </thead>
@@ -106,9 +75,8 @@
  	    <tr>
         <td><%= f.client %></td>
         <td><%= f.phone %></td>
-        <td><%= f.cotation_value %></td>
         <td><%= f.user %></td>
-        <td><%= f.updated_at.strftime("%d/%m/%Y") %></td>
+        <td><%= f.created_at %></td>
       </tr>
       <% end %>
        </tbody>
@@ -117,18 +85,19 @@
   </h5>
 </div>
 </div>
+<% end %>
 
+<% if @airsearch.present? %>
 <div class="panel panel-default">
-  <div class="panel-heading" >Transportes Aéreos - Total vendido R$: <b><%= @total_airsearch %></b></div>
+  <div class="panel-heading" >Transportes Aéreos - Pendencias</b></div>
   <h5 class="panel-body">
   <table class="table table-striped">
   <thead>
     <tr>
       <th> <%= 'cliente' %></th>
       <th><%= 'fone' %></th>
-      <th><%= 'valor cotado R$' %></th>
       <th><%= 'atendente' %></th>
-      <th><%= 'vendido em' %></th>
+      <th><%= 'atendido em' %></th>
                 
     </tr>
   </thead>
@@ -138,9 +107,8 @@
  	    <tr>
         <td><%= f.client %></td>
         <td><%= f.phone %></td>
-        <td><%= f.cotation_value %></td>
         <td><%= f.user %></td>
-        <td><%= f.updated_at.strftime("%d/%m/%Y") %></td>
+        <td><%= f.created_at %></td>
       </tr>
       <% end %>
        </tbody>
@@ -148,19 +116,19 @@
    </table>
   </h5>
 </div>
+<% end %>
 
-
+<% if @rodosearch.present? %>
 <div class="panel panel-default">
-  <div class="panel-heading" >Transportes Rodoviários - Total vendido R$: <b><%= @total_rodosearch %></b></div>
+  <div class="panel-heading" >Transportes Rodoviários - Pendencias</b></div>
   <h5 class="panel-body">
   <table class="table table-striped">
   <thead>
     <tr>
       <th> <%= 'cliente' %></th>
       <th><%= 'fone' %></th>
-      <th><%= 'valor cotado R$' %></th>
       <th><%= 'atendente' %></th>
-      <th><%= 'vendido em' %></th>
+      <th><%= 'atendido em' %></th>
                 
     </tr>
   </thead>
@@ -170,9 +138,8 @@
  	    <tr>
         <td><%= f.client %></td>
         <td><%= f.phone %></td>
-        <td><%= f.cotation_value %></td>
         <td><%= f.user %></td>
-        <td><%= f.updated_at.strftime("%d/%m/%Y") %></td>
+        <td><%= f.created_at %></td>
       </tr>
       <% end %>
        </tbody>
@@ -180,7 +147,5 @@
    </table>
   </h5>
 </div>
-<h2 class="panel-body">Total Geral vendido R$: <strong><%= @total_geral %></strong></h2>
+<% end %>
 </div>    	
-
-

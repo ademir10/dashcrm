@@ -6,6 +6,41 @@ class PagesController < ApplicationController
     @categories = Category.order(:position)
   end
   
+  #Pesquisas pendentes com status "NÃO DEFINIDO"
+  def pendencies_report
+    
+    @users = User.where('type_access != ?', 'MASTER').order(:name)
+    if params[:date1].blank?
+      params[:date1] = Date.today
+    end
+    
+    if params[:date2].blank?
+      params[:date2] = Date.today
+    end
+    
+    #se não informar nada, é carregado somentes as vendas do dia
+    if params[:seller].blank? && params[:date1].blank? && params[:date2].blank?
+      @packsearch = Packsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date ?",Date.today).order(:updated_at)
+      @airsearch = Airsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date ?",Date.today).order(:updated_at)
+      @rodosearch = Rodosearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date ?",Date.today).order(:updated_at)
+    end
+    
+    #Se tiver informado somente as datas
+    if params[:seller].blank? && params[:date1].present? && params[:date2].present?
+      @packsearch = Packsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+      @airsearch = Airsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+      @rodosearch = Rodosearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+    end
+    
+    #Se tiver informado o funcionario e as datas
+    if params[:seller].present? && params[:date1].present? && params[:date2].present?
+      @packsearch = Packsearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+      @airsearch = Airsearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+      @rodosearch = Rodosearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+    end
+     
+  end
+  
   #Analise grafica de vendas por segmento de marketing
   def marketing_report
     @datainicial = params[:date1]

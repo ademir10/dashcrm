@@ -249,6 +249,9 @@
                         <% if current_user.ranalitic == true %>	
 		                	<li><%= link_to "Análitico de vendas", analitics_report_path %></li>
 		                <% end %>
+		                <% if current_user.rpen == true %>	
+		                	<li><%= link_to "Pesquisas pendentes", pendencies_report_path %></li>
+		                <% end %>
                         </ul>
                     </li>
                     
