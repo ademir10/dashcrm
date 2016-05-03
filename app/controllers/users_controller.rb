@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   before_action :must_login, only: [:index, :show, :edit, :update, :destroy, :new]
   #verifica se o usuario é um usuario simples e bloqueia se tentar acessar as configurações de todos usuarios via url
   before_action :check_user_logged, only: [:index]
+  #soma o valor total da meta do administrador com base na somatoria de metas de todos os vendedores
+  before_action :sum_goal, only: [:new, :edit]
   
 
   #chama a edição do usuario que está logado
@@ -119,6 +121,11 @@ class UsersController < ApplicationController
         flash[:danger] = 'Voçê não tem permissão para acessar essa pagina!'
         redirect_to root_path
       end
+    end
+    
+    #meta total do administrator
+    def sum_goal
+      @total_goal = User.where(type_access: 'USER').sum(:goal)
     end
     
 end

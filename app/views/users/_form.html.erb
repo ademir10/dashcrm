@@ -53,8 +53,13 @@
   <div class="form-group">
     <%= f.label "meta mensal R$", :class => 'control-label col-lg-2' %>
     <div class="col-lg-2">
-      <%= f.text_field :goal, :class => 'form-control', id: 'real' %>
+    <% if @user.type_access == 'ADMIN' %>
+    <%= f.text_field :goal, :class => 'form-control', id: 'real', value: @total_goal %>
+    <% else %>	
+    <%= f.text_field :goal, :class => 'form-control', id: 'real' %>
+    <% end %>
     </div>
+    
     <%=f.error_span(:goal) %>
   </div>
   <hr />

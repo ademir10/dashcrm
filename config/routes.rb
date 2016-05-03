@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :answers 
   end
   
+  resources :answers 
+  
   #transporte aéreo
   resources :airsearches do
     member do

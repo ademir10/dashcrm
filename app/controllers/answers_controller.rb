@@ -2,6 +2,7 @@ class AnswersController < ApplicationController
   before_action :must_login
 
   def edit
+    redirect_to root_path and return
   end
   
     def create

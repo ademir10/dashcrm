@@ -22,7 +22,7 @@ class RodosearchesController < ApplicationController
     Rodosearch.update(params[:id],cotation_value: rodosearch_params[:cotation_value], status: 'COMPROU', finished: 'SIM')
     
     #vai na agenda e exclui todos os agendamentos deste cliente
-    Meeting.destroy_all(research_id: @rodosearch)
+    Meeting.destroy_all(research_id: params[:id])
     
       #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
         #calculando o total de agendamentos do dia
