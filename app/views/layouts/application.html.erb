@@ -181,7 +181,10 @@
                         </a>
                         <ul class="treeview-menu">
                         <% if current_user.rbusiness == true %>	
-		                	<li><%= link_to "Análises gráficas", business_report_path %></li>
+		                	<li><%= link_to "Análises gráfica de pesquisas", business_report_path %></li>
+		                <% end %>
+		                <% if current_user.rmark == true %>	
+		                	<li><%= link_to "Análise gráfica de marketing", marketing_report_path %></li>
 		                <% end %>
                         </ul>
                     </li>

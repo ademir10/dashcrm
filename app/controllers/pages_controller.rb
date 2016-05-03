@@ -45,6 +45,27 @@ class PagesController < ApplicationController
   def marketing_report
     @datainicial = params[:date1]
     @datafinal = params[:date2]
+    
+    if params[:date1].blank?
+      params[:date1] = Date.today
+    end
+    
+    if params[:date2].blank?
+      params[:date2] = Date.today
+    end
+    
+    #quantidade de pesquisas feitas de acordo com o periodo informado
+    #se não informar nenhuma data é féito com base na data do dia
+    if params[:date1].blank? || params[:date2].blank?
+       @qnt_pack = Packsearch.where(finished: 'SIM').where("updated_at::Date = ?", Date.today).count
+       @qnt_air = Airsearch.where(finished: 'SIM').where("updated_at::Date = ?", Date.today).count
+       @qnt_rodo = Rodosearch.where(finished: 'SIM').where("updated_at::Date = ?", Date.today).count
+     else
+       @qnt_pack = Packsearch.where(finished: 'SIM').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).count
+       @qnt_air = Airsearch.where(finished: 'SIM').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).count
+       @qnt_rodo = Rodosearch.where(finished: 'SIM').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).count
+    end
+
   end
   
   #Relatório geral de rendimento dos funcionários separado por perquisa
