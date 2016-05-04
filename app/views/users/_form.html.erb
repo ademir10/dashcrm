@@ -54,7 +54,7 @@
     <%= f.label "meta mensal R$", :class => 'control-label col-lg-2' %>
     <div class="col-lg-2">
     <% if @user.type_access == 'ADMIN' %>
-    <%= f.text_field :goal, :class => 'form-control', id: 'real', value: @total_goal %>
+    <%= f.text_field :goal, :class => 'form-control', id: 'real', value: @total_goal, readonly: true %>
     <% else %>	
     <%= f.text_field :goal, :class => 'form-control', id: 'real' %>
     <% end %>

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   #verifica se o usuario é um usuario simples e bloqueia se tentar acessar as configurações de todos usuarios via url
   before_action :check_user_logged, only: [:index]
   #soma o valor total da meta do administrador com base na somatoria de metas de todos os vendedores
-  before_action :sum_goal, only: [:new, :edit]
+  before_action :sum_goal, only: [:new, :create, :edit, :update]
   
 
   #chama a edição do usuario que está logado
@@ -47,6 +47,10 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    
+    if @user.type_access == 'ADMIN'
+      @user.goal = @total_goal
+    end
 
     respond_to do |format|
       if @user.save
@@ -71,6 +75,12 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+  
+  #VERIFICAR AQUI A POSSIBILIDADE DE ALTERAR O VALOR ANTES DO UPDATE  
+    if user_params[:type_access] == 'ADMIN'
+    user_params[:goal] == @total_goal
+    end
+    
     respond_to do |format|
       if @user.update(user_params)
                 #ATUALIZOU DADOS
