@@ -21,7 +21,7 @@ class PacksearchesController < ApplicationController
     Packsearch.update(params[:id],cotation_value: packsearch_params[:cotation_value],status: 'COMPROU', finished: 'SIM')
               
     #vai na agenda e exclui todos os agendamentos deste cliente
-    Meeting.destroy_all(research_id: params[:id])
+    Meeting.where(research_id: params[:id]).where(clerk_id: current_user.id).destroy_all
     
        #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
         #calculando o total de agendamentos do dia
@@ -448,8 +448,8 @@ def create
         check_score.update_attributes(user_id: @id_usuario.id)
         #pegando os dados lá na agenda pra atualizar o id do atendente trocado na pesquisa
         @caminho = 'packsearches/' + @packsearch.id.to_s
-        meeting_data = Meeting.find_by(research_path: @caminho)
-        meeting_data.update_attributes(clerk_id: @id_usuario.id)
+        meeting_data = Meeting.where(research_path: @caminho)
+        meeting_data.update_all(clerk_id: @id_usuario.id)
         end 
         
         #para atualizar sempre na pesquisa o perfil do cliente quando a pesquisa for editada
