@@ -436,7 +436,7 @@ class AirsearchesController < ApplicationController
         #pegando os dados lá na agenda pra atualizar o id do atendente trocado na pesquisa
         @caminho = 'airsearches/' + @airsearch.id.to_s
         meeting_data = Meeting.where(research_path: @caminho)
-        meeting_data.update_all(clerk_id: @id_usuario.id)
+        meeting_data.update_all(clerk_id: @id_usuario.id, clerk_name: airsearch_params[:user], client: airsearch_params[:client])
         end 
         
         #para atualizar sempre na pesquisa o perfil do cliente quando a pesquisa for editada

@@ -2,7 +2,8 @@ class AnswersController < ApplicationController
   before_action :must_login
 
   def edit
-    redirect_to root_path and return
+    #redirect_to root_path and return
+    @answer = Answer.find(params[:id_answer])
   end
   
     def create
@@ -21,6 +22,27 @@ class AnswersController < ApplicationController
         log.task = 'Cadastrou nova resposta - ' + answer_params[:description].to_s
         log.save!
      end
+    end
+    
+    def update
+      
+      @answer = Answer.find(params[:id])
+      
+       respond_to do |format|
+      if @answer.update(answer_params)
+        #ATUALIZOU DADOS
+        log = Loginfo.new(params[:loginfo])
+        log.employee = current_user.name
+        log.task = 'Atualizou a Resposta: ' + @answer.description.to_s
+        log.save!  
+        
+        format.html { redirect_to questions_path, notice: 'Resposta atualizada com sucesso.' }
+        format.json { render :show, status: :ok, location: @answer }
+      else
+        format.html { render :edit }
+        format.json { render json: @answer.errors, status: :unprocessable_entity }
+      end
+    end
     end
 
   def destroy

@@ -449,7 +449,7 @@ def create
         #pegando os dados lá na agenda pra atualizar o id do atendente trocado na pesquisa
         @caminho = 'packsearches/' + @packsearch.id.to_s
         meeting_data = Meeting.where(research_path: @caminho)
-        meeting_data.update_all(clerk_id: @id_usuario.id)
+        meeting_data.update_all(clerk_id: @id_usuario.id, clerk_name: packsearch_params[:user], client: packsearch_params[:client])
         end 
         
         #para atualizar sempre na pesquisa o perfil do cliente quando a pesquisa for editada
