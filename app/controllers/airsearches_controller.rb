@@ -21,7 +21,7 @@ class AirsearchesController < ApplicationController
     Airsearch.update(params[:id],cotation_value: airsearch_params[:cotation_value] ,status: 'COMPROU', finished: 'SIM')
            
     #vai na agenda e exclui todos os agendamentos deste cliente
-     Meeting.where(research_id: params[:id]).where(clerk_id: current_user.id).destroy_all
+     Meeting.where(research_id: params[:id]).where(clerk_id: current_user.id).delete_all
     
     #ESTE BLOCO DE CODE É UTILIZADO PARA ATUALIZAR AS METAS DO USUÁRIO SEMPRE QUE CRIAR/ATUALIZAR/DELETAR PESQUISA
         #calculando o total de agendamentos do dia
