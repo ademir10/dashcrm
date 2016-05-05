@@ -1,6 +1,12 @@
 <%- model_class = Client -%>
 
   <h1>Clientes <%= image_tag 'client.png' %></h1>
+  
+  <%= link_to 'Excel Download', clients_path(:format => :xls, :exportar => 'SIM'), class: 'btn btn-success' %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_client_path,
+            :class => 'btn btn-primary' %>
 
 <table class="table table-striped">
   <thead>
@@ -30,9 +36,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to 'Excel Download', clients_path(:format => :xls, :exportar => 'SIM'), class: 'btn btn-success' %>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_client_path,
-            :class => 'btn btn-primary' %>
