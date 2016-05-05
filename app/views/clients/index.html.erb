@@ -31,6 +31,8 @@
   </tbody>
 </table>
 
+<%= link_to 'Excel Download', clients_path(:format => :xls, :exportar => 'SIM'), class: 'btn btn-success' %>
+
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_client_path,
             :class => 'btn btn-primary' %>

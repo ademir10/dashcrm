@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 #usando o thin server
 gem 'thin'
 
+#exportar para XLS
+gem 'to_xls-rails'# Last officially released gem
+
 #usando simple calendar
 gem "simple_calendar", "~> 2.0"
 
