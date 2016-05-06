@@ -5,12 +5,11 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
     if params[:exportar] == 'SIM'
-    @clients = Client.select(:name, :cellphone, :created_at).distinct(:name).order('created_at DESC')
+    @clients = Client.select('name as First_Name, cellphone as Mobile_Phone, created_at').distinct(:name).order('created_at DESC')
     else
     @clients = Client.distinct(:name).order('created_at DESC')  
     end
-    
-    
+      
     respond_to do |format|
     format.html # don't forget if you pass html
     #format.xls { send_data(@clients.to_xls) }
