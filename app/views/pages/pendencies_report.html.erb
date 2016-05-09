@@ -148,4 +148,8 @@
   </h5>
 </div>
 <% end %>
+<% if @packsearch.blank? && @airsearch.blank? && @rodosearch.blank? %>
+<h4 class="jumbotron">Não existem dados com base nos parametros informados.</h4>
+<% end %>
+
 </div>    	

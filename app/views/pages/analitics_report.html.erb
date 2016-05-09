@@ -54,6 +54,7 @@
 <button type="button" id ="printbtn" class="btn btn-success", onclick ="window.print();return false;">Imprimir</button>
 
 <p />
+<% if @meeting.present? %>
 <div class="panel panel-default">
   <div class="panel-heading" >Agendamentos - Total vendido R$: <b><%= @total_meeting %></b></div>
   <h5 class="panel-body">
@@ -85,7 +86,9 @@
   </h5>
 </div>
 </div>
+<% end %>
 
+<% if @packsearch.present? %>
 <div class="panel panel-default">
   <div class="panel-heading" >Pacotes de Viagem - Total vendido R$: <b><%= @total_packsearch %></b></div>
   <h5 class="panel-body">
@@ -118,6 +121,9 @@
 </div>
 </div>
 
+<% end %>
+
+<% if @airsearch.present? %>
 <div class="panel panel-default">
   <div class="panel-heading" >Transportes Aéreos - Total vendido R$: <b><%= @total_airsearch %></b></div>
   <h5 class="panel-body">
@@ -148,8 +154,9 @@
    </table>
   </h5>
 </div>
+<% end %>
 
-
+<% if @rodosearch.present? %>
 <div class="panel panel-default">
   <div class="panel-heading" >Transportes Rodoviários - Total vendido R$: <b><%= @total_rodosearch %></b></div>
   <h5 class="panel-body">
@@ -180,7 +187,14 @@
    </table>
   </h5>
 </div>
+<% end %>
+
+<% if @meeting.blank? && @packsearch.blank? && @airsearch.blank? && @rodosearch.blank? %>
+<h4 class="jumbotron">Não existem dados com base nos parametros informados.</h4>
+<% else %>
 <h2 class="panel-body">Total Geral vendido R$: <strong><%= @total_geral %></strong></h2>
+<% end %>
+
 </div>    	
 
 
