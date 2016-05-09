@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   
   #Pesquisas pendentes com status "NÃO DEFINIDO"
   def pendencies_report
-    
+            
     @users = User.where('type_access != ?', 'MASTER').order(:name)
     if params[:date1].blank?
       params[:date1] = Date.today
@@ -38,7 +38,7 @@ class PagesController < ApplicationController
       @airsearch = Airsearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
       @rodosearch = Rodosearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
     end
-     
+         
   end
   
   #Analise grafica de vendas por segmento de marketing
