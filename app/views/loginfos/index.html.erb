@@ -26,6 +26,7 @@
 		<%= submit_tag "Consultar", class: 'btn btn-success' %>
 <% end %>
 
+<% if @logs.present? %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -45,4 +46,7 @@
     <% end %>
   </tbody>
 </table>
-
+<% else %>
+<p>
+<h4 class="jumbotron">Não existem dados com base nos parametros informados.</h4>
+<% end %>
