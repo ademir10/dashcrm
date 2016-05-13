@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 #usando o thin server
 gem 'thin'
 
+#para gerar o grafico por mes
+gem 'fusioncharts-rails'
+
 #exportar para XLS
 gem 'to_xls-rails'# Last officially released gem
 

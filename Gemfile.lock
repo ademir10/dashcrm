@@ -64,6 +64,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.9.1)
     execjs (2.6.0)
+    fusioncharts-rails (0.0.2)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -195,6 +196,7 @@ DEPENDENCIES
   byebug
   chartkick
   coffee-rails (~> 4.1.0)
+  fusioncharts-rails
   jbuilder (~> 2.0)
   jquery-rails
   pdfkit
@@ -216,4 +218,4 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 BUNDLED WITH
-   1.11.2
+   1.12.3

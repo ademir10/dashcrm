@@ -55,6 +55,14 @@
 
 <p />
 
+<div class="panel panel-default">
+<div class="panel-heading" >Gráfico anual de vendas - Transporte Rodoviário </div>
+<h5 class="panel-body">
+<div id="chart-container"><%= @chart.render() %></div>
+</h5>
+</div>
+
+
 <% if @packsearch.present? %>
 <div class="panel panel-default">
   <div class="panel-heading" >Pacotes de Viagem - Pendencias</b></div>

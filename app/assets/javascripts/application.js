@@ -27,4 +27,8 @@
 //= require owl.carousel
 //= require owl-carousel
 
+//= require fusioncharts/fusioncharts
+//= require fusioncharts/fusioncharts.charts
+//= require fusioncharts/fusioncharts.theme.fint
+
 //= require_tree .

@@ -6,38 +6,167 @@ class PagesController < ApplicationController
     @categories = Category.order(:position)
   end
   
-  #Pesquisas pendentes com status "NÃO DEFINIDO"
-  def pendencies_report
-            
-    @users = User.where('type_access != ?', 'MASTER').order(:name)
-    if params[:date1].blank?
-      params[:date1] = Date.today
-    end
+  #grafico anual de vendas por categoria
+  def sales_report
     
-    if params[:date2].blank?
-      params[:date2] = Date.today
-    end
+    #agendamentos
+      meeting_annual = Meeting.select("date_trunc( 'month', created_at ) as month, sum(cotation_value) as total_quantity").where(status: 'COMPROU').group('month').order('month')
+      meeting_by_month = []
+      
+      meeting_annual.each do |
+      meeting |
+      meeting_by_month.push({
+          :label => meeting.month.strftime("%B"),
+          :value => meeting.total_quantity
+      })
+      end
+
+      @meeting_annual = Fusioncharts::Chart.new({
+          :height => '50%',
+          :width => '100%',
+          :type => 'column2d',
+          :renderAt => 'chart-container-m',
+          :dataSource => {
+              :chart => {
+                  :xAxisname => 'Representação gráfica por mes',
+                  :yAxisName => 'Valores em (R$)',
+                  :numberPrefix => 'R$',
+                  :theme => 'fint',
+                  :formatNumberScale=> '0',
+                  :decimalSeparator=> ',',
+                  :thousandSeparator=> '.',
+              },
+              :data => meeting_by_month
+          }
+      })
     
-    #se não informar nada, é carregado somentes as vendas do dia
-    if params[:seller].blank? && params[:date1].blank? && params[:date2].blank?
-      @packsearch = Packsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date ?",Date.today).order(:updated_at)
-      @airsearch = Airsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date ?",Date.today).order(:updated_at)
-      @rodosearch = Rodosearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date ?",Date.today).order(:updated_at)
-    end
+      #pacote de viagens
+      pack_annual = Packsearch.select("date_trunc( 'month', created_at ) as month, sum(cotation_value) as total_quantity").where(finished: 'SIM').group('month').order('month')
+      packsearch_by_month = []
+      
+      pack_annual.each do |
+      pack |
+      packsearch_by_month.push({
+          :label => pack.month.strftime("%B"),
+          :value => pack.total_quantity
+      })
+      end
+
+      @pack_annual = Fusioncharts::Chart.new({
+          :height => '50%',
+          :width => '100%',
+          :type => 'column2d',
+          :renderAt => 'chart-container-p',
+          :dataSource => {
+              :chart => {
+                  :xAxisname => 'Representação gráfica por mes',
+                  :yAxisName => 'Valores em (R$)',
+                  :numberPrefix => 'R$',
+                  :theme => 'fint',
+                  :formatNumberScale=> '0',
+                  :decimalSeparator=> ',',
+                  :thousandSeparator=> '.',
+              },
+              :data => packsearch_by_month
+          }
+      })
+      
+      #transporte aereo
+      air_annual = Airsearch.select("date_trunc( 'month', created_at ) as month, sum(cotation_value) as total_quantity").where(finished: 'SIM').group('month').order('month')
+      airsearch_by_month = []
+      
+      air_annual.each do |
+      air |
+      airsearch_by_month.push({
+          :label => air.month.strftime("%B"),
+          :value => air.total_quantity
+      })
+      end
+
+      @air_annual = Fusioncharts::Chart.new({
+          :height => '50%',
+          :width => '100%',
+          :type => 'column2d',
+          :renderAt => 'chart-container-a',
+          :dataSource => {
+              :chart => {
+                  :xAxisname => 'Representação gráfica por mes',
+                  :yAxisName => 'Valores em (R$)',
+                  :numberPrefix => 'R$',
+                  :theme => 'fint',
+                  :formatNumberScale=> '0',
+                  :decimalSeparator=> ',',
+                  :thousandSeparator=> '.',
+              },
+              :data => airsearch_by_month
+          }
+      })
     
-    #Se tiver informado somente as datas
-    if params[:seller].blank? && params[:date1].present? && params[:date2].present?
-      @packsearch = Packsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
-      @airsearch = Airsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
-      @rodosearch = Rodosearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
-    end
+      #transporte rodoviario
+      rodo_annual = Rodosearch.select("date_trunc( 'month', created_at ) as month, sum(cotation_value) as total_quantity").where(finished: 'SIM').group('month').order('month')
+      rodosearch_by_month = []
+      
+      rodo_annual.each do |
+      rodo |
+      rodosearch_by_month.push({
+          :label => rodo.month.strftime("%B"),
+          :value => rodo.total_quantity
+      })
+      end
+
+      @rodo_annual = Fusioncharts::Chart.new({
+          :height => '50%',
+          :width => '100%',
+          :type => 'column2d',
+          :renderAt => 'chart-container-r',
+          :dataSource => {
+              :chart => {
+                  :xAxisname => 'Representação gráfica por mes',
+                  :yAxisName => 'Valores em (R$)',
+                  :numberPrefix => 'R$',
+                  :theme => 'fint',
+                  :formatNumberScale=> '0',
+                  :decimalSeparator=> ',',
+                  :thousandSeparator=> '.',
+              },
+              :data => rodosearch_by_month
+          }
+      })
+      
+    end 
     
-    #Se tiver informado o funcionario e as datas
-    if params[:seller].present? && params[:date1].present? && params[:date2].present?
-      @packsearch = Packsearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
-      @airsearch = Airsearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
-      @rodosearch = Rodosearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
-    end
+    #Pesquisas pendentes com status "NÃO DEFINIDO"
+    def pendencies_report
+     
+      @users = User.where('type_access != ?', 'MASTER').order(:name)
+      if params[:date1].blank?
+        params[:date1] = Date.today
+      end
+      
+      if params[:date2].blank?
+        params[:date2] = Date.today
+      end
+      
+      #se não informar nada, é carregado somentes as vendas do dia
+      if params[:seller].blank? && params[:date1].blank? && params[:date2].blank?
+        @packsearch = Packsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date ?",Date.today).order(:updated_at)
+        @airsearch = Airsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date ?",Date.today).order(:updated_at)
+        @rodosearch = Rodosearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date ?",Date.today).order(:updated_at)
+      end
+      
+      #Se tiver informado somente as datas
+      if params[:seller].blank? && params[:date1].present? && params[:date2].present?
+        @packsearch = Packsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+        @airsearch = Airsearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+        @rodosearch = Rodosearch.where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+      end
+      
+      #Se tiver informado o funcionario e as datas
+      if params[:seller].present? && params[:date1].present? && params[:date2].present?
+        @packsearch = Packsearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+        @airsearch = Airsearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+        @rodosearch = Rodosearch.where(user: params[:seller]).where(status: 'NÃO DEFINIDO').where("updated_at::Date between ? and ?",params[:date1],params[:date2]).order(:updated_at)
+      end
          
   end
   
