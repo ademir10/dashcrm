@@ -1,4 +1,4 @@
-	<!-- CSS PARA REMOVER O BOTÃO IMPRIMIR NA VIEW DE IMPRESSÃO -->
+<!-- CSS PARA REMOVER O BOTÃO IMPRIMIR NA VIEW DE IMPRESSÃO -->
   <style type="text/css">
 	@media print {
     #hide_navbar {
@@ -17,6 +17,9 @@
     <meta name="author" content="D&D Support Service - Consultoria em T.I and God ever!!!">
     <link rel="icon" href="../../images/favicon.ico">
     
+    <meta content='<%= logged_in? ? current_user.id : "" %>' name='user-id'/>
+    <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' %>
+    
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
@@ -28,7 +31,6 @@
 	<%= stylesheet_link_tag    'bootstrap-reset', media: 'all', 'data-turbolinks-track' => true %>
 	-->
 	<%= stylesheet_link_tag    'dashboard', media: 'all', 'data-turbolinks-track' => true %>
-
     
     <!-- start:style for this page -->
     <!--<link href="plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet">-->
@@ -322,6 +324,6 @@
 	<%= javascript_include_tag 'owl-carousel', 'data-turbolinks-track' => true %>
     <!-- end:javascript for this page -->	        
   
-
+<audio id="chatAudio"><source src="/sounds/notification.mp3" type="audio/mpeg"></audio>
 </body>
 </html>

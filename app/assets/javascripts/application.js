@@ -31,4 +31,7 @@
 //= require fusioncharts/fusioncharts.charts
 //= require fusioncharts/fusioncharts.theme.fint
 
+//= require private_pub
+//= require chat
+
 //= require_tree .

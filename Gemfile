@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 #usando o thin server
 gem 'thin'
 
+#para o chat
+gem 'private_pub'
+gem 'faye'
+
 #para gerar o grafico por mes
 gem 'fusioncharts-rails'
 

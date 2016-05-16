@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-
+  
+  
+  #para o chat
+  resources :messengers
+    
+    resources :conversations do
+    resources :meessages
+  end
+  
+  
   resources :loginfos
   #pacote de viagens 
   resources :packsearches do
