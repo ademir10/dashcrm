@@ -476,17 +476,27 @@ class RodosearchesController < ApplicationController
         
         #para atualizar sempre na pesquisa o perfil do cliente quando a pesquisa for editada
         @caminho = 'rodosearches/' + @rodosearch.id.to_s
-        meeting_data = Meeting.find_by(research_path: @caminho)  
-                    
+        meeting_data = Meeting.find_by(research_path: @caminho)
+        
+                           
               if @total_score > @ranges.r1.to_f && @total_score <= @ranges.r2.to_f
               check_score.update_attributes(type_client: 'FRIO')
-              meeting_data.update_attributes(type_client: 'FRIO')
+                #só atualiza na agenda se já existe agendamentos lá
+                if meeting_data.present?
+                meeting_data.update_attributes(type_client: 'FRIO')
+                end
               elsif @total_score >= @ranges.r3.to_f && @total_score <= @ranges.r4.to_f
               check_score.update_attributes(type_client: 'MORNO')
-              meeting_data.update_attributes(type_client: 'MORNO') 
+                #só atualiza na agenda se já existe agendamentos lá
+                if meeting_data.present?
+                meeting_data.update_attributes(type_client: 'MORNO') 
+                end
               elsif @total_score >= @ranges.r5.to_f && @total_score <= @ranges.r6.to_f
               check_score.update_attributes(type_client: 'QUENTE')
-              meeting_data.update_attributes(type_client: 'QUENTE')
+                #só atualiza na agenda se já existe agendamentos lá
+                if meeting_data.present?   
+                meeting_data.update_attributes(type_client: 'QUENTE')
+                end
               end
        
         format.html { redirect_to @rodosearch, notice: 'Questionário atualizado com sucesso.' }
