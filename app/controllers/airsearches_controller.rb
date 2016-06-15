@@ -9,6 +9,12 @@ class AirsearchesController < ApplicationController
     
     @airsearch = Airsearch.find(params[:id])
     
+    #VERIFICA SE A DATA INFORMADA É RETROATIVA - NÃO PODE LANÇAR AGENDAMENTOS COM DATAS RETROATIVAS!
+    if airsearch_params[:schedule].present? && airsearch_params[:schedule].to_date <= Date.today
+      flash[:warning] = 'Não é permitido o agendamento com data retroativa ou data atual! verifique a data informada.'
+      redirect_to airsearch_path(@airsearch) and return
+    end
+    
     #é obrigatória a informação do status e valor cotado
     if airsearch_params[:status].blank? || airsearch_params[:cotation_value].blank?
       flash[:warning] = 'Em qualquer gerenciamento a informação do Valor cotado e o Status são obrigatórias, volte ao gerenciamento e atualize os dados!'

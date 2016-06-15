@@ -9,6 +9,12 @@ class PacksearchesController < ApplicationController
     
     @packsearch = Packsearch.find(params[:id])
     
+    #VERIFICA SE A DATA INFORMADA É RETROATIVA - NÃO PODE LANÇAR AGENDAMENTOS COM DATAS RETROATIVAS!
+    if packsearch_params[:schedule].present? && packsearch_params[:schedule].to_date <= Date.today
+      flash[:warning] = 'Não é permitido o agendamento com data retroativa ou data atual! verifique a data informada.'
+      redirect_to packsearch_path(@packsearch) and return
+    end
+    
     #é obrigatória a informação do status e valor cotado
     if packsearch_params[:status].blank? || packsearch_params[:cotation_value].blank?
       flash[:warning] = 'Em qualquer gerenciamento a informação do Valor cotado e o Status são obrigatórias, volte ao gerenciamento e atualize os dados!'

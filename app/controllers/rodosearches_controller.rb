@@ -7,8 +7,13 @@ class RodosearchesController < ApplicationController
    
   #para atualizar os dados como o status, agendamento e inserir arquivos para upload
   def update_status_air
+   @rodosearch = Rodosearch.find(params[:id]) 
     
-    @rodosearch = Rodosearch.find(params[:id])
+    #VERIFICA SE A DATA INFORMADA É RETROATIVA - NÃO PODE LANÇAR AGENDAMENTOS COM DATAS RETROATIVAS!
+    if rodosearch_params[:schedule].present? && rodosearch_params[:schedule].to_date <= Date.today
+      flash[:warning] = 'Não é permitido o agendamento com data retroativa ou data atual! verifique a data informada.'
+      redirect_to rodosearch_path(@rodosearch) and return
+    end
     
     #é obrigatória a informação do status e valor cotado
     if rodosearch_params[:status].blank? || rodosearch_params[:cotation_value].blank?
