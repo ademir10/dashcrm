@@ -211,6 +211,22 @@ class PagesController < ApplicationController
   def business_report
     @datainicial = params[:date1]
     @datafinal = params[:date2]
+  
+    if params[:date1].present? && params[:date2].present?  
+    #calculando o total de pesquisas que aconteceram no periodo informado e dividindo pelas vendas efetivadas
+    @total_meeting = Meeting.where("created_at::Date between ? and ?", params[:date1],params[:date2]).count
+    @total_meeting_sale = Meeting.where(status: 'COMPROU').where("created_at::Date between ? and ?", params[:date1],params[:date2]).count
+
+    @total_pack = Packsearch.where("created_at::Date between ? and ?",params[:date1],params[:date2]).count
+    @total_pack_sale = Packsearch.where(finished: 'SIM').where("created_at::Date between ? and ?",params[:date1],params[:date2]).count
+
+    @total_air = Airsearch.where("created_at::Date between ? and ?",params[:date1],params[:date2]).count
+    @total_air_sale = Airsearch.where(finished: 'SIM').where("created_at::Date between ? and ?",params[:date1],params[:date2]).count
+
+    @total_rodo = Rodosearch.where("created_at::Date between ? and ?",params[:date1],params[:date2]).count
+    @total_rodo_sale = Rodosearch.where(finished: 'SIM').where("created_at::Date between ? and ?",params[:date1],params[:date2]).count
+    end
+    
   end
   
   #Relatório geral analitico por tipo de venda e data

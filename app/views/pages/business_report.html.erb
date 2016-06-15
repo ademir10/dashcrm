@@ -6,7 +6,7 @@
     }
 }
 </style>
-<h1>Análise gráfica de pesquisas <%= image_tag 'chart.png' %></h1>
+<h1>Análise geral de pesquisas <%= image_tag 'chart.png' %></h1>
  <%= form_tag(business_report_path, method: :get) do %>
  
 <div class="form-group">			  
@@ -27,6 +27,26 @@
 		<%= submit_tag "Consultar", class: 'btn btn-success', id: 'printbtn' %>
 <% end %>
 </p>
+
+<!-- VERIFICA A QUANTIDADE DE VENDAS QUE FORAM EFETIVADAS COM BASE NO PERIODO INFORMADO -->
+<% if @datainicial.present? && @datafinal.present? %>	
+<div class="panel panel-default">
+  <div class="panel-heading" >Total de Pesquisas / Vendas efetivadas </div>
+  <h5 class="panel-body">
+ 
+  <font color="#34495e">Total de Agendamentos <%= @total_meeting %></font><br />
+  <font color="#34495e">Total de Vendas efetivadas <%= @total_meeting_sale %></font>
+  <hr />
+    <font color="#34495e">Total de Pacote de Viajem <%= @total_pack %></font><br />
+  <font color="#34495e">Total de Vendas efetivadas <%= @total_pack_sale %></font>
+  <hr />
+  <font color="#34495e">Total de Transporte Aéreo <%= @total_air %></font><br />
+  <font color="#34495e">Total de Vendas efetivadas <%= @total_air_sale %></font>
+  <hr />
+  <font color="#34495e">Total de Transporte Rodoviário <%= @total_rodo %></font><br />
+  <font color="#34495e">Total de Vendas efetivadas <%= @total_rodo_sale %></font>
+ </div> 
+<% end %>
  
 <div class="panel panel-default">
   <div class="panel-heading" >Percentual de pesquisas por funcionários </div>
