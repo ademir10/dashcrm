@@ -19,6 +19,12 @@ class MeetingsController < ApplicationController
     @meetings = Meeting.where(clerk_id: current_user.id).where('status != ?', 'COMPROU')
     end
     
+    if params[:week].present?
+      @week = 'SIM'
+    else
+      @week = 'NÃO'
+    end
+    
   end
 
   # GET /meetings/1

@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   #before_action :must_login
-
+    
   def index
     @date = DateTime.now.year
     @categories = Category.order(:position)
@@ -297,6 +297,7 @@ class PagesController < ApplicationController
       @total_geral = @total_meeting.to_f + @total_packsearch.to_f + @total_airsearch.to_f + @total_rodosearch.to_f
       @total_geral = @total_geral.round(2)
     end
+    
   end
  
 end

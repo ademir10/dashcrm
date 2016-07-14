@@ -4,6 +4,7 @@
     #hide_navbar {
         display :  none;
     }
+
 }
 </style>
 
@@ -42,7 +43,7 @@
     <![endif]-->
 </head>
 
-<body class="cl-default fixed">
+<body class="cl-default fixed" >
 
     <!-- start:navbar top -->
     <header class="header" id="hide_navbar">
@@ -63,7 +64,7 @@
               <!-- INICIO DO MENU SUPERIOR -->
                
                 <div class="navbar-right">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav" >
                   	
 		            <% if !logged_in? %>
 		                   
@@ -88,7 +89,7 @@
     <!-- end:navbar top -->
     
    
-            <section class="content">
+            <section class="content" >
 
                 <!-- start:content -->
                 <div class="row">
@@ -121,7 +122,7 @@
     <!-- end:navbar top -->
               
 	<!-- start:wrapper body -->
-    <div class="wrapper row-offcanvas row-offcanvas-left">
+    <div class="wrapper row-offcanvas row-offcanvas-left" >
         <!-- start:left sidebar -->
         <aside class="left-side sidebar-offcanvas">
             <section class="sidebar">
@@ -299,7 +300,7 @@
                 <div class="row">
                     <div class="col-lg-12">
          <div class="container">           	
-                                            <% flash.each do |type, message|%>
+        <% flash.each do |type, message|%>
 		<div class="alert alert-<%= type %>"><%= message %></div>
 		 <% end %>
 		 
@@ -317,7 +318,8 @@
     <!-- end:wrapper body -->
       
 
-    <% end %>   
+    <% end %> 
+ 
     <!-- start:javascript for all pages -->
 	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track' => true %>
 	<%= javascript_include_tag 'arjuna', 'data-turbolinks-track' => true %>
@@ -331,5 +333,6 @@
     <!-- end:javascript for this page -->	        
   
 <audio id="chatAudio"><source src="/sounds/notification.mp3" type="audio/mpeg"></audio>
+
 </body>
 </html>
