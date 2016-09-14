@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160515174910) do
+ActiveRecord::Schema.define(version: 20160913223611) do
 
   create_table "airsearches", force: :cascade do |t|
     t.string   "user"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 20160515174910) do
     t.string   "clerk_name"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "type_research"
   end
 
   create_table "messages", force: :cascade do |t|

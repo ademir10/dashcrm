@@ -158,6 +158,7 @@ class PacksearchesController < ApplicationController
       meeting.research_path = 'packsearches' + '/' + params[:id]
       meeting.research_id = params[:id]
       meeting.type_client = @packsearch.type_client
+      meeting.type_research = 'packsearches'
       meeting.save!
       
       

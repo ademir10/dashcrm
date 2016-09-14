@@ -64,7 +64,7 @@ class MeetingsController < ApplicationController
       @meeting.clerk_id = current_user.id 
       if @meeting.save
       #pegando o id que foi salvo pra montar o path do agendamento
-       Meeting.update(@meeting.id, research_path: 'meetings' + '/' + @meeting.id.to_s, research_id: @meeting.id)
+       Meeting.update(@meeting.id, research_path: 'meetings' + '/' + @meeting.id.to_s, research_id: @meeting.id, type_research: 'meetings')
        
        #cadastrando automáticamente esse cliente pesquisado no cadastro de clientes
         client = Client.new(params[:client])
@@ -295,7 +295,7 @@ class MeetingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
-      params.require(:meeting).permit(:client, :phone, :status, :start_time, :clerk_id, :research_path, :research_id, :type_client, :obs, :cotation_value, :clerk_name)
+      params.require(:meeting).permit(:client, :phone, :status, :start_time, :clerk_id, :research_path, :research_id, :type_client, :obs, :cotation_value, :clerk_name, :type_research)
     end
     
     def show_user

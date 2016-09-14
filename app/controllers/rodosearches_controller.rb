@@ -157,6 +157,7 @@ class RodosearchesController < ApplicationController
       meeting.research_path = 'rodosearches' + '/' + params[:id]
       meeting.research_id = params[:id]
       meeting.type_client = @rodosearch.type_client
+      meeting.type_research = 'rodosearches'
       meeting.save!
       
               #AGENDAMENTO

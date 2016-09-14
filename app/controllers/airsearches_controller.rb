@@ -157,6 +157,7 @@ class AirsearchesController < ApplicationController
       meeting.research_path = 'airsearches' + '/' + params[:id]
       meeting.research_id = params[:id]
       meeting.type_client = @airsearch.type_client
+      meeting.type_research = 'airsearches'
       meeting.save!
       
         #inserindo no log de atividades

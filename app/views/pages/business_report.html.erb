@@ -57,7 +57,7 @@
   <% if @datainicial.present? && @datafinal.present? %>
   
   <font color="#34495e">Agendamentos</font>
-  <%= pie_chart Meeting.where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).group('meetings.clerk_name').count %>
+  <%= pie_chart Meeting.where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).where(type_research: 'meetings').group('meetings.clerk_name').count %>
   <hr />
   <font color="#34495e">Pacote de Viagem</font>
   <%= pie_chart Packsearch.where("created_at::date BETWEEN ? AND ?", @datainicial, @datafinal).group('packsearches.user').count %>
